@@ -193,17 +193,22 @@ def primary_figures(rows):
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     import numpy as np
-    chosen=['clean matched head','mean_sequential','noise_sequential','region clean matched head','region_mean','region_noise','fixed_mean','fixed_noise']
-    labels=['Original clean','Sequential mean','Sequential Gaussian','Region clean','Region mean','Region Gaussian','Fixed-FG mean','Fixed-FG Gaussian']
-    selected=[(label,next(r for r in rows if r['name']==name)) for name,label in zip(chosen,labels) if any(r['name']==name for r in rows)]
-    colors=['#E69F00' if 'noise' in r['name'] else '#009E73' if 'mean' in r['name'] else '#0072B2' for _,r in selected]
+    chosen=['clean matched head','mean_sequential','noise_sequential','region clean matched head','region_mean','region_noise','region_noise_mean_inference']
+    labels=['Original clean','Sequential mean','Sequential Gaussian','Region clean','Region mean','Region Gaussian','Region noise-trained / mean']
+    candidates=list(rows)
+    region=next((r for r in rows if r['name']=='region_noise'),None)
+    if region and 'same_checkpoint_mean' in region:
+        mean=region['same_checkpoint_mean']
+        candidates.append(dict(name='region_noise_mean_inference',test_accuracy=mean['accuracy'],NEC=region['NEC'],concepts={'test':mean}))
+    selected=[(label,next(r for r in candidates if r['name']==name)) for name,label in zip(chosen,labels) if any(r['name']==name for r in candidates)]
+    colors=['#CC79A7' if 'mean_inference' in r['name'] else '#E69F00' if 'noise' in r['name'] else '#009E73' if 'mean' in r['name'] else '#0072B2' for _,r in selected]
     fig,axes=plt.subplots(1,3,figsize=(11,4.5),layout='constrained');y=np.arange(len(selected))
     for ax,key,title in zip(axes,['accuracy','mAP','NEC'],['Class accuracy (%)','Native concept mAP (%)','NEC / class']):
         values=[r['test_accuracy']*100 if key=='accuracy' else r['concepts']['test']['mAP']*100 if key=='mAP' else r['NEC'] for _,r in selected]
         ax.scatter(values,y,c=colors,s=70);ax.set_yticks(y,[label for label,_ in selected] if ax is axes[0] else ['']*len(y));ax.invert_yaxis();ax.grid(axis='x',alpha=.2);ax.set_title(title,fontsize=10)
         for j,v in enumerate(values):ax.annotate(f'{v:.2f}',(v,j),xytext=(5,0),textcoords='offset points',fontsize=9)
         ax.set_xlim(0,6 if key=='NEC' else 100) if key=='NEC' else ax.set_xlim(np.floor(min(values))-1,min(100,np.ceil(max(values))+1))
-    fig.suptitle('RIVAL10: 5,286 test images; 18 native concepts; matched 6,003-image heads\nBlue: clean | Green: deterministic mean | Orange: sampled Gaussian',fontsize=10)
+    fig.suptitle('RIVAL10: 5,286 test images; 18 native concepts; matched 6,003-image heads\nBlue: clean | Green: trained mean | Orange: Gaussian | Purple: noise-trained, mean inference',fontsize=10)
     out=Path('reports/spatial_noise_v1')
     for ext in ['png','svg','pdf']:fig.savefig(out/('key_results.'+ext),dpi=180)
     plt.close(fig)
@@ -224,8 +229,11 @@ def write_reports(rows,pending,detail):
     native_bg=read('reports/spatial_noise_v1/background_native_uncertainty.json') or {'pairs':{}}
     regional_native=native_bg['pairs'].get('region_noise_minus_region_mean')
     repeat_native=native_bg['pairs'].get('region_seed43_noise_minus_region_seed43_mean')
-    lead='顺序加噪取得较高分类准确率与较低 NEC；常规测试的整体概念识别提升尚未得到支持。'
-    if regional_native and regional_native['mAP_CI95_pp'][0]>0:
+    two_seed=read('reports/spatial_noise_v1/two_seed_summary.json')
+    lead='区域加噪 CBM 已实现主体保护与概念部位增强；常规测试分类约 99%、NEC 约 4.4。'
+    if two_seed:
+        lead+='两个固定适配模型的平均结果支持“训练加噪、推理取均值”改善换背景分类和概念 mAP；固定阈值概念精确率与推理继续采样的额外收益尚未得到支持。'
+    elif regional_native and regional_native['mAP_CI95_pp'][0]>0:
         if repeat_native and repeat_native['mAP_CI95_pp'][0]>0:
             lead+='区域读出版本在两个适配种子的换背景测试中均出现概念 mAP 收益。'
         elif repeat_native and repeat_native['mAP_difference_pp']<=0:
@@ -234,7 +242,7 @@ def write_reports(rows,pending,detail):
     else:lead+='随机项的抗背景干扰收益尚未得到支持。'
     txt=['# PiNI：主要实验结果','',
          '固定 RIVAL10 测试集 5,286 张，冻结 ViT-L/14，18 个原生概念；分类仅经过概念概率与稀疏头。推理不使用真值掩膜。主表为适配 seed 42；第二种子复验单独报告，共享划分和干净初始化。区间只衡量配对测试样本不确定性。','',
-         '**当前判断：**'+lead,'',
+         '**最终判断：**'+lead,'',
          '## 1. 主要性能','',
          '**目的：**同时检查分类、连接稀疏度和原生概念识别，避免只看分类分数。','']
     txt+=table(primary)+['','![主要性能](reports/spatial_noise_v1/key_results.png)','']
@@ -256,13 +264,27 @@ def write_reports(rows,pending,detail):
     if bg and strong:
         clean=strong['models']['local_clean']['background_swap']['accuracy']*100
         m=bg['models']['full_joint_mean']['background_swap']['accuracy']*100;n=bg['models']['full_joint_noise']['background_swap']['accuracy']*100
-        txt+=['![背景干预随机增量](reports/spatial_noise_v1/background_noise_increment.png)','',
+        chart='two_seed_background' if two_seed else 'background_noise_increment'
+        txt+=[f'![背景干预增量](reports/spatial_noise_v1/{chart}.png)','',
               f'**结论：**更强的局部干净基线 {clean:.1f}%，完整联合均值 {m:.1f}%，随机噪声 {n:.1f}%。抗背景干扰的收益已存在于确定性模型，不能全部归给随机项。','']
+    if two_seed:
+        txt+=['**两次适配的平均结果：**同一批 1,000 张图与供体，分别计算指标再平均；不集成预测。','',
+              '| 训练 / 推理 | 换背景分类 | 换背景概念 mAP |','|---|---:|---:|']
+        for label,key in [('均值训练 / 均值','mean_trained'),('噪声训练 / 单次采样','noise_trained_MC1'),('噪声训练 / 均值','noise_trained_mean_inference')]:
+            m=two_seed[key];txt.append(f"| {label} | {m['background_accuracy']*100:.2f}% | {m['background_mAP']*100:.2f}% |")
+        p=two_seed['pairs']['noise_trained_mean_inference_minus_mean_trained'];c=p['classification'];ci=c['CI95_pp'];mi=p['mAP_CI95_pp']
+        sample=two_seed['pairs']['noise_trained_MC1_minus_mean_trained'];si=sample['classification']['CI95_pp'];sm=sample['mAP_CI95_pp']
+        txt+=['',f"**训练噪声的证据：**均值推理相对均值训练，分类 {c['difference_pp']:+.2f} pp，95% CI [{ci[0]:+.2f}, {ci[1]:+.2f}]；概念 mAP {p['mAP_difference_pp']:+.2f} pp，CI [{mi[0]:+.2f}, {mi[1]:+.2f}]。噪声 MC1 相对均值训练的分类区间 [{si[0]:+.2f}, {si[1]:+.2f}]、mAP 区间 [{sm[0]:+.2f}, {sm[1]:+.2f}] 均包含零。区间条件于这两个已训练模型，只反映图像抽样，不证明训练种子总体或其他数据集的稳定收益。",'']
+        appendix.write_text((appendix.read_text()+'\n## 两次固定适配的背景收益\n\n'+'\n'.join(txt[txt.index('**两次适配的平均结果：**同一批 1,000 张图与供体，分别计算指标再平均；不集成预测。'):])).rstrip()+'\n')
     if regional_native:
         mi=regional_native['mAP_CI95_pp'];trained=native_bg['pairs'].get('region_noise_same_checkpoint_mean_minus_region_mean')
         txt+=[f"区域读出版本在换背景后的概念 mAP 为 89.01%，均值对照 87.92%；差 {regional_native['mAP_difference_pp']:+.2f} pp，CI [{mi[0]:+.2f}, {mi[1]:+.2f}]。这是当前支持噪声训练提高背景变化下概念识别的证据，但并未同时提高常规测试分类与概念 mAP。",'']
         if trained:
             ci=trained['mAP_CI95_pp'];txt+=[f"随机训练模型改用均值推理后，背景概念 mAP 增量仍为 {trained['mAP_difference_pp']:+.2f} pp，CI [{ci[0]:+.2f}, {ci[1]:+.2f}]；收益不要求推理继续随机采样。",'']
+    precision=read('reports/spatial_noise_v1/background_precision.json')
+    if precision and 'region_noise_minus_region_mean' in precision['pairs']:
+        p=precision['models'];c=precision['pairs']['region_noise_minus_region_mean']['metrics'];ci=c['threshold05_precision']['CI95_pp'];r=c['threshold05_recall']
+        txt+=[f"精确率与召回率分开读取：固定 0.5 阈值下，区域噪声/均值模型精确率 {p['region_noise']['threshold05']['macro_precision']*100:.2f}% / {p['region_mean']['threshold05']['macro_precision']*100:.2f}%，差的 CI [{ci[0]:+.2f}, {ci[1]:+.2f}]；召回率差 {r['difference_pp']:+.2f} pp。当前收益不能表述为显著提高固定阈值精确率。[完整 PR 诊断](reports/spatial_noise_v1/background_precision.png)同时显示固定召回率的排序表现，曲线使用测试真值做指标评估，不提供测试选阈值。",'']
     fixed_bg=read('artifacts/background_intervention_fixed/results.json')
     if fixed_bg:
         c=fixed_bg.get('direct_noise_controls',{}).get('fixed_noise_minus_fixed_mean_background_swap')
@@ -281,11 +303,15 @@ def write_reports(rows,pending,detail):
     if drift:
         d=drift['models'];s=d.get('noise_sequential')
         if s:txt+=[f"发现的失效机制：原顺序随机模型将 {s['false_foreground_fraction_of_background']*100:.1f}% 的真实背景判为主体，主体 IoU 为 {s['foreground_IoU']*100:.1f}%。背景方差较高的热图并不能证明屏蔽器正确。",'']
-    gallery='reports/spatial_noise_region/figure4_style.png'
+    gallery='reports/spatial_noise_region/figure4_main.png' if Path('reports/spatial_noise_region/figure4_main.png').exists() else 'reports/spatial_noise_region/figure4_style.png'
     if Path(gallery).exists():txt+=[f'![区域模型真实加噪]({gallery})','']
     local=read('artifacts/region_noise/localization_audit.json')
     if local:
         s=local['summary'];txt+=[f"区域模型全部 {s['n_positive_pairs']} 个正概念/图像对：背景/主体方差 {s['sigma2_bg_over_fg']:.2f}，主体/背景 μ {s['mu_fg_over_bg']:.2f}；{s['n_local_pairs']} 个局部部位的 μ/主体其他部分为 {s['local_part_mu_over_other_object']:.2f}。图中的主体/背景与概念部位分离有全验证集统计支持。",'']
+    repeat_local=read('artifacts/region_seed43_noise/localization_audit.json')
+    if repeat_local:
+        s=repeat_local['summary'];txt+=[f"第二适配种子对应全验证集比值为 {s['sigma2_bg_over_fg']:.2f} / {s['mu_fg_over_bg']:.2f} / {s['local_part_mu_over_other_object']:.2f}；实际主体×概念读出区域 IoU 为 {s['positive_readout_region_IoU']*100:.2f}%。空间模式可复现，细粒度定位仍有限。",'']
+    txt+=['主图取原预定六个样本中的前三个，便于阅读；[完整六样本](reports/spatial_noise_region/figure4_style.png)与[同图不同概念](reports/spatial_noise_region/concept_conditioning.png)保留小部位漏定位等失败情况。','']
     if fixed:
         path='reports/spatial_noise_fixed/figure4_style.png'
         if Path(path).exists():txt+=[f'冻结主体版本实际图见[对照图库]({path})；该图与性能一起读取。','']
@@ -299,7 +325,7 @@ def write_reports(rows,pending,detail):
           '官方 OxfordPets AMP 主方法：单次 89.26%，MC8 91.50%，独立均值模型 90.02%；图像 CNN 的 MC8 89.51%，与独立均值模型相同。默认 FP16 图像 CNN 在全部 147 张有效验证图上的背景/主体方差比仅 1.07，未复现稳定的理想空间分离。MC8 是新增采样诊断，不能当作论文原始协议的精确复现。','',
           '**结论：**本次 PiNI 主方法收益包含采样平均；LF-Pi 匹配对照中均值 88.44%、随机 MC8 88.42%，大幅提升与 NEC 下降主要支持任务投影/均值适配，尚不能解释为随机噪声清除了背景。','',
           '注意：这 18 个真值二元概念在当前测试样本上的标签重叠上限为 93.40%；它不约束真实连续语义强度，但说明 99% 分类成绩不能单独证明概念准确或纯净。','',
-          '完整负结果、逐概念精确率/召回率、配对区间、定位、MC 和复现协议见 [EXPERIMENT_REPORT.md](EXPERIMENT_REPORT.md) 与 [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md)。','']
+          '完整负结果、逐概念精确率/召回率、配对区间、定位、MC 和复现协议见 [EXPERIMENT_REPORT.md](EXPERIMENT_REPORT.md) 与 [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md)；实现、推理命令和逐项目标核验见 [GOAL_VERIFICATION.md](GOAL_VERIFICATION.md)。','']
     if pending:txt+=['待完成训练：'+', '.join(pending)+'。','']
     elif fixed and not fixed_bg:txt+=['训练已完成；冻结主体的背景、定位及噪声影响审计仍在队列中。','']
     Path('EXPERIMENT_RESULT.md').write_text('\n'.join(txt).rstrip()+'\n')

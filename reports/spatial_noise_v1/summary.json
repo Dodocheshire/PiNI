@@ -1223,6 +1223,154 @@
       "color": "#E69F00"
     },
     {
+      "mode": "mean",
+      "order": "sequential",
+      "independent_heads": false,
+      "suppress": true,
+      "concept_local": true,
+      "region_readout": true,
+      "mean_budget": 0.02686347473647816,
+      "sigma_budget": 0.0,
+      "fixed_foreground": false,
+      "best_epoch": 6,
+      "concepts": {
+        "train": {
+          "mAP": 0.9117833539515848,
+          "macro_precision": 0.8661288022994995,
+          "macro_recall": 0.9101884880556044
+        },
+        "val": {
+          "mAP": 0.9005414016511113,
+          "macro_precision": 0.862413763999939,
+          "macro_recall": 0.905230345578739
+        },
+        "test": {
+          "mAP": 0.8965739632192454,
+          "macro_precision": 0.8573520183563232,
+          "macro_recall": 0.9019939322907571
+        }
+      },
+      "head_grid": [
+        {
+          "l1": 0.003,
+          "NEC": 4.400000095367432,
+          "val_accuracy": 0.9909995198249817,
+          "val_NLL": 0.06099498271942139
+        },
+        {
+          "l1": 0.01,
+          "NEC": 2.9000000953674316,
+          "val_accuracy": 0.9862624406814575,
+          "val_NLL": 0.12726114690303802
+        },
+        {
+          "l1": 0.03,
+          "NEC": 2.299999952316284,
+          "val_accuracy": 0.9786830544471741,
+          "val_NLL": 0.29841336607933044
+        },
+        {
+          "l1": 0.06,
+          "NEC": 1.8000000715255737,
+          "val_accuracy": 0.9706300497055054,
+          "val_NLL": 0.544369637966156
+        },
+        {
+          "l1": 0.1,
+          "NEC": 1.399999976158142,
+          "val_accuracy": 0.8692562580108643,
+          "val_NLL": 0.877357006072998
+        }
+      ],
+      "head_selected": 0,
+      "NEC": 4.400000095367432,
+      "test_accuracy": 0.9918653045781309,
+      "n_test": 5286,
+      "head_train_size": 6003,
+      "strict_bottleneck": true,
+      "train_labels_and_masks_used": true,
+      "inference_gt_masks": false,
+      "name": "region_seed43_mean",
+      "color": "#009E73"
+    },
+    {
+      "mode": "noise",
+      "order": "sequential",
+      "independent_heads": false,
+      "suppress": true,
+      "concept_local": true,
+      "region_readout": true,
+      "mean_budget": 0.02686347473647816,
+      "sigma_budget": 0.0,
+      "fixed_foreground": false,
+      "best_epoch": 6,
+      "concepts": {
+        "train": {
+          "mAP": 0.9027654416273035,
+          "macro_precision": 0.8603248000144958,
+          "macro_recall": 0.8947701593169687
+        },
+        "val": {
+          "mAP": 0.8954496315553278,
+          "macro_precision": 0.8585914969444275,
+          "macro_recall": 0.8901309591098955
+        },
+        "test": {
+          "mAP": 0.8927073238529246,
+          "macro_precision": 0.8577950596809387,
+          "macro_recall": 0.889627609714545
+        }
+      },
+      "head_grid": [
+        {
+          "l1": 0.003,
+          "NEC": 4.400000095367432,
+          "val_accuracy": 0.9867361187934875,
+          "val_NLL": 0.07646214216947556
+        },
+        {
+          "l1": 0.01,
+          "NEC": 3.200000047683716,
+          "val_accuracy": 0.983420193195343,
+          "val_NLL": 0.1421089619398117
+        },
+        {
+          "l1": 0.03,
+          "NEC": 2.4000000953674316,
+          "val_accuracy": 0.9753671288490295,
+          "val_NLL": 0.30811765789985657
+        },
+        {
+          "l1": 0.06,
+          "NEC": 1.8000000715255737,
+          "val_accuracy": 0.9687351584434509,
+          "val_NLL": 0.5483129024505615
+        },
+        {
+          "l1": 0.1,
+          "NEC": 1.5,
+          "val_accuracy": 0.8697299957275391,
+          "val_NLL": 0.8807355165481567
+        }
+      ],
+      "head_selected": 0,
+      "NEC": 4.400000095367432,
+      "test_accuracy": 0.9882709042754446,
+      "n_test": 5286,
+      "head_train_size": 6003,
+      "strict_bottleneck": true,
+      "train_labels_and_masks_used": true,
+      "inference_gt_masks": false,
+      "same_checkpoint_mean": {
+        "accuracy": 0.9912977676882331,
+        "mAP": 0.8966726430797171,
+        "macro_precision": 0.8471042513847351,
+        "macro_recall": 0.9029712421001869
+      },
+      "name": "region_seed43_noise",
+      "color": "#E69F00"
+    },
+    {
       "name": "local clean matched head",
       "test_accuracy": 0.9945138100643208,
       "NEC": 4.300000190734863,
@@ -1281,10 +1429,7 @@
       "color": "#0072B2"
     }
   ],
-  "pending": [
-    "region_seed43_mean",
-    "region_seed43_noise"
-  ],
+  "pending": [],
   "paired": [
     {
       "order": "independent",

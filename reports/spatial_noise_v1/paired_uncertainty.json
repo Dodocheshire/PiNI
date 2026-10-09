@@ -2157,6 +2157,314 @@
           0.3026863412788498
         ]
       }
+    },
+    "region_seed43_noise_minus_region_seed43_mean": {
+      "mAP_difference_pp": -0.38666393663208554,
+      "mAP_CI95_pp": [
+        -0.7079132609774899,
+        -0.050893090742063114
+      ],
+      "per_concept": [
+        {
+          "name": "long-snout",
+          "difference_AP_pp": -0.5526641389451581,
+          "CI95_pp": [
+            -2.209362799230897,
+            0.9274043436516591
+          ],
+          "simultaneous_CI95_pp": [
+            -3.191664635330148,
+            2.0863363574398313
+          ],
+          "test_positives": 1302
+        },
+        {
+          "name": "wings",
+          "difference_AP_pp": 0.13964048414221164,
+          "CI95_pp": [
+            -0.7802576213209852,
+            1.133695407612868
+          ],
+          "simultaneous_CI95_pp": [
+            -2.4993600122427777,
+            2.778640980527201
+          ],
+          "test_positives": 952
+        },
+        {
+          "name": "wheels",
+          "difference_AP_pp": 0.2879702120608285,
+          "CI95_pp": [
+            -0.47838959621498095,
+            1.1037294217381235
+          ],
+          "simultaneous_CI95_pp": [
+            -2.351030284324161,
+            2.926970708445818
+          ],
+          "test_positives": 1290
+        },
+        {
+          "name": "text",
+          "difference_AP_pp": -1.0252077236308277,
+          "CI95_pp": [
+            -2.5051221735729565,
+            0.42904508050776474
+          ],
+          "simultaneous_CI95_pp": [
+            -3.6642082200158175,
+            1.6137927727541617
+          ],
+          "test_positives": 1080
+        },
+        {
+          "name": "horns",
+          "difference_AP_pp": -0.27831273951832713,
+          "CI95_pp": [
+            -1.865644135947899,
+            1.3910569864475835
+          ],
+          "simultaneous_CI95_pp": [
+            -2.9173132359033165,
+            2.360687756866662
+          ],
+          "test_positives": 398
+        },
+        {
+          "name": "floppy-ears",
+          "difference_AP_pp": -0.024260206414083996,
+          "CI95_pp": [
+            -0.5178838400385762,
+            0.5293774837679329
+          ],
+          "simultaneous_CI95_pp": [
+            -2.6632607027990733,
+            2.6147402899709054
+          ],
+          "test_positives": 506
+        },
+        {
+          "name": "ears",
+          "difference_AP_pp": 0.03912418204730095,
+          "CI95_pp": [
+            -0.306908212973703,
+            0.39206302864382114
+          ],
+          "simultaneous_CI95_pp": [
+            -2.5998763143376884,
+            2.6781246784322903
+          ],
+          "test_positives": 1999
+        },
+        {
+          "name": "colored-eyes",
+          "difference_AP_pp": 0.14947782572766188,
+          "CI95_pp": [
+            -1.8417155375059064,
+            2.0477286628155458
+          ],
+          "simultaneous_CI95_pp": [
+            -2.4895226706573275,
+            2.7884783221126512
+          ],
+          "test_positives": 648
+        },
+        {
+          "name": "tail",
+          "difference_AP_pp": -2.4204061894814055,
+          "CI95_pp": [
+            -4.510126846264363,
+            -0.3596051218318647
+          ],
+          "simultaneous_CI95_pp": [
+            -5.059406685866395,
+            0.2185943069035839
+          ],
+          "test_positives": 1154
+        },
+        {
+          "name": "mane",
+          "difference_AP_pp": 0.35068586900469656,
+          "CI95_pp": [
+            -2.098043080949732,
+            2.7675263612700918
+          ],
+          "simultaneous_CI95_pp": [
+            -2.288314627380293,
+            2.989686365389686
+          ],
+          "test_positives": 451
+        },
+        {
+          "name": "beak",
+          "difference_AP_pp": -0.2197446644394363,
+          "CI95_pp": [
+            -1.3385850066425344,
+            0.8866006609104705
+          ],
+          "simultaneous_CI95_pp": [
+            -2.8587451608244256,
+            2.419255831945553
+          ],
+          "test_positives": 520
+        },
+        {
+          "name": "hairy",
+          "difference_AP_pp": -0.04395137360934109,
+          "CI95_pp": [
+            -0.20607198747721348,
+            0.0666311755109905
+          ],
+          "simultaneous_CI95_pp": [
+            -2.6829518699943304,
+            2.5950491227756483
+          ],
+          "test_positives": 2187
+        },
+        {
+          "name": "metallic",
+          "difference_AP_pp": 0.6414169190894436,
+          "CI95_pp": [
+            0.11961616392880793,
+            1.2563822349494171
+          ],
+          "simultaneous_CI95_pp": [
+            -1.9975835772955457,
+            3.2804174154744334
+          ],
+          "test_positives": 1974
+        },
+        {
+          "name": "rectangular",
+          "difference_AP_pp": 0.22832461799824344,
+          "CI95_pp": [
+            -0.29529025840578815,
+            0.7007880025115399
+          ],
+          "simultaneous_CI95_pp": [
+            -2.410675878386746,
+            2.867325114383233
+          ],
+          "test_positives": 1627
+        },
+        {
+          "name": "wet",
+          "difference_AP_pp": -2.1431605627540096,
+          "CI95_pp": [
+            -4.013912344516628,
+            -0.18468492422633392
+          ],
+          "simultaneous_CI95_pp": [
+            -4.782161059138999,
+            0.49583993363097983
+          ],
+          "test_positives": 852
+        },
+        {
+          "name": "long",
+          "difference_AP_pp": -0.5605329339678833,
+          "CI95_pp": [
+            -1.1074707731810023,
+            -0.0798025104869888
+          ],
+          "simultaneous_CI95_pp": [
+            -3.199533430352873,
+            2.078467562417106
+          ],
+          "test_positives": 1529
+        },
+        {
+          "name": "tall",
+          "difference_AP_pp": -1.094298352175549,
+          "CI95_pp": [
+            -1.7539991614830972,
+            -0.5128851548761058
+          ],
+          "simultaneous_CI95_pp": [
+            -3.7332988485605387,
+            1.5447021442094404
+          ],
+          "test_positives": 1367
+        },
+        {
+          "name": "patterned",
+          "difference_AP_pp": -0.43405208451190447,
+          "CI95_pp": [
+            -0.802055706916075,
+            -0.06451621143392881
+          ],
+          "simultaneous_CI95_pp": [
+            -3.073052580896894,
+            2.204948411873085
+          ],
+          "test_positives": 2742
+        }
+      ],
+      "simultaneous_method": "95% quantile of maximum absolute centered paired bootstrap error across all 18 concepts",
+      "classification": {
+        "difference_pp": -0.35944003026863414,
+        "CI95_pp": [
+          -0.6432084752175559,
+          -0.11350737797956867
+        ]
+      },
+      "validation_AP_differences_pp": [
+        -0.8991939100708723,
+        -0.3861679498291415,
+        0.5994652518046206,
+        -2.287657559898404,
+        1.9199880296481342,
+        -0.5541182321078031,
+        -0.533741952391209,
+        1.125488818783793,
+        -2.802300894990617,
+        -0.736157677972904,
+        -1.9617200432173298,
+        -0.033945466916684985,
+        -0.34327318342917135,
+        0.06728582488004786,
+        -0.6944862552640152,
+        -0.6843358723802151,
+        -0.6170346447875508,
+        -0.3432804542711332
+      ],
+      "validation_largest_gain_concept": "horns",
+      "input_sha256": "69a3913f3595a6ba2f9f54b86fc1dc41274b3716c0b15bee19d0a5e263cfb331",
+      "shared_GT_semantic_head": {
+        "difference_pp": -0.7188800605372683,
+        "CI95_pp": [
+          -1.040484298146046,
+          -0.39727582292849034
+        ]
+      },
+      "shared_GT_semantic_head_binary": {
+        "difference_pp": -0.662126371547484,
+        "CI95_pp": [
+          -1.0972379871358307,
+          -0.2648505486189936
+        ]
+      },
+      "same_checkpoint_sampling": {
+        "difference_pp": -0.3026863412788498,
+        "CI95_pp": [
+          -0.5675368898978433,
+          -0.037835792659856225
+        ]
+      },
+      "trained_noise_mean_inference_minus_trained_mean": {
+        "difference_pp": -0.056753688989784334,
+        "CI95_pp": [
+          -0.28376844494892167,
+          0.15181611804767053
+        ]
+      },
+      "shared_GT_head_trained_noise_mean_minus_trained_mean": {
+        "difference_pp": -0.07567158531971245,
+        "CI95_pp": [
+          -0.32160423760877793,
+          0.170261066969353
+        ]
+      }
     }
   },
   "interpretation": "Single seed and split; intervals quantify paired test-sample uncertainty, not training-seed variability. All 18 concepts are reported. Test-inspected concept gains remain exploratory."

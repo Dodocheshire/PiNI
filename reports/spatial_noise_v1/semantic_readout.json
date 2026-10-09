@@ -78,6 +78,14 @@
     "fixed_noise": {
       "accuracy": 0.9833522512296633,
       "binary_accuracy": 0.9530836171017782
+    },
+    "region_seed43_mean": {
+      "accuracy": 0.9903518728717366,
+      "binary_accuracy": 0.9670828603859251
+    },
+    "region_seed43_noise": {
+      "accuracy": 0.983163072266364,
+      "binary_accuracy": 0.9604615966704503
     }
   },
   "interpretation": "Same sparse head fitted only on native training GT concepts for every learned model; no per-model probability/confidence fitting. Predictions may still carry class information through confidence or systematic concept errors, even under this common head."

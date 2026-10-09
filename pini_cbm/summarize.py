@@ -21,8 +21,11 @@ def pair_ci(a,b):
 def main():
     # Refresh audits from the same completed snapshots as this report.
     # These are CPU-only and their expensive bootstrap portions validate reuse.
-    from . import concept_audit,semantic_readout,semantic_capacity_audit,audit_mc_selection,foreground_drift_audit,uncertainty,official_controls,background_controls,background_native_audit,mechanism_figures
-    concept_audit.main();semantic_readout.main();semantic_capacity_audit.main();audit_mc_selection.main();foreground_drift_audit.main();uncertainty.main();official_controls.main();background_controls.main();background_native_audit.main();mechanism_figures.main()
+    from . import concept_audit,semantic_readout,semantic_capacity_audit,audit_mc_selection,foreground_drift_audit,uncertainty,official_controls,background_controls,background_native_audit,background_precision_audit,two_seed_audit,mechanism_figures
+    concept_audit.main();semantic_readout.main();semantic_capacity_audit.main();audit_mc_selection.main();foreground_drift_audit.main();uncertainty.main();official_controls.main();background_controls.main();background_native_audit.main();background_precision_audit.main();two_seed_audit.main();mechanism_figures.main()
+    if Path('artifacts/region_noise/figure4_tensors.npz').exists():
+        from . import main_figure4
+        main_figure4.main()
     report=Path('reports/spatial_noise_v1');report.mkdir(parents=True,exist_ok=True)
     cache=Path('artifacts/rival_vitl14');arrays,splits,labels,records=load_cache(cache)
     clean=json.loads(Path('artifacts/spatial_clean/results.json').read_text())
@@ -61,7 +64,7 @@ def main():
     for ext in ['png','svg','pdf']:fig.savefig(report/('main_results.'+ext),dpi=180)
     plt.close(fig)
     text=['# PiNI 复现与空间加噪 CBM 实验结果','',
-          '本报告由已完成的实验输出生成；正在训练或评估的配置不填写成绩。研究 goal 保持 active，直到官方复现、训练方式对照与背景干预完成。','',
+          '本报告由已完成的实验输出生成；正在训练或评估的配置不填写成绩。官方复验、训练方式对照、两次区域适配和背景干预均已完成；完整目标的核验另见 GOAL_VERIFICATION.md。','',
           '## 主要结果','',
           '目的：在真实概念监督、相同初始化和固定训练/验证/测试协议下，检验 RGB 噪声能否提高概念识别与稀疏分类。分类头仅读取 18 个概念概率，无图像特征旁路。NEC 是每类别非零概念连接数，不是模型参数数目。','',
           '| 方法 | 测试分类准确率 | NEC | 原生概念 mAP | 宏精确率 @0.5 | 宏召回率 @0.5 |',
@@ -124,10 +127,10 @@ def main():
         text+=['![官方 CNN 校正可视化](reports/pini_official/figure4_official.png)','',
                '目的：检查原始 CE/RMS 约束是否自身产生背景高方差和主体均值，未使用区域监督。该图与新增带掩膜监督的 CBM 图分开解释。','']
     text+=['官方神经网络类由原始源码 AST 无修改加载，冻结 CLIP，只训练原始生成器。Pets 专用 LR 和论文 split 文件未公开，本次固定 LR=0.002 并使用官方划分算法 seed 1；不宣称匹配作者未公开配置或三种子均值。','',
-           '## 仍待完成','',
+           '## 实验覆盖与限制','',
            ('V1 对照：'+', '.join(pending)) if pending else 'V1 训练方式与生成器对照已完成。','',
            'V1 joint 采用单概念真实视图、其他 17 个当前干净概念概率作为 detach 锚的近似；full_joint 分类前向使用全部 18 张实际概念视图。细粒度 V2、MC 稳定性与机制归因以对应完成记录为准；不能只用图像外观判断完成。','',
-           '训练可用原生概念和主体掩膜；推理没有真值掩膜。缺失的 39 张主体掩膜不参与对应定位损失/指标。所有性能数字来自固定测试集；当前属于单划分单种子探索实验，尚无跨数据集或多种子确认。','',
+           '训练可用原生概念和主体掩膜；推理没有真值掩膜。缺失的 39 张主体掩膜不参与对应定位损失/指标。所有性能数字来自固定测试集；区域版本完成适配 seed 42/43，仍共享干净初始化、划分和测试图，不包含端到端多种子或跨数据集确认。','',
            '运行协议见 [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md)。真实缓存、完整预测、checkpoint 和日志保存在本机 ignored `artifacts/`，图表及简要结论入库。']
     from .reporting import write_reports
     write_reports(rows,pending,'\n'.join(text)+'\n')

@@ -4,6 +4,7 @@
   "models": {
     "spatial_clean": {
       "checkpoint_sha256": "25c3a4590d36e0c4fcbe66b623ea6eb40e60713510eabd63af279e61d2cef7e7",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7318922877311707,
       "foreground_probability_on_true_foreground": 0.8183140754699707,
       "foreground_probability_on_true_background": 0.16814368963241577,
@@ -11,6 +12,7 @@
     },
     "spatial_local": {
       "checkpoint_sha256": "15ecc240aca5653f8db6c5860827e0221d411707ec10aab40095db99562078bd",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7460841536521912,
       "foreground_probability_on_true_foreground": 0.8498468995094299,
       "foreground_probability_on_true_background": 0.08643671125173569,
@@ -18,6 +20,7 @@
     },
     "spatial_region": {
       "checkpoint_sha256": "2aa86338b25a21022608f27e1d071158aac77542f60154891d2c31bc08b58e85",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7430576086044312,
       "foreground_probability_on_true_foreground": 0.852449893951416,
       "foreground_probability_on_true_background": 0.09189089387655258,
@@ -25,6 +28,7 @@
     },
     "mean_sequential": {
       "checkpoint_sha256": "2e88aa38bdb6351cb15fdd95cd14882fb04ff18a8da67370d62f0d443165816a",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.6652221083641052,
       "foreground_probability_on_true_foreground": 0.8513280153274536,
       "foreground_probability_on_true_background": 0.2463635504245758,
@@ -32,6 +36,7 @@
     },
     "noise_sequential": {
       "checkpoint_sha256": "094df6eac314281f7cb3883e23b4767e5fc8f45caea285a0d97b26d2efcbae0c",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.37660205364227295,
       "foreground_probability_on_true_foreground": 0.9520540833473206,
       "foreground_probability_on_true_background": 0.7327032685279846,
@@ -39,6 +44,7 @@
     },
     "mean_separate_heads": {
       "checkpoint_sha256": "357b2d2074c4f2bc765d4e71e917aaa7582afaf727a74468c44574cc4630b02d",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.6414276957511902,
       "foreground_probability_on_true_foreground": 0.8693600296974182,
       "foreground_probability_on_true_background": 0.31689882278442383,
@@ -46,6 +52,7 @@
     },
     "noise_separate_heads": {
       "checkpoint_sha256": "f7b71c2f7d83331e6e9695878347fbc1710f3d6e37b8a0d04b7a442ca3dcaff0",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.3882407546043396,
       "foreground_probability_on_true_foreground": 0.9150620698928833,
       "foreground_probability_on_true_background": 0.6580157279968262,
@@ -53,6 +60,7 @@
     },
     "local_mean": {
       "checkpoint_sha256": "7fa2b7ef429e934f1ef2410ab7bc21635e9d2d2f779166ec62226592ccfc25dd",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7107599377632141,
       "foreground_probability_on_true_foreground": 0.8747369647026062,
       "foreground_probability_on_true_background": 0.18935221433639526,
@@ -60,6 +68,7 @@
     },
     "local_noise": {
       "checkpoint_sha256": "ebc7d954dc41244ce18f0116a83cd8e7be63a84bca5e265506284fed180f6066",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7185538411140442,
       "foreground_probability_on_true_foreground": 0.8366206884384155,
       "foreground_probability_on_true_background": 0.08311235904693604,
@@ -67,6 +76,7 @@
     },
     "full_joint_mean": {
       "checkpoint_sha256": "c71973c815d6caf0e756eb73a9cefb810c83dd9793a9eb496b852ce8bdf6e588",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7291755676269531,
       "foreground_probability_on_true_foreground": 0.8576075434684753,
       "foreground_probability_on_true_background": 0.13551336526870728,
@@ -74,6 +84,7 @@
     },
     "full_joint_noise": {
       "checkpoint_sha256": "992234a0b8b8a44920d063dbfc2af24f7a58a8b2ae23f550941467638b39ed6b",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.6755129098892212,
       "foreground_probability_on_true_foreground": 0.8884612917900085,
       "foreground_probability_on_true_background": 0.2273344248533249,
@@ -81,6 +92,7 @@
     },
     "region_mean": {
       "checkpoint_sha256": "3d2264bea144831dcee272d419300c930df495ed3bbf1b20733874f55a7e8628",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7230340242385864,
       "foreground_probability_on_true_foreground": 0.8698304891586304,
       "foreground_probability_on_true_background": 0.1327902227640152,
@@ -88,6 +100,7 @@
     },
     "region_noise": {
       "checkpoint_sha256": "0b41cbfcf6c51766d7bdceaf68a2044b1fc8808ef714c8ef302692d4fd8c0154",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7304590344429016,
       "foreground_probability_on_true_foreground": 0.8639100193977356,
       "foreground_probability_on_true_background": 0.11904274672269821,
@@ -95,6 +108,7 @@
     },
     "fixed_mean": {
       "checkpoint_sha256": "497db99bf5bfb4c1e7ca66760cba35b3856470f6a9a6d8f61843ac6c8bf91688",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7430576086044312,
       "foreground_probability_on_true_foreground": 0.852449893951416,
       "foreground_probability_on_true_background": 0.09189089387655258,
@@ -102,10 +116,27 @@
     },
     "fixed_noise": {
       "checkpoint_sha256": "1725bb1265971b415479d9a66b523769c04d6b7c85467c69469d4646c19ed963",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
       "foreground_IoU": 0.7430576086044312,
       "foreground_probability_on_true_foreground": 0.852449893951416,
       "foreground_probability_on_true_background": 0.09189089387655258,
       "false_foreground_fraction_of_background": 0.07525869458913803
+    },
+    "region_seed43_mean": {
+      "checkpoint_sha256": "633ec0ccbb9ccc6a6a4f5b4a3238ebb2f568cb7720e729696cc0f5b42183410c",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
+      "foreground_IoU": 0.6804301142692566,
+      "foreground_probability_on_true_foreground": 0.8873913884162903,
+      "foreground_probability_on_true_background": 0.24809348583221436,
+      "false_foreground_fraction_of_background": 0.16750501096248627
+    },
+    "region_seed43_noise": {
+      "checkpoint_sha256": "c712c8cbbc723814588011cb7c65c11aa2d1f029f7c7ea55b157ee242ed819cd",
+      "protocol_sha256": "beea3622da129377ed46b752d28cd3282951c19cd2f6b5f9ff590cf42fc8e5c4",
+      "foreground_IoU": 0.7113104462623596,
+      "foreground_probability_on_true_foreground": 0.8989192843437195,
+      "foreground_probability_on_true_background": 0.19583334028720856,
+      "false_foreground_fraction_of_background": 0.1725018173456192
     }
   },
   "protocol": "Fixed valid validation foreground masks. Fractional native area gives exact IoU for nearest-upsampled16x16 binary predictions. GT is an audit reference only; detector receives cached image tokens.",

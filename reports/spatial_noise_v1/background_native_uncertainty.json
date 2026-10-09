@@ -4731,6 +4731,1002 @@
       "condition": "background_swap",
       "intervention_folder": "artifacts/background_intervention_fixed",
       "ids_sha256": "b563cf5ef93aac334b9cd22e979812a49d5e6a7b5200451d23de9099bc8119d8"
+    },
+    "region_seed43_noise_minus_region_seed43_mean": {
+      "mAP_difference_pp": 0.18020409170006343,
+      "mAP_CI95_pp": [
+        -0.6774541802724866,
+        1.0135214997746567
+      ],
+      "per_concept": [
+        {
+          "name": "long-snout",
+          "difference_AP_pp": -0.20798030040752868,
+          "CI95_pp": [
+            -4.259871278739492,
+            3.4652606856158195
+          ],
+          "simultaneous_CI95_pp": [
+            -7.79697056427889,
+            7.381009963463833
+          ],
+          "test_positives": 235
+        },
+        {
+          "name": "wings",
+          "difference_AP_pp": -0.44869393997947205,
+          "CI95_pp": [
+            -1.282497444204349,
+            0.4153759639727421
+          ],
+          "simultaneous_CI95_pp": [
+            -8.037684203850834,
+            7.1402963238918895
+          ],
+          "test_positives": 178
+        },
+        {
+          "name": "wheels",
+          "difference_AP_pp": 0.0711256937594884,
+          "CI95_pp": [
+            -1.2704991581978564,
+            1.244379899168962
+          ],
+          "simultaneous_CI95_pp": [
+            -7.517864570111874,
+            7.66011595763085
+          ],
+          "test_positives": 243
+        },
+        {
+          "name": "text",
+          "difference_AP_pp": 1.480148836169437,
+          "CI95_pp": [
+            -1.8760559612646295,
+            4.882089416443612
+          ],
+          "simultaneous_CI95_pp": [
+            -6.1088414277019245,
+            9.069139100040799
+          ],
+          "test_positives": 201
+        },
+        {
+          "name": "horns",
+          "difference_AP_pp": 4.79925607600692,
+          "CI95_pp": [
+            0.5196232672606371,
+            9.168431425240497
+          ],
+          "simultaneous_CI95_pp": [
+            -2.789734187864443,
+            12.38824633987828
+          ],
+          "test_positives": 73
+        },
+        {
+          "name": "floppy-ears",
+          "difference_AP_pp": 0.19047519637415133,
+          "CI95_pp": [
+            -1.1075365994436235,
+            1.6191218867911659
+          ],
+          "simultaneous_CI95_pp": [
+            -7.39851506749721,
+            7.779465460245513
+          ],
+          "test_positives": 95
+        },
+        {
+          "name": "ears",
+          "difference_AP_pp": 0.4924324693270532,
+          "CI95_pp": [
+            -0.1847561602157552,
+            1.6029849359912152
+          ],
+          "simultaneous_CI95_pp": [
+            -7.096557794544308,
+            8.081422733198416
+          ],
+          "test_positives": 380
+        },
+        {
+          "name": "colored-eyes",
+          "difference_AP_pp": -8.41981030879998,
+          "CI95_pp": [
+            -13.893289343928423,
+            -3.563361283895234
+          ],
+          "simultaneous_CI95_pp": [
+            -16.00880057267134,
+            -0.8308200449286179
+          ],
+          "test_positives": 128
+        },
+        {
+          "name": "tail",
+          "difference_AP_pp": -3.9463018549457773,
+          "CI95_pp": [
+            -9.016178068740775,
+            1.323187660444758
+          ],
+          "simultaneous_CI95_pp": [
+            -11.53529211881714,
+            3.6426884089255847
+          ],
+          "test_positives": 232
+        },
+        {
+          "name": "mane",
+          "difference_AP_pp": 1.6265177057423807,
+          "CI95_pp": [
+            -5.459696775470853,
+            9.055194279968177
+          ],
+          "simultaneous_CI95_pp": [
+            -5.962472558128981,
+            9.215507969613743
+          ],
+          "test_positives": 89
+        },
+        {
+          "name": "beak",
+          "difference_AP_pp": 1.1681857822447572,
+          "CI95_pp": [
+            -0.07276156229709035,
+            3.0456837040858105
+          ],
+          "simultaneous_CI95_pp": [
+            -6.420804481626605,
+            8.757176046116118
+          ],
+          "test_positives": 100
+        },
+        {
+          "name": "hairy",
+          "difference_AP_pp": 0.3151624037181944,
+          "CI95_pp": [
+            -0.12237327510774582,
+            0.7748324635260057
+          ],
+          "simultaneous_CI95_pp": [
+            -7.273827860153167,
+            7.904152667589556
+          ],
+          "test_positives": 411
+        },
+        {
+          "name": "metallic",
+          "difference_AP_pp": 0.8457926238852331,
+          "CI95_pp": [
+            -0.3736012174752062,
+            2.2659765668719927
+          ],
+          "simultaneous_CI95_pp": [
+            -6.743197639986128,
+            8.434782887756596
+          ],
+          "test_positives": 378
+        },
+        {
+          "name": "rectangular",
+          "difference_AP_pp": 0.4574329308058567,
+          "CI95_pp": [
+            -0.23597365943806733,
+            1.144555351317296
+          ],
+          "simultaneous_CI95_pp": [
+            -7.131557333065505,
+            8.04642319467722
+          ],
+          "test_positives": 316
+        },
+        {
+          "name": "wet",
+          "difference_AP_pp": 3.494431344470761,
+          "CI95_pp": [
+            0.8590362578281213,
+            6.397563964869879
+          ],
+          "simultaneous_CI95_pp": [
+            -4.094558919400601,
+            11.083421608342123
+          ],
+          "test_positives": 175
+        },
+        {
+          "name": "long",
+          "difference_AP_pp": 0.3520881518087271,
+          "CI95_pp": [
+            -1.299104692027847,
+            1.8102724024242698
+          ],
+          "simultaneous_CI95_pp": [
+            -7.2369021120626345,
+            7.941078415680089
+          ],
+          "test_positives": 291
+        },
+        {
+          "name": "tall",
+          "difference_AP_pp": 0.17953912210623146,
+          "CI95_pp": [
+            -1.682540536785341,
+            2.0084709768715214
+          ],
+          "simultaneous_CI95_pp": [
+            -7.40945114176513,
+            7.768529385977593
+          ],
+          "test_positives": 251
+        },
+        {
+          "name": "patterned",
+          "difference_AP_pp": 0.7938717183147093,
+          "CI95_pp": [
+            -0.12696105309421057,
+            1.8272673560542976
+          ],
+          "simultaneous_CI95_pp": [
+            -6.795118545556653,
+            8.382861982186071
+          ],
+          "test_positives": 539
+        }
+      ],
+      "simultaneous_method": "95% quantile of maximum absolute centered paired bootstrap error across all 18 concepts",
+      "input_sha256": "30c45174e49dd577f5dacf18a0cd43e1dd47fba59207e55bffd68980b4eb77f3",
+      "n": 1000,
+      "condition": "background_swap",
+      "intervention_folder": "artifacts/background_intervention_region_seed43",
+      "ids_sha256": "b563cf5ef93aac334b9cd22e979812a49d5e6a7b5200451d23de9099bc8119d8"
+    },
+    "region_seed43_noise_minus_region_seed43_noise_same_checkpoint_mean": {
+      "mAP_difference_pp": -0.2532784148468291,
+      "mAP_CI95_pp": [
+        -0.9815009515227162,
+        0.3416801041325859
+      ],
+      "per_concept": [
+        {
+          "name": "long-snout",
+          "difference_AP_pp": 0.42006429100704956,
+          "CI95_pp": [
+            -3.445084634641734,
+            4.261408447167112
+          ],
+          "simultaneous_CI95_pp": [
+            -5.781669132107094,
+            6.621797714121193
+          ],
+          "test_positives": 235
+        },
+        {
+          "name": "wings",
+          "difference_AP_pp": -0.7761165498291422,
+          "CI95_pp": [
+            -2.09230454461574,
+            0.2586954437167992
+          ],
+          "simultaneous_CI95_pp": [
+            -6.977849972943286,
+            5.425616873285001
+          ],
+          "test_positives": 178
+        },
+        {
+          "name": "wheels",
+          "difference_AP_pp": -0.2633965238901914,
+          "CI95_pp": [
+            -1.8265638838297145,
+            0.8804596128255132
+          ],
+          "simultaneous_CI95_pp": [
+            -6.465129947004335,
+            5.938336899223952
+          ],
+          "test_positives": 243
+        },
+        {
+          "name": "text",
+          "difference_AP_pp": -0.5358909099068887,
+          "CI95_pp": [
+            -3.9405484732506566,
+            2.9064531322829517
+          ],
+          "simultaneous_CI95_pp": [
+            -6.737624333021032,
+            5.665842513207255
+          ],
+          "test_positives": 201
+        },
+        {
+          "name": "horns",
+          "difference_AP_pp": 1.1882402578271334,
+          "CI95_pp": [
+            -2.3667968521629374,
+            4.41706436693864
+          ],
+          "simultaneous_CI95_pp": [
+            -5.01349316528701,
+            7.389973680941277
+          ],
+          "test_positives": 73
+        },
+        {
+          "name": "floppy-ears",
+          "difference_AP_pp": 0.7525909765678573,
+          "CI95_pp": [
+            -0.6045232559613559,
+            2.5138281409905363
+          ],
+          "simultaneous_CI95_pp": [
+            -5.449142446546286,
+            6.954324399682001
+          ],
+          "test_positives": 95
+        },
+        {
+          "name": "ears",
+          "difference_AP_pp": 0.4613672999515872,
+          "CI95_pp": [
+            -0.14130668188176404,
+            1.4262042881879975
+          ],
+          "simultaneous_CI95_pp": [
+            -5.7403661231625565,
+            6.663100723065731
+          ],
+          "test_positives": 380
+        },
+        {
+          "name": "colored-eyes",
+          "difference_AP_pp": -8.606229638031293,
+          "CI95_pp": [
+            -14.356353052124286,
+            -3.4073440315781496
+          ],
+          "simultaneous_CI95_pp": [
+            -14.807963061145434,
+            -2.40449621491715
+          ],
+          "test_positives": 128
+        },
+        {
+          "name": "tail",
+          "difference_AP_pp": -2.2077138131110896,
+          "CI95_pp": [
+            -6.840506358807473,
+            2.4446702670728535
+          ],
+          "simultaneous_CI95_pp": [
+            -8.409447236225233,
+            3.9940196100030536
+          ],
+          "test_positives": 232
+        },
+        {
+          "name": "mane",
+          "difference_AP_pp": 1.036717218058325,
+          "CI95_pp": [
+            -4.448640300350052,
+            6.325508034863468
+          ],
+          "simultaneous_CI95_pp": [
+            -5.165016205055818,
+            7.238450641172468
+          ],
+          "test_positives": 89
+        },
+        {
+          "name": "beak",
+          "difference_AP_pp": 0.804758454593435,
+          "CI95_pp": [
+            -0.3236734010815265,
+            2.7124745495835176
+          ],
+          "simultaneous_CI95_pp": [
+            -5.396974968520708,
+            7.006491877707578
+          ],
+          "test_positives": 100
+        },
+        {
+          "name": "hairy",
+          "difference_AP_pp": 0.31038765954702896,
+          "CI95_pp": [
+            -0.13395189549405467,
+            0.8456159957225368
+          ],
+          "simultaneous_CI95_pp": [
+            -5.891345763567115,
+            6.512121082661173
+          ],
+          "test_positives": 411
+        },
+        {
+          "name": "metallic",
+          "difference_AP_pp": 0.33635977644446147,
+          "CI95_pp": [
+            -0.2803349013734002,
+            0.9364621837839201
+          ],
+          "simultaneous_CI95_pp": [
+            -5.865373646669682,
+            6.538093199558605
+          ],
+          "test_positives": 378
+        },
+        {
+          "name": "rectangular",
+          "difference_AP_pp": 0.43135536366051275,
+          "CI95_pp": [
+            -0.3418903391494651,
+            1.215214007073648
+          ],
+          "simultaneous_CI95_pp": [
+            -5.7703780594536305,
+            6.633088786774656
+          ],
+          "test_positives": 316
+        },
+        {
+          "name": "wet",
+          "difference_AP_pp": 1.29871485471319,
+          "CI95_pp": [
+            -0.7759037695823242,
+            3.4114707661362806
+          ],
+          "simultaneous_CI95_pp": [
+            -4.903018568400953,
+            7.500448277827333
+          ],
+          "test_positives": 175
+        },
+        {
+          "name": "long",
+          "difference_AP_pp": 0.12682505349134177,
+          "CI95_pp": [
+            -1.2516146829990276,
+            1.189825811079449
+          ],
+          "simultaneous_CI95_pp": [
+            -6.0749083696228015,
+            6.328558476605485
+          ],
+          "test_positives": 291
+        },
+        {
+          "name": "tall",
+          "difference_AP_pp": 0.3338436686785795,
+          "CI95_pp": [
+            -1.2114524617925588,
+            1.8281218035013929
+          ],
+          "simultaneous_CI95_pp": [
+            -5.867889754435564,
+            6.535577091792723
+          ],
+          "test_positives": 251
+        },
+        {
+          "name": "patterned",
+          "difference_AP_pp": 0.32911109298517927,
+          "CI95_pp": [
+            -0.4910784343996227,
+            1.219673652105575
+          ],
+          "simultaneous_CI95_pp": [
+            -5.872622330128964,
+            6.5308445160993225
+          ],
+          "test_positives": 539
+        }
+      ],
+      "simultaneous_method": "95% quantile of maximum absolute centered paired bootstrap error across all 18 concepts",
+      "input_sha256": "875df1ae893967204be8f9a2e152b946b75c0c23ac2231d14ae76e0eeb06eaa6",
+      "n": 1000,
+      "condition": "background_swap",
+      "intervention_folder": "artifacts/background_intervention_region_seed43",
+      "ids_sha256": "b563cf5ef93aac334b9cd22e979812a49d5e6a7b5200451d23de9099bc8119d8"
+    },
+    "region_seed43_noise_same_checkpoint_mean_minus_region_seed43_mean": {
+      "mAP_difference_pp": 0.4334825065468926,
+      "mAP_CI95_pp": [
+        -0.123625053870963,
+        1.0118552196652313
+      ],
+      "per_concept": [
+        {
+          "name": "long-snout",
+          "difference_AP_pp": -0.6280445914145782,
+          "CI95_pp": [
+            -3.463686058039269,
+            2.4721021228431974
+          ],
+          "simultaneous_CI95_pp": [
+            -5.449875790472764,
+            4.193786607643608
+          ],
+          "test_positives": 235
+        },
+        {
+          "name": "wings",
+          "difference_AP_pp": 0.3274226098496702,
+          "CI95_pp": [
+            -0.63305993222002,
+            1.5003314735025604
+          ],
+          "simultaneous_CI95_pp": [
+            -4.494408589208516,
+            5.149253808907856
+          ],
+          "test_positives": 178
+        },
+        {
+          "name": "wheels",
+          "difference_AP_pp": 0.3345222176496798,
+          "CI95_pp": [
+            -0.140843807493502,
+            0.89622534586097
+          ],
+          "simultaneous_CI95_pp": [
+            -4.487308981408506,
+            5.156353416707866
+          ],
+          "test_positives": 243
+        },
+        {
+          "name": "text",
+          "difference_AP_pp": 2.0160397460763257,
+          "CI95_pp": [
+            -0.3282774732792792,
+            4.379506027335514
+          ],
+          "simultaneous_CI95_pp": [
+            -2.80579145298186,
+            6.837870945134511
+          ],
+          "test_positives": 201
+        },
+        {
+          "name": "horns",
+          "difference_AP_pp": 3.611015818179786,
+          "CI95_pp": [
+            0.49462145518857825,
+            7.041757761358798
+          ],
+          "simultaneous_CI95_pp": [
+            -1.2108153808784001,
+            8.432847017237972
+          ],
+          "test_positives": 73
+        },
+        {
+          "name": "floppy-ears",
+          "difference_AP_pp": -0.562115780193706,
+          "CI95_pp": [
+            -1.916447214788328,
+            0.2469534129964199
+          ],
+          "simultaneous_CI95_pp": [
+            -5.383946979251892,
+            4.25971541886448
+          ],
+          "test_positives": 95
+        },
+        {
+          "name": "ears",
+          "difference_AP_pp": 0.031065169375465995,
+          "CI95_pp": [
+            -0.17926807541013723,
+            0.2897078577409023
+          ],
+          "simultaneous_CI95_pp": [
+            -4.79076602968272,
+            4.852896368433652
+          ],
+          "test_positives": 380
+        },
+        {
+          "name": "colored-eyes",
+          "difference_AP_pp": 0.1864193292313132,
+          "CI95_pp": [
+            -2.878701547475254,
+            3.0409479850875334
+          ],
+          "simultaneous_CI95_pp": [
+            -4.635411869826873,
+            5.0082505282895
+          ],
+          "test_positives": 128
+        },
+        {
+          "name": "tail",
+          "difference_AP_pp": -1.7385880418346877,
+          "CI95_pp": [
+            -4.725601232412124,
+            1.248500091899329
+          ],
+          "simultaneous_CI95_pp": [
+            -6.560419240892873,
+            3.083243157223498
+          ],
+          "test_positives": 232
+        },
+        {
+          "name": "mane",
+          "difference_AP_pp": 0.5898004876840557,
+          "CI95_pp": [
+            -4.202207382191396,
+            5.161057819648099
+          ],
+          "simultaneous_CI95_pp": [
+            -4.23203071137413,
+            5.411631686742242
+          ],
+          "test_positives": 89
+        },
+        {
+          "name": "beak",
+          "difference_AP_pp": 0.36342732765132224,
+          "CI95_pp": [
+            -0.6220694549130251,
+            1.2977015828624905
+          ],
+          "simultaneous_CI95_pp": [
+            -4.458403871406864,
+            5.185258526709508
+          ],
+          "test_positives": 100
+        },
+        {
+          "name": "hairy",
+          "difference_AP_pp": 0.004774744171165413,
+          "CI95_pp": [
+            -0.5155840243913928,
+            0.4086405597059974
+          ],
+          "simultaneous_CI95_pp": [
+            -4.8170564548870205,
+            4.826605943229351
+          ],
+          "test_positives": 411
+        },
+        {
+          "name": "metallic",
+          "difference_AP_pp": 0.5094328474407717,
+          "CI95_pp": [
+            -0.4885882197468813,
+            1.6355351014478583
+          ],
+          "simultaneous_CI95_pp": [
+            -4.312398351617414,
+            5.331264046498958
+          ],
+          "test_positives": 378
+        },
+        {
+          "name": "rectangular",
+          "difference_AP_pp": 0.026077567145343927,
+          "CI95_pp": [
+            -0.5950133704906485,
+            0.6375736640938634
+          ],
+          "simultaneous_CI95_pp": [
+            -4.795753631912842,
+            4.84790876620353
+          ],
+          "test_positives": 316
+        },
+        {
+          "name": "wet",
+          "difference_AP_pp": 2.195716489757571,
+          "CI95_pp": [
+            0.1694775320960987,
+            4.319871420128291
+          ],
+          "simultaneous_CI95_pp": [
+            -2.626114709300615,
+            7.017547688815756
+          ],
+          "test_positives": 175
+        },
+        {
+          "name": "long",
+          "difference_AP_pp": 0.22526309831738534,
+          "CI95_pp": [
+            -0.5578789874983989,
+            1.0399572620121726
+          ],
+          "simultaneous_CI95_pp": [
+            -4.596568100740801,
+            5.047094297375572
+          ],
+          "test_positives": 291
+        },
+        {
+          "name": "tall",
+          "difference_AP_pp": -0.15430454657234804,
+          "CI95_pp": [
+            -1.3326892409218427,
+            0.8844101745741212
+          ],
+          "simultaneous_CI95_pp": [
+            -4.976135745630534,
+            4.667526652485838
+          ],
+          "test_positives": 251
+        },
+        {
+          "name": "patterned",
+          "difference_AP_pp": 0.46476062532953,
+          "CI95_pp": [
+            -0.2693133925973157,
+            1.0772410188970432
+          ],
+          "simultaneous_CI95_pp": [
+            -4.357070573728656,
+            5.286591824387716
+          ],
+          "test_positives": 539
+        }
+      ],
+      "simultaneous_method": "95% quantile of maximum absolute centered paired bootstrap error across all 18 concepts",
+      "input_sha256": "a7a834e54485a1042f198fda01ee44b0129ffb664cb4d086671c6de3df7cd0d5",
+      "n": 1000,
+      "condition": "background_swap",
+      "intervention_folder": "artifacts/background_intervention_region_seed43",
+      "ids_sha256": "b563cf5ef93aac334b9cd22e979812a49d5e6a7b5200451d23de9099bc8119d8"
+    },
+    "region_seed43_noise_minus_region_clean": {
+      "mAP_difference_pp": 2.081596026199491,
+      "mAP_CI95_pp": [
+        1.1487878324857606,
+        3.019941335559595
+      ],
+      "per_concept": [
+        {
+          "name": "long-snout",
+          "difference_AP_pp": 1.4870753179325957,
+          "CI95_pp": [
+            -3.0759062327691455,
+            6.03951972736398
+          ],
+          "simultaneous_CI95_pp": [
+            -6.7275426958679745,
+            9.701693331733166
+          ],
+          "test_positives": 235
+        },
+        {
+          "name": "wings",
+          "difference_AP_pp": 1.2268472917030815,
+          "CI95_pp": [
+            -0.450057966870544,
+            3.551922376017148
+          ],
+          "simultaneous_CI95_pp": [
+            -6.987770722097489,
+            9.441465305503652
+          ],
+          "test_positives": 178
+        },
+        {
+          "name": "wheels",
+          "difference_AP_pp": 1.1014019856891877,
+          "CI95_pp": [
+            0.15856578509374858,
+            2.1588857643858828
+          ],
+          "simultaneous_CI95_pp": [
+            -7.113216028111383,
+            9.316019999489757
+          ],
+          "test_positives": 243
+        },
+        {
+          "name": "text",
+          "difference_AP_pp": 5.733354564401438,
+          "CI95_pp": [
+            1.6484056773767364,
+            10.048246836421855
+          ],
+          "simultaneous_CI95_pp": [
+            -2.481263449399132,
+            13.947972578202009
+          ],
+          "test_positives": 201
+        },
+        {
+          "name": "horns",
+          "difference_AP_pp": 7.436631221935985,
+          "CI95_pp": [
+            2.5173636506556116,
+            12.910554354806553
+          ],
+          "simultaneous_CI95_pp": [
+            -0.777986791864585,
+            15.651249235736556
+          ],
+          "test_positives": 73
+        },
+        {
+          "name": "floppy-ears",
+          "difference_AP_pp": 2.109220414862356,
+          "CI95_pp": [
+            -0.34712979012089945,
+            5.82256838816521
+          ],
+          "simultaneous_CI95_pp": [
+            -6.1053975989382145,
+            10.323838428662926
+          ],
+          "test_positives": 95
+        },
+        {
+          "name": "ears",
+          "difference_AP_pp": 0.5553031479250015,
+          "CI95_pp": [
+            0.020584156709511643,
+            1.31365736284753
+          ],
+          "simultaneous_CI95_pp": [
+            -7.659314865875569,
+            8.769921161725572
+          ],
+          "test_positives": 380
+        },
+        {
+          "name": "colored-eyes",
+          "difference_AP_pp": -0.777894502520915,
+          "CI95_pp": [
+            -6.813889650735454,
+            5.426418495814675
+          ],
+          "simultaneous_CI95_pp": [
+            -8.992512516321485,
+            7.436723511279656
+          ],
+          "test_positives": 128
+        },
+        {
+          "name": "tail",
+          "difference_AP_pp": 2.846861843225834,
+          "CI95_pp": [
+            -2.998591180560344,
+            8.454169954389497
+          ],
+          "simultaneous_CI95_pp": [
+            -5.3677561705747365,
+            11.061479857026404
+          ],
+          "test_positives": 232
+        },
+        {
+          "name": "mane",
+          "difference_AP_pp": 3.651362024020477,
+          "CI95_pp": [
+            -3.445511872577664,
+            11.576876083224166
+          ],
+          "simultaneous_CI95_pp": [
+            -4.563255989780093,
+            11.865980037821048
+          ],
+          "test_positives": 89
+        },
+        {
+          "name": "beak",
+          "difference_AP_pp": 2.0165986234493283,
+          "CI95_pp": [
+            0.14454610292894968,
+            4.775319666455316
+          ],
+          "simultaneous_CI95_pp": [
+            -6.198019390351242,
+            10.231216637249899
+          ],
+          "test_positives": 100
+        },
+        {
+          "name": "hairy",
+          "difference_AP_pp": 0.7425109981789912,
+          "CI95_pp": [
+            0.2528899354281214,
+            1.3216596713857445
+          ],
+          "simultaneous_CI95_pp": [
+            -7.472107015621579,
+            8.957129011979562
+          ],
+          "test_positives": 411
+        },
+        {
+          "name": "metallic",
+          "difference_AP_pp": 0.6589438311920159,
+          "CI95_pp": [
+            -0.5981255068916566,
+            2.1899727572949343
+          ],
+          "simultaneous_CI95_pp": [
+            -7.555674182608555,
+            8.873561844992587
+          ],
+          "test_positives": 378
+        },
+        {
+          "name": "rectangular",
+          "difference_AP_pp": 0.17640319257101744,
+          "CI95_pp": [
+            -0.6959900365194566,
+            1.0256312457145378
+          ],
+          "simultaneous_CI95_pp": [
+            -8.038214821229554,
+            8.391021206371589
+          ],
+          "test_positives": 316
+        },
+        {
+          "name": "wet",
+          "difference_AP_pp": 6.352443587927459,
+          "CI95_pp": [
+            2.6262853357116334,
+            9.893605460588775
+          ],
+          "simultaneous_CI95_pp": [
+            -1.8621744258731114,
+            14.56706160172803
+          ],
+          "test_positives": 175
+        },
+        {
+          "name": "long",
+          "difference_AP_pp": 0.06863374247929599,
+          "CI95_pp": [
+            -1.5278539207349857,
+            1.5190507540581177
+          ],
+          "simultaneous_CI95_pp": [
+            -8.145984271321275,
+            8.283251756279867
+          ],
+          "test_positives": 291
+        },
+        {
+          "name": "tall",
+          "difference_AP_pp": 1.1522841296140673,
+          "CI95_pp": [
+            -0.7643673663565744,
+            3.1115770155643774
+          ],
+          "simultaneous_CI95_pp": [
+            -7.062333884186503,
+            9.366902143414638
+          ],
+          "test_positives": 251
+        },
+        {
+          "name": "patterned",
+          "difference_AP_pp": 0.9307470570036225,
+          "CI95_pp": [
+            -0.15785503235453913,
+            2.181446273116209
+          ],
+          "simultaneous_CI95_pp": [
+            -7.283870956796948,
+            9.145365070804193
+          ],
+          "test_positives": 539
+        }
+      ],
+      "simultaneous_method": "95% quantile of maximum absolute centered paired bootstrap error across all 18 concepts",
+      "input_sha256": "a6fa8422f9e7ce5fba64c1ede3f6ec0e17c5859362ae6ec46a89fcdd059cef95",
+      "n": 1000,
+      "condition": "background_swap",
+      "intervention_folder": "artifacts/background_intervention_region_seed43",
+      "ids_sha256": "b563cf5ef93aac334b9cd22e979812a49d5e6a7b5200451d23de9099bc8119d8"
     }
   },
   "interpretation": "Paired 1000-image external background intervention, same IDs and donors. All 18 native concepts; test-sample intervals do not measure seed variability. Comparisons are exploratory."

@@ -1,0 +1,246 @@
+{
+  "checks": {
+    "experiment_results_recomputed_from_predictions": true,
+    "all_matched_training_modes_complete": true,
+    "concept_conditional_ViT_text_path": true,
+    "real_pixel_noise_gradient_verified": true,
+    "full_joint_18_view_gradient_verified": true,
+    "fixed_foreground_weights_and_probabilities_invariant": true,
+    "two_adaptation_models_spatial_pattern_verified_on_full_validation": true,
+    "two_fixed_models_mean_inference_background_class_and_native_gain_verified": true,
+    "RGB_only_18_concept_bottleneck_verified": true,
+    "official_original_networks_preserved": true,
+    "report_links_resolve": true
+  },
+  "evidence": {
+    "mean_independent": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9814604615966704,
+      "native_mAP_recomputed": 0.9099949412519925,
+      "NEC": 4.800000190734863
+    },
+    "noise_independent": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.972379871358305,
+      "native_mAP_recomputed": 0.9058249891755131,
+      "NEC": 5.200000286102295
+    },
+    "mask_sequential": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.987892546348846,
+      "native_mAP_recomputed": 0.9120536869125829,
+      "NEC": 4.400000095367432
+    },
+    "mean_sequential": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9869466515323496,
+      "native_mAP_recomputed": 0.9122065073848115,
+      "NEC": 4.400000095367432
+    },
+    "noise_sequential": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9930003783579266,
+      "native_mAP_recomputed": 0.9106525093274674,
+      "NEC": 4.200000286102295
+    },
+    "noise_joint": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9899735149451381,
+      "native_mAP_recomputed": 0.9116321987653012,
+      "NEC": 4.200000286102295
+    },
+    "mean_separate_heads": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9895951570185395,
+      "native_mAP_recomputed": 0.9132224220030746,
+      "NEC": 4.400000095367432
+    },
+    "noise_separate_heads": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9905410518350359,
+      "native_mAP_recomputed": 0.9113561014055443,
+      "NEC": 4.300000190734863
+    },
+    "local_mean": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9912977676882331,
+      "native_mAP_recomputed": 0.9080556999303843,
+      "NEC": 4.5
+    },
+    "local_noise": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.985244040862656,
+      "native_mAP_recomputed": 0.902967511809873,
+      "NEC": 4.400000095367432
+    },
+    "full_joint_mean": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9924328414680288,
+      "native_mAP_recomputed": 0.9072096559133617,
+      "NEC": 4.099999904632568
+    },
+    "full_joint_noise": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9890276201286416,
+      "native_mAP_recomputed": 0.9039896615799456,
+      "NEC": 3.9000000953674316
+    },
+    "region_mean": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9905410518350359,
+      "native_mAP_recomputed": 0.8968065455826889,
+      "NEC": 4.400000095367432
+    },
+    "region_noise": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9861899356791525,
+      "native_mAP_recomputed": 0.8928603557712785,
+      "NEC": 4.5,
+      "mean_inference": {
+        "accuracy": 0.9909194097616345,
+        "mAP": 0.8977160276688801,
+        "macro_precision": 0.8488965630531311,
+        "macro_recall": 0.9105638205151786
+      },
+      "localization": {
+        "n_positive_pairs": 9022,
+        "n_local_pairs": 4080,
+        "positive_concept_IoU": 0.46993404710916487,
+        "positive_readout_region_IoU": 0.46792305836127646,
+        "sigma2_bg_over_fg": 6.444811340850391,
+        "mu_fg_over_bg": 11.881117318473231,
+        "local_part_mu_over_other_object": 10.385480091037374,
+        "local_other_object_sigma2_over_part": 1.6757129446298202
+      }
+    },
+    "fixed_mean": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9914869466515324,
+      "native_mAP_recomputed": 0.897164294296998,
+      "NEC": 4.400000095367432
+    },
+    "fixed_noise": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9871358304956489,
+      "native_mAP_recomputed": 0.8940168297536386,
+      "NEC": 4.300000190734863
+    },
+    "region_seed43_mean": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9918653045781309,
+      "native_mAP_recomputed": 0.8965739632192454,
+      "NEC": 4.400000095367432
+    },
+    "region_seed43_noise": {
+      "n_test": 5286,
+      "accuracy_recomputed": 0.9882709042754446,
+      "native_mAP_recomputed": 0.8927073238529246,
+      "NEC": 4.400000095367432,
+      "mean_inference": {
+        "accuracy": 0.9912977676882331,
+        "mAP": 0.8966726430797171,
+        "macro_precision": 0.8471042513847351,
+        "macro_recall": 0.9029712421001869
+      },
+      "localization": {
+        "n_positive_pairs": 9022,
+        "n_local_pairs": 4080,
+        "positive_concept_IoU": 0.47029868911416617,
+        "positive_readout_region_IoU": 0.46997662436220067,
+        "sigma2_bg_over_fg": 7.606746090305065,
+        "mu_fg_over_bg": 10.572460783877865,
+        "local_part_mu_over_other_object": 10.557744240660217,
+        "local_other_object_sigma2_over_part": 1.6428544870111115
+      }
+    },
+    "two_fixed_models_background_gain": {
+      "classification": {
+        "difference_pp": 1.0,
+        "CI95_pp": [
+          0.35000000000000003,
+          1.6500000000000001
+        ]
+      },
+      "mAP_difference_pp": 0.7519592062723679,
+      "mAP_CI95_pp": [
+        0.28677428826846124,
+        1.155903622969178
+      ]
+    },
+    "pets_main_seed1": {
+      "n_test": 3669,
+      "MC1_accuracy_recomputed": 0.8926137912237667
+    },
+    "pets_image_seed1": {
+      "n_test": 3669,
+      "MC1_accuracy_recomputed": 0.892886345053148
+    },
+    "pets_main_fp16_seed1": {
+      "n_test": 3669,
+      "MC1_accuracy_recomputed": 0.8882529299536659
+    },
+    "pets_image_fp16_seed1": {
+      "n_test": 3669,
+      "MC1_accuracy_recomputed": 0.8939765603706732
+    },
+    "pets_main_mean_seed1": {
+      "n_test": 3669,
+      "MC1_accuracy_recomputed": 0.9002452984464432
+    },
+    "pets_image_mean_seed1": {
+      "n_test": 3669,
+      "MC1_accuracy_recomputed": 0.8950667756881984
+    }
+  },
+  "source_sha256": {
+    "artifacts/mean_independent/results.json": "8a09cd9cc8ac57ef08a1df66f0274be7080d3d4909c37be9bbfe5bede872be1c",
+    "artifacts/noise_independent/results.json": "6d0388e9f77d38a534bbfe2ffa1efe5f3df22ebfe20d93b943d5a8d79ce67635",
+    "artifacts/mask_sequential/results.json": "da474a5891059475d18fb71297d82fe67273ec274ad3b41faf8933d994befb13",
+    "artifacts/mean_sequential/results.json": "f96e1157dd3a44d42a513e245c3746365240f09b43bd22a7504a82d3f0106812",
+    "artifacts/noise_sequential/results.json": "779e1bc1f57172467140073524a2ddee722ab25caaeb62e77ec10d7bdc5f983d",
+    "artifacts/noise_joint/results.json": "f3e54e5d5bb03a3833f852e09e347e51320d289b5190ffab620f952ac1f4d314",
+    "artifacts/mean_separate_heads/results.json": "161d4921f4165b0e1dc2c46828072d426213920b0a08e6e8e4355f956bb0c905",
+    "artifacts/noise_separate_heads/results.json": "62299cfb53c5a5c73f229f4cabe50c4107ec50a78f23e189e0689bc781513693",
+    "artifacts/local_mean/results.json": "cbb10679015113e1fee0f2cbe03085c6ef422b1331c6d4925165f6add4240979",
+    "artifacts/local_noise/results.json": "d198d3729463c0922b4b04d89c9c1ff6ce278c6f7fb882dea652bbc3786f954c",
+    "artifacts/full_joint_mean/results.json": "c9fcbeb99267c62198868f1335300eaccee0c86e809f9c7ba1a956a1ca65b3a5",
+    "artifacts/full_joint_noise/results.json": "97e017dec7ce55b726f8ba6379c95de947de69c57375a6f418d5ac336511fa50",
+    "artifacts/region_mean/results.json": "18c450ac0275f7ad20cc0dd780c0578fddc66530a4f8dff2ff849071384be308",
+    "artifacts/region_noise/results.json": "ca6b1a66012a4c528b695d989e341b58445a3063465510db9f854d4304ba00c7",
+    "artifacts/region_noise/recognition_gradient_audit.json": "3f574f030e0273a5a87511c6199f7b4b15ed615d6ab417dc0b75494f89daabe8",
+    "artifacts/region_noise/localization_audit.json": "99a80e86f3042722aa203131d74f52c5291d1e099808a54f9b085486e71d01c3",
+    "artifacts/fixed_mean/results.json": "fc25abbc8edf49217c04fb7b64e260a2e5ac5450856a48a7af2708824a28e42c",
+    "artifacts/fixed_noise/results.json": "a8c03763fefcafa66586fc838fd82c9082da9ebeba72350be8754d27fd7666ce",
+    "artifacts/region_seed43_mean/results.json": "4ea95b21c28f19fa433cbb0a2c665e2a35765494b6650fd91c8d7a6710c15810",
+    "artifacts/region_seed43_noise/results.json": "faf193be9655c4d1ce5b3e457e1919f07df2ed311c01c040b665233b2a20a1d5",
+    "artifacts/region_seed43_noise/recognition_gradient_audit.json": "4aa711b52fb429042c0f2976e559e817401c259838d169eb135c3ab81fb3cf3f",
+    "artifacts/region_seed43_noise/localization_audit.json": "057a4d112fc8d43c1e850ebc760ec57c81fcf9b42d9f8d82289f7affe78b8e44",
+    "artifacts/fixed_mean/blocker_audit.json": "4f8c4e0a5cecc7592ce0265a9d3056951f507ffa0aecd2752af3fa0429aa039f",
+    "artifacts/fixed_noise/blocker_audit.json": "eb1d3c55b86b22d9020a3cb2a5a572815d41fcf686958a0058e6101aabd8466b",
+    "artifacts/full_joint_mean/class_gradient_audit.json": "8e45693b31c7c9f99c778618631d325c489ded3f614c5ee50ff00a5e8f36b6d5",
+    "artifacts/full_joint_noise/class_gradient_audit.json": "1abf16bc5b576ec2789c1feb962a669e93af00d48fa188dda830515eeb722a92",
+    "reports/spatial_noise_v1/two_seed_summary.json": "93fa068d84642f629684f73d035937f000204a8a7afc6fbc2bcb8c2186adb304",
+    "reports/spatial_noise_v1/RGB_only_inference.json": "8aebbe28cc467d0378d59b29bc94d711ca4658870b07bdf8fbbe1a3756819598",
+    "reports/spatial_noise_region/figure4_main.json": "eba2fe81c8bd3a83612991fb7eaacbb00de8278dc80bdbcb5a1fad4f069fd627",
+    "artifacts/pets_main_seed1/results.json": "8bb257846af5bb0936a9b4d82abc943e326a92f5e754dfd36bceb587c6bda3f5",
+    "artifacts/pets_main_seed1/split.json": "ebace2c6d0abe807fc45e6624c5d9020c70815201c0001082a4bde6128df1138",
+    "artifacts/pets_image_seed1/results.json": "81bbdf23e33900d8790b008c02186252d55d6bc3743f5a71edcfcfd47e5d9803",
+    "artifacts/pets_image_seed1/split.json": "ebace2c6d0abe807fc45e6624c5d9020c70815201c0001082a4bde6128df1138",
+    "artifacts/pets_main_fp16_seed1/results.json": "edc87ef67214d12e0636509a6598312e046fe1de44c6a6e91f93d74f45a3b59d",
+    "artifacts/pets_main_fp16_seed1/split.json": "ebace2c6d0abe807fc45e6624c5d9020c70815201c0001082a4bde6128df1138",
+    "artifacts/pets_image_fp16_seed1/results.json": "e71201f4eaca55e1c4ffac50c3bd9b97f1037a9e252a6d622f835747aaca2598",
+    "artifacts/pets_image_fp16_seed1/split.json": "ebace2c6d0abe807fc45e6624c5d9020c70815201c0001082a4bde6128df1138",
+    "artifacts/pets_main_mean_seed1/results.json": "1822301360fcd4fb97b00f2ce8edfd310d724e8fd0867d0c3370f28a153fbfa6",
+    "artifacts/pets_main_mean_seed1/split.json": "ebace2c6d0abe807fc45e6624c5d9020c70815201c0001082a4bde6128df1138",
+    "artifacts/pets_image_mean_seed1/results.json": "97ad743d7d67c7096c56e5aab9093e1724965517ba32ad6e9db3b737b66f63b9",
+    "artifacts/pets_image_mean_seed1/split.json": "ebace2c6d0abe807fc45e6624c5d9020c70815201c0001082a4bde6128df1138"
+  },
+  "supported_end_state": "Working RGB spatial-noise CBM, good class accuracy and sparse native concept head, real Figure4-style separation, measured conditional background robustness benefit from noise training.",
+  "unsupported_claims": [
+    "Exact reproduction of official paper main accuracy or original spontaneous Figure4 pattern",
+    "Significant fixed-threshold native precision improvement",
+    "General benefit from continuing stochastic inference",
+    "End-to-end training-seed population or cross-dataset generalization",
+    "Pure semantic explanations established by high class accuracy alone"
+  ]
+}
