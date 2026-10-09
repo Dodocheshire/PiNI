@@ -1,0 +1,44 @@
+{
+  "historical_revision": "a2b70a052c9263d435107275a803fdfcc71e228d",
+  "validation_ids": [
+    31,
+    36,
+    41,
+    54,
+    64,
+    68,
+    105,
+    106
+  ],
+  "historical_field_max_deltas": {
+    "mu": 0.0,
+    "sigma": 0.0,
+    "gate": 0.0
+  },
+  "historical_native_logit_max_delta": 0.0,
+  "copied_foreground_weight_max_delta": 0.0,
+  "copied_foreground_probability_max_delta": 4.172325134277344e-07,
+  "source_prediction_tolerance": 1e-06,
+  "foreground_change_after_recognizer_weight_mutation": 0.0,
+  "fixed_checkpoint_roundtrip_field_max_deltas": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "fixed_roundtrip_tolerance": 1e-07,
+  "fixed_flag_restored": true,
+  "region_readout_flag_restored": true,
+  "sigma_RGB_RMS": [
+    0.026863472536206245,
+    0.026863472536206245,
+    0.026863478124141693,
+    0.026863478124141693,
+    0.026863474398851395,
+    0.026863472536206245,
+    0.026863476261496544,
+    0.026863472536206245
+  ],
+  "sigma_budget": 0.02686347473647816,
+  "model_source_sha256": "295ecb49edfc62b00bb43a07a39690caef2edeee4a7ac2eb48bbec094df2abcb",
+  "interpretation": "CPU contract audit on actual validation tokens. Temporary in-memory recognizer mutation only; no trained performance claim."
+}

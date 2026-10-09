@@ -9,7 +9,7 @@ from .train_spatial import load_cache
 
 
 RUNS=['mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','mean_separate_heads','noise_separate_heads',
-      'local_mean','local_noise','full_joint_mean','full_joint_noise','region_mean','region_noise']
+      'local_mean','local_noise','full_joint_mean','full_joint_noise','region_mean','region_noise','fixed_mean','fixed_noise','region_seed43_mean','region_seed43_noise']
 
 
 def pair_ci(a,b):
@@ -21,8 +21,8 @@ def pair_ci(a,b):
 def main():
     # Refresh audits from the same completed snapshots as this report.
     # These are CPU-only and their expensive bootstrap portions validate reuse.
-    from . import concept_audit,semantic_readout,uncertainty,official_controls,mechanism_figures
-    concept_audit.main();semantic_readout.main();uncertainty.main();official_controls.main();mechanism_figures.main()
+    from . import concept_audit,semantic_readout,semantic_capacity_audit,audit_mc_selection,foreground_drift_audit,uncertainty,official_controls,background_controls,background_native_audit,mechanism_figures
+    concept_audit.main();semantic_readout.main();semantic_capacity_audit.main();audit_mc_selection.main();foreground_drift_audit.main();uncertainty.main();official_controls.main();background_controls.main();background_native_audit.main();mechanism_figures.main()
     report=Path('reports/spatial_noise_v1');report.mkdir(parents=True,exist_ok=True)
     cache=Path('artifacts/rival_vitl14');arrays,splits,labels,records=load_cache(cache)
     clean=json.loads(Path('artifacts/spatial_clean/results.json').read_text())

@@ -1,0 +1,31 @@
+{
+  "run": "artifacts/noise_separate_heads",
+  "validation_mAP": 0.911742700134534,
+  "rule": "highest complete native validation mAP among fixed stochastic variants; no test selection",
+  "candidates": [
+    {
+      "run": "artifacts/noise_independent",
+      "validation_mAP": 0.9057246448100464
+    },
+    {
+      "run": "artifacts/noise_sequential",
+      "validation_mAP": 0.9102575905360568
+    },
+    {
+      "run": "artifacts/noise_joint",
+      "validation_mAP": 0.9077977696834915
+    },
+    {
+      "run": "artifacts/noise_separate_heads",
+      "validation_mAP": 0.911742700134534
+    },
+    {
+      "run": "artifacts/local_noise",
+      "validation_mAP": 0.9023919568781178
+    },
+    {
+      "run": "artifacts/full_joint_noise",
+      "validation_mAP": 0.9042433559641783
+    }
+  ]
+}

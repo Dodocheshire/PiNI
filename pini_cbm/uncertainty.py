@@ -18,7 +18,7 @@ from .train_spatial import load_cache,head_predict
 
 PAIRS=[('noise_independent','mean_independent'),('noise_sequential','mean_sequential'),
        ('local_noise','local_mean'),('full_joint_noise','full_joint_mean'),('region_noise','region_mean'),
-       ('noise_separate_heads','mean_separate_heads')]
+       ('noise_separate_heads','mean_separate_heads'),('fixed_noise','fixed_mean'),('region_seed43_noise','region_seed43_mean')]
 
 
 def ci_correct(a,b,seed=1149,repetitions=2000):

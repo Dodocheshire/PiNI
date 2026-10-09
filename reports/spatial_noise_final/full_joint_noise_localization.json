@@ -1,0 +1,165 @@
+{
+  "input_sha256": "6044cce39ce1b540266564865202ede05797abf4774c5575feed7301737e9fac",
+  "checkpoint_epoch": 4,
+  "summary": {
+    "n_positive_pairs": 9022,
+    "n_local_pairs": 4080,
+    "positive_concept_IoU": 0.5104188768215643,
+    "sigma2_bg_over_fg": 7.2118721631502325,
+    "mu_fg_over_bg": 11.370798731157922,
+    "local_part_mu_over_other_object": 11.890467821348981,
+    "local_other_object_sigma2_over_part": 1.7324337124127127
+  },
+  "per_concept": {
+    "long-snout": {
+      "n_positive_pairs": 508,
+      "n_local_pairs": 507,
+      "positive_concept_IoU": 0.4151845873607048,
+      "sigma2_bg_over_fg": 5.657453901594439,
+      "mu_fg_over_bg": 14.641753561167471,
+      "local_part_mu_over_other_object": 18.078303749123915,
+      "local_other_object_sigma2_over_part": 2.506449078046246
+    },
+    "wings": {
+      "n_positive_pairs": 380,
+      "n_local_pairs": 377,
+      "positive_concept_IoU": 0.4068450241244232,
+      "sigma2_bg_over_fg": 7.408953831747085,
+      "mu_fg_over_bg": 24.104927128201926,
+      "local_part_mu_over_other_object": 2.917269132364905,
+      "local_other_object_sigma2_over_part": 2.4274271203179154
+    },
+    "wheels": {
+      "n_positive_pairs": 518,
+      "n_local_pairs": 515,
+      "positive_concept_IoU": 0.4185991393165948,
+      "sigma2_bg_over_fg": 5.6569975221524,
+      "mu_fg_over_bg": 12.639599343455028,
+      "local_part_mu_over_other_object": 20.923412498913432,
+      "local_other_object_sigma2_over_part": 2.54831882152507
+    },
+    "text": {
+      "n_positive_pairs": 432,
+      "n_local_pairs": 430,
+      "positive_concept_IoU": 0.015470079691005056,
+      "sigma2_bg_over_fg": 5.749059316784823,
+      "mu_fg_over_bg": 9.160185238232119,
+      "local_part_mu_over_other_object": 2.032663602399063,
+      "local_other_object_sigma2_over_part": 1.4899123234855933
+    },
+    "horns": {
+      "n_positive_pairs": 163,
+      "n_local_pairs": 163,
+      "positive_concept_IoU": 0.32165458519675755,
+      "sigma2_bg_over_fg": 5.927341961344393,
+      "mu_fg_over_bg": 7.539123449198665,
+      "local_part_mu_over_other_object": 13.397132136290148,
+      "local_other_object_sigma2_over_part": 1.1109847297034272
+    },
+    "floppy-ears": {
+      "n_positive_pairs": 203,
+      "n_local_pairs": 203,
+      "positive_concept_IoU": 0.44561660393025376,
+      "sigma2_bg_over_fg": 6.967921936912254,
+      "mu_fg_over_bg": 13.16852162815119,
+      "local_part_mu_over_other_object": 14.589754803129356,
+      "local_other_object_sigma2_over_part": 2.3816081669051385
+    },
+    "ears": {
+      "n_positive_pairs": 809,
+      "n_local_pairs": 806,
+      "positive_concept_IoU": 0.3638292087263072,
+      "sigma2_bg_over_fg": 5.820706666841575,
+      "mu_fg_over_bg": 9.521591870483848,
+      "local_part_mu_over_other_object": 19.827019154099705,
+      "local_other_object_sigma2_over_part": 1.9309977816206876
+    },
+    "colored-eyes": {
+      "n_positive_pairs": 269,
+      "n_local_pairs": 269,
+      "positive_concept_IoU": 0.0,
+      "sigma2_bg_over_fg": 5.801763661849242,
+      "mu_fg_over_bg": 17.52583130033529,
+      "local_part_mu_over_other_object": 1.6025491174636173,
+      "local_other_object_sigma2_over_part": 2.0879661016233535
+    },
+    "tail": {
+      "n_positive_pairs": 440,
+      "n_local_pairs": 437,
+      "positive_concept_IoU": 0.0,
+      "sigma2_bg_over_fg": 5.71731766666133,
+      "mu_fg_over_bg": 12.549019783061688,
+      "local_part_mu_over_other_object": 0.5071620209764696,
+      "local_other_object_sigma2_over_part": 0.9198981446856181
+    },
+    "mane": {
+      "n_positive_pairs": 173,
+      "n_local_pairs": 172,
+      "positive_concept_IoU": 0.25050291767988847,
+      "sigma2_bg_over_fg": 4.837284441313329,
+      "mu_fg_over_bg": 11.62342431842079,
+      "local_part_mu_over_other_object": 6.549076939871402,
+      "local_other_object_sigma2_over_part": 1.600684363179173
+    },
+    "beak": {
+      "n_positive_pairs": 201,
+      "n_local_pairs": 201,
+      "positive_concept_IoU": 0.0,
+      "sigma2_bg_over_fg": 5.890944139145106,
+      "mu_fg_over_bg": 45.20611112486052,
+      "local_part_mu_over_other_object": 0.320732002560782,
+      "local_other_object_sigma2_over_part": 1.3318981978157851
+    },
+    "hairy": {
+      "n_positive_pairs": 881,
+      "n_local_pairs": 0,
+      "positive_concept_IoU": 0.7348027037705905,
+      "sigma2_bg_over_fg": 10.041969127287354,
+      "mu_fg_over_bg": 8.277079747587429
+    },
+    "metallic": {
+      "n_positive_pairs": 794,
+      "n_local_pairs": 0,
+      "positive_concept_IoU": 0.7396195752219894,
+      "sigma2_bg_over_fg": 8.736902681893586,
+      "mu_fg_over_bg": 10.534737982481333
+    },
+    "rectangular": {
+      "n_positive_pairs": 628,
+      "n_local_pairs": 0,
+      "positive_concept_IoU": 0.7382702301687896,
+      "sigma2_bg_over_fg": 8.123732920391477,
+      "mu_fg_over_bg": 10.858477449257542
+    },
+    "wet": {
+      "n_positive_pairs": 351,
+      "n_local_pairs": 0,
+      "positive_concept_IoU": 0.7003160471703405,
+      "sigma2_bg_over_fg": 7.90935197981099,
+      "mu_fg_over_bg": 16.043534864008215
+    },
+    "long": {
+      "n_positive_pairs": 618,
+      "n_local_pairs": 0,
+      "positive_concept_IoU": 0.6901790626404785,
+      "sigma2_bg_over_fg": 8.717007811025777,
+      "mu_fg_over_bg": 11.286583772741032
+    },
+    "tall": {
+      "n_positive_pairs": 542,
+      "n_local_pairs": 0,
+      "positive_concept_IoU": 0.6983912748137329,
+      "sigma2_bg_over_fg": 8.866334220985387,
+      "mu_fg_over_bg": 10.586905338335042
+    },
+    "patterned": {
+      "n_positive_pairs": 1112,
+      "n_local_pairs": 0,
+      "positive_concept_IoU": 0.707085973408462,
+      "sigma2_bg_over_fg": 8.662727204164337,
+      "mu_fg_over_bg": 12.327201149073838
+    }
+  },
+  "inference_gt_mask_inputs": false,
+  "protocol": "All native positive/valid concepts on validation images with nonempty foreground/background. IoU uses native 224 masks, nearest 16-patch predictions. Local parts use object intersection, and cover less than 95% of the object; means compare physical RGB fields without rescaling."
+}

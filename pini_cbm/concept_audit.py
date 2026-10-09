@@ -11,7 +11,7 @@ def main():
     arrays,splits,labels,records=load_cache('artifacts/rival_vitl14')
     yv=np.array(arrays['attrs'][splits['val']]);yt=np.array(arrays['attrs'][splits['test']]);results={}
     names=['clean','local_clean','mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','mean_separate_heads','noise_separate_heads',
-           'local_mean','local_noise','full_joint_mean','full_joint_noise','region_clean','region_mean','region_noise']
+           'local_mean','local_noise','full_joint_mean','full_joint_noise','region_clean','region_mean','region_noise','fixed_mean','fixed_noise','region_seed43_mean','region_seed43_noise']
     for name in names:
         run=Path('artifacts/spatial_clean' if name=='clean' else 'artifacts/spatial_local' if name=='local_clean' else 'artifacts/spatial_region' if name=='region_clean' else 'artifacts/'+name)
         if not (run/'results.json').exists():continue

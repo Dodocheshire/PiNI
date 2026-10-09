@@ -1,0 +1,34 @@
+[
+  {
+    "selection_group": [
+      "noise_independent",
+      "noise_sequential",
+      "noise_joint",
+      "noise_separate_heads"
+    ],
+    "validation_mAP": {
+      "noise_independent": 0.9057246448100464,
+      "noise_sequential": 0.9102575905360568,
+      "noise_joint": 0.9077977696834915,
+      "noise_separate_heads": 0.911742700134534
+    },
+    "selected": "noise_separate_heads",
+    "selection_uses_test": false,
+    "MC8_metrics_verified_from_saved_predictions": true,
+    "head_sha256": "623b6b43e2c7bcfd58885bae412d6f06bbd4db7704130a346fb9a58becd04a58"
+  },
+  {
+    "selection_group": [
+      "local_noise",
+      "full_joint_noise"
+    ],
+    "validation_mAP": {
+      "local_noise": 0.9023919568781178,
+      "full_joint_noise": 0.9042433559641783
+    },
+    "selected": "full_joint_noise",
+    "selection_uses_test": false,
+    "MC8_metrics_verified_from_saved_predictions": true,
+    "head_sha256": "39cb2d0c2a4d324ca7e10baefa5b60185f8799f0a7da02acc565f5754a3bb2ef"
+  }
+]

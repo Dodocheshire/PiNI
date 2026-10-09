@@ -41,7 +41,7 @@ def real_view_predictions(noise,backbone,images,tokens,mode,suppress,batch,seed=
         rgb=torch.tensor(images[pos],dtype=torch.float32,device='cuda');tok=torch.tensor(tokens[pos],device='cuda').float()
         k=torch.tensor(ks,device='cuda');x,_,_,_=noise.perturb(rgb,tok,k,mode=mode,suppress=suppress)
         with torch.autocast('cuda',dtype=torch.float16):
-            z=backbone.encode_image(normalize(x),spatial=True);l,_,_=noise.concepts(z)
+            z=backbone.encode_image(normalize(x),spatial=True);l,_,_=noise.recognize(z,tok)
         probs[pos,ks]=l[torch.arange(len(k),device='cuda'),k].float().sigmoid().cpu().numpy()
     return probs
 

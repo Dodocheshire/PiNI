@@ -9,10 +9,12 @@ import numpy as np
 
 COLORS=dict(clean='#0072B2',mask='#56B4E9',mean='#009E73',noise='#E69F00',joint='#D55E00',separate='#CC79A7')
 LABELS={'clean':'Clean','mask_sequential':'Mask only','mean_sequential':'Mean only','noise_sequential':'Gaussian (MC1)',
+        'local_clean':'Local clean','region_clean':'Region clean',
         'noise_sequential_same_checkpoint_mean':'Gaussian checkpoint, mean inference',
         'local_mean':'Local mean','local_noise':'Local Gaussian','local_noise_same_checkpoint_mean':'Local Gaussian checkpoint, mean',
         'full_joint_mean':'Full joint mean','full_joint_noise':'Full joint Gaussian','full_joint_noise_same_checkpoint_mean':'Full joint Gaussian checkpoint, mean',
-        'region_mean':'Region mean','region_noise':'Region Gaussian','region_noise_same_checkpoint_mean':'Region Gaussian checkpoint, mean'}
+        'region_mean':'Region mean','region_noise':'Region Gaussian','region_noise_same_checkpoint_mean':'Region Gaussian checkpoint, mean',
+        'fixed_mean':'Fixed-FG mean','fixed_noise':'Fixed-FG Gaussian','fixed_noise_same_checkpoint_mean':'Fixed-FG Gaussian checkpoint, mean'}
 
 
 def save(fig,path):
@@ -39,10 +41,42 @@ def main():
         ax.set_xlim(86,93);ax.set_xlabel('Native concept mAP (%)');ax.grid(axis='x',alpha=.2);ax.legend(fontsize=8)
         ax.set_title('Existing fitted head: isolated additive contributions\nDiagnostic only; no retraining or test calibration',fontsize=10)
         save(fig,out/'readout_path_diagnostic')
-    for folder,figure in [('background_intervention','background_results'),('background_intervention_local','background_local_results'),('background_intervention_region','background_region_results')]:
+    influence=[]
+    for name,label in [('noise_sequential','Sequential'),('region_noise','Region-coupled'),('fixed_noise','Fixed foreground')]:
+        path=out/(name+'_noise_region_intervention.json')
+        if path.exists():influence.append((label,json.loads(path.read_text())))
+    if influence:
+        fig,ax=plt.subplots(figsize=(7,3.6),layout='constrained');y=np.arange(len(influence))
+        for offset,key,color,label in [(-.15,'all',COLORS['clean'],'Full sampled noise'),(0,'foreground',COLORS['mean'],'Foreground-only noise'),(.15,'background',COLORS['noise'],'Background-only noise')]:
+            values=[np.sqrt(r['modes'][key]['mean_native_logit_variance']) for _,r in influence]
+            ax.scatter(values,y+offset,color=color,s=55,label=label)
+        ax.set_yticks(y,[label for label,_ in influence]);ax.invert_yaxis();ax.grid(axis='x',alpha=.2);ax.legend(fontsize=8)
+        ax.set_xlabel('RMS native-logit fluctuation over 8 paired draws')
+        ax.set_title('Where sampled noise affects recognition\nFixed validation images; GT only constructs external interventions',fontsize=10)
+        save(fig,out/'noise_region_influence')
+    drift=out/'foreground_drift.json'
+    if drift.exists():
+        data=json.loads(drift.read_text());rows=list(data['models'].items());y=np.arange(len(rows))
+        fig,axes=plt.subplots(1,2,figsize=(11,max(4,len(rows)*.4)),layout='constrained')
+        for j,(name,row) in enumerate(rows):
+            color=COLORS['noise' if 'noise' in name else 'mean' if 'mean' in name else 'clean']
+            axes[0].scatter(row['foreground_IoU']*100,j,color=color,s=50)
+            axes[1].scatter(row['foreground_probability_on_true_background']*100,j,color=color,s=50)
+        for ax in axes:ax.set_yticks(y,[name.replace('_',' ') for name,_ in rows]);ax.invert_yaxis();ax.grid(axis='x',alpha=.2);ax.set_xlim(0,100)
+        axes[0].axvline(data['all_foreground_IoU']*100,color='gray',linestyle='--',label='Predict all pixels foreground');axes[0].legend(fontsize=8)
+        axes[0].set_xlabel('Foreground IoU (%)');axes[1].set_xlabel('Mean foreground probability on true background (%)')
+        fig.suptitle('Does RGB adaptation preserve the foreground blocker?',fontsize=12);save(fig,out/'foreground_drift')
+    for folder,figure in [('background_intervention','background_results'),('background_intervention_local','background_local_results'),('background_intervention_region','background_region_results'),('background_intervention_fixed','background_fixed_results')]:
         bg=Path('artifacts')/folder/'results.json'
         if not bg.exists():continue
-        data=json.loads(bg.read_text());rows=list(data['models'].items());y=np.arange(len(rows))
+        data=json.loads(bg.read_text());models=dict(data['models'])
+        extra=Path('artifacts/background_clean_models/results.json')
+        baseline='local_clean' if folder=='background_intervention_local' else 'region_clean' if folder in ['background_intervention_region','background_intervention_fixed'] else None
+        if extra.exists() and baseline:
+            e=json.loads(extra.read_text());protocol=json.loads((bg.parent/'protocol.json').read_text())
+            assert protocol['ids']==e['reference_ids'] and protocol['donors']==e['reference_donors']
+            models[baseline]=e['models'][baseline]
+        rows=list(models.items());y=np.arange(len(rows))
         fig,axes=plt.subplots(1,2,figsize=(12,5),layout='constrained')
         for j,(name,row) in enumerate(rows):
             v=[row['original']['accuracy']*100,row['background_swap']['accuracy']*100]
@@ -63,6 +97,23 @@ def main():
         fig.suptitle(f"Fixed {data['n']}-image intervention — target foreground preserved; donor object removed",fontsize=12)
         save(fig,out/figure)
     uncertainty=out/'paired_uncertainty.json'
+    native_bg=out/'background_native_uncertainty.json'
+    if native_bg.exists():
+        comparisons=[];native=json.loads(native_bg.read_text())['pairs']
+        for folder,a,b,label in [('background_intervention','noise_sequential','mean_sequential','Sequential'),('background_intervention_local','local_noise','local_mean','Local'),('background_intervention_local','full_joint_noise','full_joint_mean','Full joint'),('background_intervention_region','region_noise','region_mean','Region seed 42'),('background_intervention_fixed','fixed_noise','fixed_mean','Fixed foreground'),('background_intervention_region_seed43','region_seed43_noise','region_seed43_mean','Region seed 43')]:
+            path=Path('artifacts')/folder/'results.json';key=a+'_minus_'+b
+            if path.exists() and key in native:
+                c=json.loads(path.read_text()).get('direct_noise_controls',{}).get(key+'_background_swap')
+                if c:comparisons.append((label,c,native[key]))
+        if comparisons:
+            fig,axes=plt.subplots(1,2,figsize=(10,3.8),layout='constrained');y=np.arange(len(comparisons))
+            errors(axes[0],y,[c['difference_pp'] for _,c,_ in comparisons],[c['CI95_pp'] for _,c,_ in comparisons],COLORS['noise'])
+            errors(axes[1],y,[n['mAP_difference_pp'] for _,_,n in comparisons],[n['mAP_CI95_pp'] for _,_,n in comparisons],COLORS['noise'])
+            for ax in axes:
+                ax.axvline(0,color='black',lw=1);ax.set_yticks(y,[label for label,_,_ in comparisons]);ax.invert_yaxis();ax.grid(axis='x',alpha=.2);ax.set_xlabel('Gaussian minus matched mean-only (pp)')
+            axes[0].set_title('Background-swap class accuracy');axes[1].set_title('Background-swap native concept mAP')
+            fig.suptitle('Noise increment under changed backgrounds: paired 95% intervals\nFixed 1,000 images; donor object removed; all 18 native concepts',fontsize=10)
+            save(fig,out/'background_noise_increment')
     if uncertainty.exists():
         data=json.loads(uncertainty.read_text());pairs=list(data['pairs'].items())
         if pairs:

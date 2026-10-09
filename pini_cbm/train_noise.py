@@ -49,7 +49,7 @@ def predict_views(noise, backbone, arrays, rgb_cache, ids, mode, suppress, batch
             x,mu,sigma,gate=noise.perturb(rgb,tokens,k,mode=mode,suppress=suppress)
             with torch.autocast('cuda',dtype=torch.float16):
                 out=backbone.encode_image(normalize(x),spatial=True)
-                logits,_,_=noise.concepts(out)
+                logits,_,_=noise.recognize(out,tokens)
                 samples.append(logits[torch.arange(len(k),device='cuda'),k].float().sigmoid())
         probs[pos,ks]=torch.stack(samples).mean(0).cpu().numpy()
         if start%12800==0:
@@ -67,21 +67,27 @@ def main():
     p.add_argument('--independent-heads',action='store_true');p.add_argument('--suppress',action='store_true')
     p.add_argument('--concept-local',action='store_true')
     p.add_argument('--mean-budget',type=float,default=0.0)
-    p.add_argument('--mc-test',type=int,default=1);a=p.parse_args()
-    torch.set_num_threads(6);torch.manual_seed(42);np.random.seed(42)
+    p.add_argument('--sigma-budget',type=float,default=0.0);p.add_argument('--fixed-foreground',action='store_true')
+    p.add_argument('--mc-test',type=int,default=1);p.add_argument('--seed',type=int,default=42);a=p.parse_args()
+    torch.set_num_threads(6);torch.manual_seed(a.seed);np.random.seed(a.seed)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     arrays,splits,labels,records=load_cache(a.cache);rgb=np.load(Path(a.cache)/'rgb.npy',mmap_mode='r')
     clean_checkpoint=torch.load(Path(a.clean)/'best.pt',map_location='cuda',weights_only=False)
     a.region_readout=clean_checkpoint.get('region_readout',False)
+    if a.fixed_foreground:assert a.region_readout and a.concept_local,'Fixed foreground requires region readout and concept-local perturbation'
     concepts=SpatialConcepts(torch.tensor(np.load(Path(a.cache)/'text.npy'),device='cuda'),region_readout=a.region_readout).cuda()
     concepts.load_state_dict(clean_checkpoint['model'])
-    noise=ConditionalRGBNoise(concepts,a.independent_heads,a.concept_local,a.mean_budget).cuda()
+    noise=ConditionalRGBNoise(concepts,a.independent_heads,a.concept_local,a.mean_budget,a.sigma_budget,a.fixed_foreground).cuda()
+    sentinel=batch_tensor(arrays['tokens'],splits['val'][:8]) if a.fixed_foreground else None
+    initial_foreground=noise.blocker(sentinel).detach().clone() if a.fixed_foreground else None
     if a.order=='independent':noise.concepts.requires_grad_(False)
     backbone,_=clip.load('ViT-L/14',device='cuda',jit=False);backbone.float().eval().requires_grad_(False)
     train=fixed_subset(splits['train'],labels,a.train_size);val_small=fixed_subset(splits['val'],labels,500,seed=45)
     (out/'protocol.json').write_text(json.dumps(dict(args=vars(a),train_ids=train.tolist(),val_selection_ids=val_small.tolist(),
         inference_annotation_inputs=False,noise_units='RGB [0,1]',selection='native concept validation mAP on fixed subset',
         mean_budget_rule='0.15*tanh(mean)*predicted gate' if a.mean_budget==0 else 'fixed RMS budget within squared predicted relevant support at 16x16; bilinear resize to RGB; no test tuning',
+        sigma_budget_rule='existing pointwise RGB bounds' if a.sigma_budget==0 else 'fixed aggregate RGB RMS per view after interpolation; set from paper units before training',
+        foreground_prior='separate frozen pretrained blocker for RGB gate and native region readout' if a.fixed_foreground else 'adapted foreground branch',
         sigma_constraints='0.008+(1-predicted foreground)*(0.08+0.12*sigmoid(std head))'+(' + foreground*(1-concept relevance)*0.025' if a.concept_local else ''),
         locality_regularization='positive-mask Dice weight 0.25 plus BCE' if a.concept_local else 'mask BCE only',
         joint_approximation='one sampled real concept view; other 17 current clean predictions detached for task loss'),indent=2))
@@ -95,7 +101,7 @@ def main():
     history=[];best=-1;t=time.time()
     if a.mode in ['clean','mask'] and a.order=='independent':a.epochs=0
     for epoch in range(a.epochs):
-        noise.train();rng=np.random.default_rng(180+epoch);order=rng.permutation(train);losses=[]
+        noise.train();rng=np.random.default_rng(180+epoch+1000*(a.seed-42));order=rng.permutation(train);losses=[]
         for start in range(0,len(order),a.batch):
             ids=order[start:start+a.batch];tokens=batch_tensor(arrays['tokens'],ids);images=batch_tensor(rgb,ids)/255
             ks=torch.tensor(rng.integers(0,18,size=len(ids)),device='cuda');ii=torch.arange(len(ids),device='cuda')
@@ -103,7 +109,7 @@ def main():
             x,mu,sigma,gate=noise.perturb(images,tokens,ks,mode=a.mode,suppress=a.suppress)
             with torch.autocast('cuda',dtype=torch.float16):
                 visual=backbone.encode_image(normalize(x),spatial=True)
-                all_logits,_,_=noise.concepts(visual)
+                all_logits,_,_=noise.recognize(visual,tokens)
                 loss=F.binary_cross_entropy_with_logits(all_logits[ii,ks].float(),target[ii,ks])
                 if a.region_readout and epoch==0 and start==0:
                     # Audit the native recognition path through actual RGB,
@@ -156,6 +162,7 @@ def main():
     torch.save(head,out/'head.pt');test_logits=head_predict(head,predictions['test']);np.save(out/'test_class_logits.npy',test_logits)
     result=dict(mode=a.mode,order=a.order,independent_heads=a.independent_heads,suppress=a.suppress,
                 concept_local=a.concept_local,region_readout=a.region_readout,mean_budget=a.mean_budget,
+                sigma_budget=a.sigma_budget,fixed_foreground=a.fixed_foreground,
                 best_epoch=best_epoch,concepts=metrics,head_grid=curve,head_selected=index,NEC=curve[index]['NEC'],
                 test_accuracy=float((test_logits.argmax(1)==labels[splits['test']]).mean()),n_test=len(splits['test']),
                 head_train_size=len(train),strict_bottleneck=True,train_labels_and_masks_used=True,inference_gt_masks=False)
@@ -168,6 +175,18 @@ def main():
             np.save(out/'test_MC'+str(a.mc_test)+'_probs.npy',mc)
             mc_logits=head_predict(head,mc);np.save(out/'test_MC'+str(a.mc_test)+'_class_logits.npy',mc_logits)
             result['MC'+str(a.mc_test)]=dict(accuracy=float((mc_logits.argmax(1)==labels[splits['test']]).mean()),**native_metrics(mc,np.array(arrays['attrs'][splits['test']])))
+    if a.fixed_foreground:
+        frozen_state=noise.blocker.state_dict()
+        weight_changes=[float((value-clean_checkpoint['model'][key]).abs().max()) for key,value in frozen_state.items()]
+        mask_change=float((noise.blocker(sentinel)-initial_foreground).abs().max())
+        assert max(weight_changes)==0 and mask_change==0
+        assert all(not p.requires_grad and p.grad is None for p in noise.blocker.parameters())
+        _,sigma,_=noise.distribution(sentinel,torch.arange(len(sentinel),device='cuda'))
+        audit=dict(foreground_source=str(Path(a.clean)/'best.pt'),frozen_parameter_count=sum(p.numel() for p in noise.blocker.parameters()),
+                   max_blocker_weight_change=max(weight_changes),max_fixed_validation_mask_change=mask_change,
+                   blocker_receives_optimization=False,actual_sigma_RGB_RMS=sigma.square().mean((1,2,3)).sqrt().detach().cpu().tolist(),
+                   sigma_budget=a.sigma_budget,inference_GT_masks=False)
+        (out/'blocker_audit.json').write_text(json.dumps(audit,indent=2));result['blocker_audit']=audit
     (out/'results.json').write_text(json.dumps(result,indent=2));print(json.dumps(result),flush=True)
 
 

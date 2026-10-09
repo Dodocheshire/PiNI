@@ -1,5 +1,6 @@
 """Spatial concepts and genuinely sampled RGB noise; no image-to-class bypass."""
 import math
+import copy
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -42,13 +43,14 @@ class SpatialConcepts(nn.Module):
         foreground = self.fg(h).squeeze(-1)
         return z, h, scores, masks, foreground
 
-    def forward(self, tokens):
+    def forward(self, tokens, foreground_prior=None):
         z, h, scores, masks, foreground = self.spatial(tokens)
         if self.region_readout:
             # Make the supervised, predicted region part of recognition itself.
             # Contextual CLIP patches may still contain global information, but
             # there is no direct CLS-vector contribution to the concept logit.
-            relevance = masks.sigmoid() * foreground[:, None].sigmoid()
+            probability = foreground.sigmoid() if foreground_prior is None else foreground_prior.reshape(len(tokens),256)
+            relevance = masks.sigmoid() * probability[:, None]
             attention = relevance / relevance.sum(-1, keepdim=True).clamp_min(1e-6)
         else:
             attention = (scores * 2).softmax(-1)
@@ -61,6 +63,8 @@ class SpatialConcepts(nn.Module):
             context = torch.zeros_like(context)
         features = torch.cat([context, pooled], -1)
         logits = torch.einsum('bkd,kd->bk', features, self.logit_weights) + self.logit_bias
+        if foreground_prior is not None:
+            foreground=torch.logit(foreground_prior.reshape(len(tokens),256).clamp(1e-6,1-1e-6))
         return logits, masks.reshape(-1, self.k, 16, 16), foreground.reshape(-1, 16, 16)
 
     def recognize_global(self, global_features, concept_ids):
@@ -72,6 +76,22 @@ class SpatialConcepts(nn.Module):
         return (torch.cat([z, z], -1) * w).sum(-1) + self.logit_bias[concept_ids]
 
 
+class FrozenForeground(nn.Module):
+    """A separate copy: neither RGB nor recognition losses can change it."""
+    def __init__(self, concepts):
+        super().__init__()
+        self.patch=copy.deepcopy(concepts.patch)
+        self.context=copy.deepcopy(concepts.context)
+        self.fg=copy.deepcopy(concepts.fg)
+        self.requires_grad_(False)
+
+    def forward(self,tokens):
+        with torch.autocast(tokens.device.type,enabled=False):
+            z=F.normalize(tokens.float(),dim=-1)
+            h=F.gelu(self.patch(z[:,1:])+self.context(z[:,:1]))
+            return self.fg(h).squeeze(-1).sigmoid().reshape(-1,16,16)
+
+
 class ConditionalRGBNoise(nn.Module):
     """Shared text-conditioned decoder or independent per-concept RGB heads.
 
@@ -79,7 +99,7 @@ class ConditionalRGBNoise(nn.Module):
     forward inputs. Noise protection/energy is an explicit architectural prior,
     not an assertion that CE spontaneously discovers foreground segmentation.
     """
-    def __init__(self, concepts, independent=False, concept_local=False, mean_budget=0.0):
+    def __init__(self, concepts, independent=False, concept_local=False, mean_budget=0.0, sigma_budget=0.0, fixed_foreground=False):
         super().__init__()
         self.concepts = concepts
         w = concepts.patch.out_features
@@ -88,6 +108,11 @@ class ConditionalRGBNoise(nn.Module):
         self.concept_local = concept_local
         self.mean_budget = float(mean_budget)
         self.register_buffer('_mean_budget', torch.tensor(self.mean_budget))
+        self.sigma_budget=float(sigma_budget)
+        self.register_buffer('_sigma_budget',torch.tensor(self.sigma_budget))
+        self.fixed_foreground=bool(fixed_foreground)
+        self.register_buffer('_fixed_foreground',torch.tensor(self.fixed_foreground,dtype=torch.bool))
+        self.blocker=FrozenForeground(concepts) if self.fixed_foreground else None
         self.mean = nn.Linear(w, 3 * k if independent else 3)
         self.std = nn.Linear(w, k if independent else 1)
         self.film = nn.Linear(concepts.texts.shape[1], w * 2)
@@ -97,17 +122,18 @@ class ConditionalRGBNoise(nn.Module):
             nn.init.normal_(self.mean.weight, std=.01)
 
     def _load_from_state_dict(self,state_dict,prefix,local_metadata,strict,missing_keys,unexpected_keys,error_msgs):
-        key=prefix+'_mean_budget'
-        if key not in state_dict:
-            state_dict[key]=self._mean_budget.detach().clone()
-        self.mean_budget=float(state_dict[key].item())
+        for name in ['mean_budget','sigma_budget','fixed_foreground']:
+            key=prefix+'_'+name
+            if key not in state_dict:state_dict[key]=getattr(self,'_'+name).detach().clone()
+            setattr(self,name,bool(state_dict[key].item()) if name=='fixed_foreground' else float(state_dict[key].item()))
+        if self.fixed_foreground and self.blocker is None:self.blocker=FrozenForeground(self.concepts)
         super()._load_from_state_dict(state_dict,prefix,local_metadata,strict,missing_keys,unexpected_keys,error_msgs)
 
     def distribution(self, tokens, concept_ids):
         z, h, scores, masks, fg = self.concepts.spatial(tokens)
         batch = torch.arange(len(tokens), device=tokens.device)
         relevance = masks[batch, concept_ids].sigmoid()
-        object_gate = fg.sigmoid()
+        object_gate = self.blocker(tokens).flatten(1) if self.fixed_foreground else fg.sigmoid()
         # Preserve the foreground globally while modulating concept locality.
         gate = object_gate * (.5 + .5 * relevance)
         if self.independent:
@@ -137,8 +163,17 @@ class ConditionalRGBNoise(nn.Module):
         up = lambda v: F.interpolate(v, (224, 224), mode='bilinear', align_corners=False)
         mu = up(mu.transpose(1, 2).reshape(-1, 3, 16, 16))
         sigma = up(sigma.reshape(-1, 1, 16, 16)).expand(-1, 3, -1, -1)
+        if self.sigma_budget>0:
+            # PiNI-inspired fixed aggregate RGB RMS, after interpolation.
+            rms=sigma.square().mean((1,2,3),keepdim=True).sqrt().clamp_min(1e-6)
+            sigma=self.sigma_budget*sigma/rms
         gate = up(gate.reshape(-1, 1, 16, 16))
         return mu, sigma, gate
+
+    def recognize(self,tokens,original_tokens=None):
+        if not self.fixed_foreground:return self.concepts(tokens)
+        assert original_tokens is not None,'Fixed foreground recognition needs its predicted original-image prior'
+        return self.concepts(tokens,foreground_prior=self.blocker(original_tokens))
 
     def perturb(self, rgb, tokens, concept_ids, mode='noise', epsilon=None, suppress=False):
         mu, sigma, gate = self.distribution(tokens, concept_ids)
