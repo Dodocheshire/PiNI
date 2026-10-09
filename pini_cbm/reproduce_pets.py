@@ -4,6 +4,7 @@ import hashlib
 import json
 import random
 import time
+import types
 from collections import defaultdict
 from pathlib import Path
 from types import SimpleNamespace as NS
@@ -15,8 +16,26 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms as T
 from clip import clip
+from clip.model import convert_weights
 from .data import MEAN, STD
 from .official import load_official
+
+
+def mean_image_sample(self,mu,variance,num=1):
+    return mu.expand(num,*mu.size()).transpose(0,1)
+
+
+def mean_prompt_sample(self,mu,variance,num=1):
+    return mu.expand(num,*mu.size())
+
+
+def set_sampling_mode(model,kind,mode):
+    """Only the declared mean control changes sampling; original code intact."""
+    if kind=='image':generators=[(model.vpnGenerator,mean_image_sample)]
+    else:generators=[(model.imageVpnGenerator,mean_image_sample),(model.promptVpnGenerator,mean_prompt_sample)]
+    for generator,replacement in generators:
+        if not hasattr(generator,'_original_sample'):generator._original_sample=generator.sample
+        generator.sample=types.MethodType(replacement,generator) if mode=='mean' else generator._original_sample
 
 
 def split_pets(root, seed):
@@ -88,24 +107,32 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--root',default='artifacts/data/oxford_pets/oxford-iiit-pet')
     p.add_argument('--kind',choices=['main','image'],default='main');p.add_argument('--epochs',type=int,default=200)
     p.add_argument('--batch',type=int,default=32);p.add_argument('--lr',type=float,default=.002)
-    p.add_argument('--seed',type=int,default=1);p.add_argument('--out');a=p.parse_args()
+    p.add_argument('--seed',type=int,default=1);p.add_argument('--out')
+    p.add_argument('--noise-mode',choices=['noise','mean'],default='noise')
+    p.add_argument('--precision',choices=['amp','fp16'],default='amp')
+    p.add_argument('--eval-batch',type=int,default=128);a=p.parse_args()
     torch.set_num_threads(6);torch.manual_seed(a.seed);np.random.seed(a.seed);random.seed(a.seed)
-    out=Path(a.out or 'artifacts/pets_'+a.kind+'_seed'+str(a.seed));out.mkdir(parents=True,exist_ok=True)
+    suffix=('_mean' if a.noise_mode=='mean' else '')+('_fp16' if a.precision=='fp16' else '')
+    out=Path(a.out or 'artifacts/pets_'+a.kind+suffix+'_seed'+str(a.seed));out.mkdir(parents=True,exist_ok=True)
     splits=split_pets(a.root,a.seed); encoded=json.dumps(splits,indent=2);(out/'split.json').write_text(encoded)
     names={r['label']:r['classname'] for r in splits['test']};names=[names[i] for i in range(37)]
-    loaders={s:DataLoader(PetsImages(rows,s=='train'),batch_size=a.batch if s=='train' else 128,
+    loaders={s:DataLoader(PetsImages(rows,s=='train'),batch_size=a.batch if s=='train' else a.eval_batch,
                          shuffle=s=='train',num_workers=4,pin_memory=True,drop_last=s=='train') for s,rows in splits.items()}
     classes,provenance=load_official('image' if a.kind=='image' else 'main')
-    backbone,_=clip.load('ViT-B/16',device='cuda',jit=False);backbone.float().eval().requires_grad_(False)
+    # Official construction initializes prompt embeddings on CPU, then moves
+    # the complete model to CUDA. Keep this order for CPU token indices.
+    backbone,_=clip.load('ViT-B/16',device='cpu',jit=False);backbone.float().eval().requires_grad_(False)
+    if a.precision=='fp16':convert_weights(backbone)
     cfg=NS(DATASET=NS(NAME='OxfordPets'),TRAINER=NS(CLIP_VPN=NS(REDUCTION=1)))
     model=classes.CustomCLIP(cfg,names,backbone).cuda()
+    set_sampling_mode(model,a.kind,a.noise_mode)
     params=[]
     for name,param in model.named_parameters():
         active=('vpnGenerator' in name) if a.kind=='image' else ('imageVpnGenerator' in name or 'promptVpnGenerator' in name)
         param.requires_grad_(active)
         if active:params.append(param)
     optim=torch.optim.SGD(params,lr=a.lr,momentum=.9,weight_decay=.0005)
-    scaler=torch.amp.GradScaler('cuda')
+    scaler=torch.amp.GradScaler('cuda',enabled=a.precision=='amp')
     history=[];best=-1;t=time.time()
     def checkpoint(epoch,path):
         state={k:v for k,v in model.state_dict().items() if 'vpnGenerator' in k or 'imageVpnGenerator' in k or 'promptVpnGenerator' in k}
@@ -116,9 +143,10 @@ def main():
         for group in optim.param_groups:group['lr']=lr
         for x,y in loaders['train']:
             x=x.cuda(non_blocking=True);y=y.cuda(non_blocking=True);optim.zero_grad()
-            with torch.autocast('cuda',dtype=torch.float16):
+            with torch.autocast('cuda',dtype=torch.float16,enabled=a.precision=='amp'):
                 logits=model(x,y) if a.kind=='image' else model(x)
-                loss=F.cross_entropy(logits.float(),y)
+                loss=F.cross_entropy(logits.float() if a.precision=='amp' else logits,y)
+            assert torch.isfinite(loss).item(), f'Nonfinite loss at epoch {epoch+1}; precision={a.precision}'
             scaler.scale(loss).backward();scaler.step(optim);scaler.update();losses.append(float(loss.detach()))
         row=dict(epoch=epoch+1,train_CE=float(np.mean(losses)),lr=lr,elapsed_s=round(time.time()-t,1))
         if (epoch+1)%10==0 or epoch==0 or epoch+1==a.epochs:
@@ -129,17 +157,28 @@ def main():
     # Published last-step convention: no choice based on test scores.
     test,preds=evaluate(model,loaders['test'],a.kind)
     np.save(out/'test_MC1_probs.npy',preds)
-    mc8,preds=evaluate(model,loaders['test'],a.kind,draws=8);np.save(out/'test_MC8_probs.npy',preds)
+    if a.noise_mode=='mean':
+        # Repeating a fully deterministic sampler yields the same probabilities.
+        mc8=dict(test);mc8_preds=preds.copy()
+    else:mc8,mc8_preds=evaluate(model,loaders['test'],a.kind,draws=8)
+    np.save(out/'test_MC8_probs.npy',mc8_preds)
     # float backbone requires autocast because it was made float for AMP.
     with torch.autocast('cuda',dtype=torch.float16):clean,probs=zero_shot(backbone,loaders['test'],names)
     np.save(out/'test_zero_shot_probs.npy',probs)
     results=dict(kind=a.kind,last_epoch=a.epochs,MC1=test,MC8=mc8,zero_shot=clean,
-                 official_paper_reference=.8951 if a.kind=='image' else .9297,
+                 official_paper_reference=(.8951 if a.kind=='image' else .9297) if a.noise_mode=='noise' else None,
+                 noise_mode=a.noise_mode,
                  seed=a.seed,shots=16,provenance=provenance,manifest_sha256=hashlib.sha256(encoded.encode()).hexdigest(),
-                 precision='fp32 master weights + torch AMP fp16; only original generators optimized',
+                 precision='fp32 master weights + torch AMP fp16; only original generators optimized' if a.precision=='amp' else 'original fp16 model/generators, direct fp16 CE/SGD, no scaler',
+                 evaluation_batch=a.eval_batch,
                  lr_configuration='Pets exact LR unpublished; fixed 0.002, no test tuning',
                  split_configuration='official split algorithm seeded 1; original published split file unavailable',
-                 changed_core_equations=False)
+                 changed_core_equations=a.noise_mode=='mean')
+    if a.noise_mode=='noise':
+        set_sampling_mode(model,a.kind,'mean')
+        mean_stats,mean_preds=evaluate(model,loaders['test'],a.kind)
+        np.save(out/'test_mean_probs.npy',mean_preds);results['same_checkpoint_mean']=mean_stats
+        set_sampling_mode(model,a.kind,'noise')
     (out/'results.json').write_text(json.dumps(results,indent=2));print(json.dumps(results),flush=True)
 
 

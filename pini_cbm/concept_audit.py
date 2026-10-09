@@ -10,7 +10,8 @@ from .train_spatial import load_cache
 def main():
     arrays,splits,labels,records=load_cache('artifacts/rival_vitl14')
     yv=np.array(arrays['attrs'][splits['val']]);yt=np.array(arrays['attrs'][splits['test']]);results={}
-    names=['clean','mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads']
+    names=['clean','mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads',
+           'local_mean','local_noise','full_joint_mean','full_joint_noise']
     for name in names:
         run=Path('artifacts/spatial_clean' if name=='clean' else 'artifacts/'+name)
         if not (run/'results.json').exists():continue

@@ -78,7 +78,8 @@ def main():
     train=fixed_subset(splits['train'],labels,a.train_size);val_small=fixed_subset(splits['val'],labels,500,seed=45)
     (out/'protocol.json').write_text(json.dumps(dict(args=vars(a),train_ids=train.tolist(),val_selection_ids=val_small.tolist(),
         inference_annotation_inputs=False,noise_units='RGB [0,1]',selection='native concept validation mAP on fixed subset',
-        sigma_constraints='0.008+(1-predicted foreground)*(0.08+0.12*sigmoid(std head))',
+        sigma_constraints='0.008+(1-predicted foreground)*(0.08+0.12*sigmoid(std head))'+(' + foreground*(1-concept relevance)*0.025' if a.concept_local else ''),
+        locality_regularization='positive-mask Dice weight 0.25 plus BCE' if a.concept_local else 'mask BCE only',
         joint_approximation='one sampled real concept view; other 17 current clean predictions detached for task loss'),indent=2))
     initial_head=torch.load(Path(a.clean)/'head.pt',map_location='cuda',weights_only=False)
     hw=initial_head['weight'].detach().clone().requires_grad_(a.order=='joint')
@@ -106,6 +107,12 @@ def main():
                     pred=torch.cat([mask,fg[:,None]],1)
                     ml=(F.binary_cross_entropy_with_logits(pred.float(),gt,reduction='none').mean((-1,-2))*valid).sum()/valid.sum().clamp_min(1)
                     loss=loss+.25*ml+.25*F.binary_cross_entropy_with_logits(anchors.float(),target)
+                    if a.concept_local:
+                        # Keep the local stage's positive-region constraint
+                        # during adaptation; absent/tiny masks can dominate BCE.
+                        present=(gt.sum((-1,-2))>0).float()*valid;prob=pred.float().sigmoid()
+                        dice=1-(2*(prob*gt).sum((-1,-2))+1)/(prob.sum((-1,-2))+gt.sum((-1,-2))+1)
+                        loss=loss+.25*(dice*present).sum()/present.sum().clamp_min(1)
                     if a.order=='joint':
                         cbm=anchors.float().sigmoid().detach().clone();cbm[ii,ks]=all_logits[ii,ks].float().sigmoid()
                         task=F.linear((cbm-initial_head['center'])/initial_head['scale'],hw,hb)

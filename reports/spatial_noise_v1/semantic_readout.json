@@ -1,0 +1,36 @@
+{
+  "NEC": 5.400000095367432,
+  "head_train_size": 6003,
+  "oracle_accuracy": 0.9245175936435869,
+  "models": {
+    "clean": {
+      "accuracy": 0.9861899356791525,
+      "binary_accuracy": 0.960272417707151
+    },
+    "mean_independent": {
+      "accuracy": 0.9702989027620129,
+      "binary_accuracy": 0.9413545213772229
+    },
+    "noise_independent": {
+      "accuracy": 0.9634884600832387,
+      "binary_accuracy": 0.93946273174423
+    },
+    "mask_sequential": {
+      "accuracy": 0.9877033673855468,
+      "binary_accuracy": 0.9619750283768445
+    },
+    "mean_sequential": {
+      "accuracy": 0.9858115777525539,
+      "binary_accuracy": 0.963677639046538
+    },
+    "noise_sequential": {
+      "accuracy": 0.9894059780552402,
+      "binary_accuracy": 0.9670828603859251
+    },
+    "noise_joint": {
+      "accuracy": 0.9854332198259553,
+      "binary_accuracy": 0.9551645856980704
+    }
+  },
+  "interpretation": "Same sparse head fitted only on native training GT labels for every learned model. Standard predicted-probability-fitted heads can exploit systematic concept errors/confidence; this audit does not."
+}

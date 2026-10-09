@@ -8,7 +8,8 @@ import numpy as np
 from .train_spatial import load_cache
 
 
-RUNS=['mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads']
+RUNS=['mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads',
+      'local_mean','local_noise','full_joint_mean','full_joint_noise']
 
 
 def pair_ci(a,b):
@@ -18,6 +19,10 @@ def pair_ci(a,b):
 
 
 def main():
+    # Refresh audits from the same completed snapshots as this report.
+    # These are CPU-only and their expensive bootstrap portions validate reuse.
+    from . import concept_audit,semantic_readout,uncertainty,official_controls,mechanism_figures
+    concept_audit.main();semantic_readout.main();uncertainty.main();official_controls.main();mechanism_figures.main()
     report=Path('reports/spatial_noise_v1');report.mkdir(parents=True,exist_ok=True)
     cache=Path('artifacts/rival_vitl14');arrays,splits,labels,records=load_cache(cache)
     clean=json.loads(Path('artifacts/spatial_clean/results.json').read_text())
@@ -33,15 +38,21 @@ def main():
         if 'joint' in name:row['color']='#D55E00'
         if 'separate' in name:row['color']='#CC79A7'
         rows.append(row)
-    fig,axes=plt.subplots(1,3,figsize=(max(11,len(rows)*1.3),4.6),layout='constrained')
+    local_audit=Path('artifacts/spatial_local/semantic_audit.json')
+    if local_audit.exists():
+        lc=json.loads(Path('artifacts/spatial_local/results.json').read_text());la=json.loads(local_audit.read_text())['matched_6000_continuous']
+        rows.append(dict(name='local clean matched head',test_accuracy=la['test_accuracy'],NEC=la['NEC'],concepts=lc['concepts'],color='#0072B2'))
+    fig,axes=plt.subplots(1,3,figsize=(14,max(4.8,len(rows)*.48+1.6)),layout='constrained')
     vals=[[r['test_accuracy']*100 for r in rows],[r['concepts']['test']['mAP']*100 for r in rows],[r['NEC'] for r in rows]]
     titles=['Classification accuracy (%)','Native concept mAP (%)','NEC (active connections / class)']
-    xs=np.arange(len(rows));names=[r['name'].replace('_','\n').replace(' matched head','\nmatched head') for r in rows]
+    xs=np.arange(len(rows));names=[r['name'].replace('_',' ') for r in rows]
     for ax,v,title in zip(axes,vals,titles):
-        bars=ax.bar(xs,v,color=[r['color'] for r in rows],width=.65)
-        ax.set_xticks(xs,names,fontsize=8);ax.set_title(title,fontsize=10);ax.grid(axis='y',alpha=.2);ax.set_axisbelow(True)
-        ax.set_ylim(0,100 if ax is not axes[2] else max(8,max(v)*1.2))
-        for bar,value in zip(bars,v):ax.annotate(f'{value:.2f}',(bar.get_x()+bar.get_width()/2,value),ha='center',va='bottom',fontsize=9)
+        ax.scatter(v,xs,color=[r['color'] for r in rows],s=60)
+        ax.set_yticks(xs,names if ax is axes[0] else ['']*len(names),fontsize=9);ax.invert_yaxis();ax.set_title(title,fontsize=10)
+        ax.grid(axis='x',alpha=.2);ax.set_axisbelow(True)
+        if ax is axes[2]:ax.set_xlim(0,max(8,max(v)*1.25))
+        else:ax.set_xlim(max(0,np.floor(min(v))-1),min(100,np.ceil(max(v))+2))
+        for y,value in zip(xs,v):ax.annotate(f'{value:.2f}',(value,y),xytext=(6,0),textcoords='offset points',ha='left',va='center',fontsize=9)
     fig.suptitle('RIVAL10 — full 5,286-image test; frozen ViT-L/14; 18 supervised native concepts',fontsize=12)
     for ext in ['png','svg','pdf']:fig.savefig(report/('main_results.'+ext),dpi=180)
     plt.close(fig)
@@ -66,8 +77,9 @@ def main():
     text+=['主体区域由带监督的 ViT/text 模型预测；高背景 σ 和前景 μ 保护包含显式结构先验。μ 表示主体门控之后的概念均值偏移；相对原图的总均值变化还包括背景抑制。图形证明实际机制实现，不证明这些区域是原始 PiNI 分类 CE 自发发现的，也不能单独证明随机噪声带来性能收益。','',
            '## 随机噪声的增量作用','']
     contrasts=[]
-    for order in ['independent','sequential']:
-        a=Path('artifacts')/('noise_'+order);b=Path('artifacts')/('mean_'+order)
+    for order,an,bn in [('independent','noise_independent','mean_independent'),('sequential','noise_sequential','mean_sequential'),
+                        ('local','local_noise','local_mean'),('full_joint','full_joint_noise','full_joint_mean')]:
+        a=Path('artifacts')/an;b=Path('artifacts')/bn
         if (a/'results.json').exists() and (b/'results.json').exists():
             ap=np.load(a/'test_class_logits.npy').argmax(1)==labels[splits['test']]
             bp=np.load(b/'test_class_logits.npy').argmax(1)==labels[splits['test']]
@@ -110,11 +122,11 @@ def main():
     text+=['官方神经网络类由原始源码 AST 无修改加载，冻结 CLIP，只训练原始生成器。Pets 专用 LR 和论文 split 文件未公开，本次固定 LR=0.002 并使用官方划分算法 seed 1；不宣称匹配作者未公开配置或三种子均值。','',
            '## 仍待完成','',
            ('V1 对照：'+', '.join(pending)) if pending else 'V1 训练方式与生成器对照已完成。','',
-           '联合训练采用单概念真实视图、其他 17 个当前干净概念概率作为 detach 锚的近似；最终评估使用全部 18 张真实概念视图。细粒度 V2、MC 稳定性与机制归因以对应完成记录为准；不能只用图像外观判断完成。','',
+           'V1 joint 采用单概念真实视图、其他 17 个当前干净概念概率作为 detach 锚的近似；full_joint 分类前向使用全部 18 张实际概念视图。细粒度 V2、MC 稳定性与机制归因以对应完成记录为准；不能只用图像外观判断完成。','',
            '训练可用原生概念和主体掩膜；推理没有真值掩膜。缺失的 39 张主体掩膜不参与对应定位损失/指标。所有性能数字来自固定测试集；当前属于单划分单种子探索实验，尚无跨数据集或多种子确认。','',
            '运行协议见 [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md)。真实缓存、完整预测、checkpoint 和日志保存在本机 ignored `artifacts/`，图表及简要结论入库。']
-    Path('EXPERIMENT_RESULT.md').write_text('\n'.join(text)+'\n')
-    Path('EXPERIMENT_REPORT.md').write_text('# PiNI 实验报告\n\n主要结果、目的、结论及真实加噪图见 [EXPERIMENT_RESULT.md](EXPERIMENT_RESULT.md)；固定实验协议见 [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md)。\n\n原始 PiNI 是分类适配方法，新增 `pini_cbm` 实现真实 RGB 加噪的概念瓶颈模型。官方源码文件保持不变，现代包装与可视化修正集中在新增模块。研究尚在进行，待完成项以结果文档为准。\n')
+    from .reporting import write_reports
+    write_reports(rows,pending,'\n'.join(text)+'\n')
     (report/'summary.json').write_text(json.dumps(dict(rows=rows,pending=pending,paired=contrasts),indent=2))
     print('Updated EXPERIMENT_RESULT.md; completed',len(rows),'pending',len(pending),flush=True)
 

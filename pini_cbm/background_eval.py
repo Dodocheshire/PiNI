@@ -4,6 +4,7 @@ GT masks construct the external intervention only. Donor foreground is removed
 before transplantation, preventing a second class object from being introduced.
 """
 import argparse
+import hashlib
 import json
 import pickle
 import time
@@ -46,11 +47,20 @@ def real_view_predictions(noise,backbone,images,tokens,mode,suppress,batch,seed=
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--runs',nargs='+',default=['artifacts/mean_sequential','artifacts/noise_sequential'])
+    p=argparse.ArgumentParser();p.add_argument('--runs',nargs='+',default=['artifacts/mask_sequential','artifacts/mean_sequential','artifacts/noise_sequential'])
     p.add_argument('--size',type=int,default=1000);p.add_argument('--batch',type=int,default=128)
     p.add_argument('--out',default='artifacts/background_intervention');a=p.parse_args()
     torch.set_num_threads(6);torch.manual_seed(42);out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     cache=Path('artifacts/rival_vitl14');arrays,splits,labels,records=load_cache(cache)
+    inputs=[Path('artifacts/spatial_clean/best.pt'),Path('artifacts/spatial_clean/matched_6000_continuous_head.pt')]
+    for name in a.runs:inputs += [Path(name)/'best.pt',Path(name)/'head.pt']
+    fingerprint={str(path):hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs}
+    fingerprint['implementation']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    fingerprint['manifest']=hashlib.sha256((cache/'manifest.json').read_bytes()).hexdigest()
+    if (out/'results.json').exists():
+        previous=json.loads((out/'results.json').read_text())
+        if previous.get('input_fingerprints')==fingerprint and previous.get('protocol_args')==vars(a):
+            print('Validated complete background intervention reused',flush=True);return
     rgb=np.load(cache/'rgb.npy',mmap_mode='r')
     eligible=splits['test'][arrays['mask_valid'][splits['test'],18]]
     ids=fixed_subset(eligible,labels,a.size,seed=46)
@@ -107,7 +117,8 @@ def main():
         original=np.load(out/(key+'_original_correct.npy'));swapped=np.load(out/(key+'_background_swap_correct.npy'))
         comparisons[key+'_swap_minus_original']=pair_ci(swapped,original)
         if key!='clean':comparisons[key+'_swap_minus_clean']=pair_ci(swapped,np.load(out/'clean_background_swap_correct.npy'))
-    result=dict(n=len(ids),models=models,paired=comparisons,strict_external_intervention=True)
+    result=dict(n=len(ids),models=models,paired=comparisons,strict_external_intervention=True,
+                input_fingerprints=fingerprint,protocol_args=vars(a))
     (out/'results.json').write_text(json.dumps(result,indent=2));print(json.dumps(result),flush=True)
 
 

@@ -1,4 +1,5 @@
 """Run preregistered matched controls under the shared GPU flock."""
+import argparse
 import json
 import subprocess
 import sys
@@ -6,6 +7,7 @@ from pathlib import Path
 
 
 def main():
+    p=argparse.ArgumentParser();p.add_argument('--own-lock',action='store_true');a=p.parse_args()
     jobs=[
         ('mean_independent','mean','independent',False),
         ('mask_sequential','mask','sequential',False),
@@ -21,6 +23,7 @@ def main():
             outcomes.append(dict(job=name,status='already complete'));continue
         args=[sys.executable,'-u','-m','pini_cbm.train_noise','--mode',mode,'--order',order,'--suppress','--out',str(out)]
         if independent_heads:args.append('--independent-heads')
+        if a.own_lock:args=['flock',str(Path('../D-Pi/artifacts/resources/gpu_work.lock').resolve())]+args
         print(json.dumps(dict(start=name,command=args)),flush=True)
         with (Path('artifacts')/(name+'.log')).open('w') as log:
             proc=subprocess.run(args,stdout=log,stderr=subprocess.STDOUT)

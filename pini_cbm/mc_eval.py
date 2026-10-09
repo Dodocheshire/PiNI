@@ -11,7 +11,8 @@ from .train_spatial import load_cache,head_predict
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--run');p.add_argument('--draws',type=int,default=8);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--run');p.add_argument('--draws',type=int,default=8)
+    p.add_argument('--selection-description',default='highest complete V1 validation native mAP');a=p.parse_args()
     if a.run:run=Path(a.run)
     else:
         names=['noise_independent','noise_sequential','noise_joint','noise_separate_heads']
@@ -31,7 +32,7 @@ def main():
     np.save(run/('test_MC'+str(a.draws)+'_probs.npy'),probs);np.save(run/('test_MC'+str(a.draws)+'_class_logits.npy'),logits)
     key='MC'+str(a.draws);result=json.loads((run/'results.json').read_text())
     result[key]=dict(accuracy=float((logits.argmax(1)==labels[splits['test']]).mean()),**native_metrics(probs,np.array(arrays['attrs'][splits['test']])),
-                    selection='highest complete V1 validation native mAP; original fitted head, no MC test tuning')
+                    selection=a.selection_description+'; original fitted head, no MC test tuning')
     (run/'results.json').write_text(json.dumps(result,indent=2));print(run,result[key],flush=True)
 
 

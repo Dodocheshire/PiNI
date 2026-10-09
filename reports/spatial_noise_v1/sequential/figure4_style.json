@@ -1,0 +1,82 @@
+{
+  "checkpoint": "artifacts/noise_sequential/best.pt",
+  "epoch": 2,
+  "sampling_seed": 1207,
+  "selection": "first sorted validation sample per fixed class/concept with positive native label",
+  "mu_scale": [
+    0,
+    0.014500369317829609
+  ],
+  "variance_scale": [
+    0,
+    0.014126301743090153
+  ],
+  "examples": [
+    {
+      "id": 18055,
+      "path": "/home/pengcheng/VLG-CBM/datasets/RIVAL10/train/ordinary/n03796401_ILSVRC2012_val_00038712.JPEG",
+      "concept": "wheels",
+      "clipping_fraction": 0.0,
+      "foreground_variance": 0.00016532996960449964,
+      "background_variance": 0.002041903557255864,
+      "foreground_mean_rms": 0.00394332455471158,
+      "background_mean_rms": 0.002763004507869482
+    },
+    {
+      "id": 12759,
+      "path": "/home/pengcheng/VLG-CBM/datasets/RIVAL10/train/ordinary/n02690373_ILSVRC2012_val_00034342.JPEG",
+      "concept": "wings",
+      "clipping_fraction": 0.0,
+      "foreground_variance": 0.00011615710536716506,
+      "background_variance": 0.004920576233416796,
+      "foreground_mean_rms": 0.010108454152941704,
+      "background_mean_rms": 0.005534454248845577
+    },
+    {
+      "id": 6376,
+      "path": "/home/pengcheng/VLG-CBM/datasets/RIVAL10/train/ordinary/n02123394_ILSVRC2012_val_00002036.JPEG",
+      "concept": "ears",
+      "clipping_fraction": 0.0,
+      "foreground_variance": 0.0002493478241376579,
+      "background_variance": 0.0016708278562873602,
+      "foreground_mean_rms": 0.007817733101546764,
+      "background_mean_rms": 0.005575657356530428
+    },
+    {
+      "id": 4266,
+      "path": "/home/pengcheng/VLG-CBM/datasets/RIVAL10/train/ordinary/n02099601_ILSVRC2012_val_00017672.JPEG",
+      "concept": "long-snout",
+      "clipping_fraction": 0.0,
+      "foreground_variance": 0.00024831140763126314,
+      "background_variance": 0.0025351890362799168,
+      "foreground_mean_rms": 0.00717590656131506,
+      "background_mean_rms": 0.004756839480251074
+    },
+    {
+      "id": 2136,
+      "path": "/home/pengcheng/VLG-CBM/datasets/RIVAL10/train/ordinary/n01644373_ILSVRC2012_val_00015245.JPEG",
+      "concept": "wet",
+      "clipping_fraction": 0.0001594387722434476,
+      "foreground_variance": 0.00018081961025018245,
+      "background_variance": 0.0023273855913430452,
+      "foreground_mean_rms": 0.008234241046011448,
+      "background_mean_rms": 0.003007760038599372
+    },
+    {
+      "id": 31,
+      "path": "/home/pengcheng/VLG-CBM/datasets/RIVAL10/train/ordinary/n01531178_ILSVRC2012_val_00032710.JPEG",
+      "concept": "beak",
+      "clipping_fraction": 0.0,
+      "foreground_variance": 0.00016835436690598726,
+      "background_variance": 0.0023139312397688627,
+      "foreground_mean_rms": 0.005618435796350241,
+      "background_mean_rms": 0.003932089079171419
+    }
+  ],
+  "inference_gt_mask_inputs": false,
+  "mean_unit": "RGB",
+  "variance_unit": "RGB squared",
+  "noise_amplification": 1,
+  "mean_reference": "Gaussian offset after predicted background suppression; total mean shift also includes gate attenuation",
+  "claim": "Visualization validates actual tensors and imposed/localized energy, not classification benefit by itself."
+}

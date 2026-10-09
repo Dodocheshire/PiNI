@@ -1,0 +1,130 @@
+{
+  "checkpoint": "artifacts/pets_image_seed1/last.pt",
+  "epoch": 200,
+  "sha256": "5044ac2d79e72902983f6648c3c6e6eb60ffad6276a87276211a702f7c5384d8",
+  "provenance": {
+    "source": "/home/pengcheng/Pi-CBM/PiNI/trainers/clip_vpn_cnn_image.py",
+    "sha256": "a34f653b6c894b0b9384ea8572c89135d9f73b8b86e2a0274852f186aba36b4f",
+    "upstream": "c6f89a4bcb76a33fc8ad3a7e7992b5c110630c00",
+    "definitions": "unmodified AST classes"
+  },
+  "sampling_seed": 4017,
+  "examples": [
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Abyssinian_109.jpg",
+      "fg_variance": 0.0007811844698153436,
+      "bg_variance": 0.0006331471377052367,
+      "fg_mu_rms": 0.025355737656354904,
+      "bg_mu_rms": 0.022534191608428955,
+      "clipping_fraction": 0.015086893923580647
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bombay_111.jpg",
+      "fg_variance": 0.00041157161467708647,
+      "bg_variance": 0.000801210873760283,
+      "fg_mu_rms": 0.022213203832507133,
+      "bg_mu_rms": 0.02619192562997341,
+      "clipping_fraction": 0.007261107675731182
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/german_shorthaired_115.jpg",
+      "fg_variance": 0.0007691096980124712,
+      "bg_variance": 0.0006634995224885643,
+      "fg_mu_rms": 0.020783917978405952,
+      "bg_mu_rms": 0.02805313840508461,
+      "clipping_fraction": 0.0030293366871774197
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/miniature_pinscher_101.jpg",
+      "fg_variance": 0.0007978990324772894,
+      "bg_variance": 0.0006465425249189138,
+      "fg_mu_rms": 0.020290452986955643,
+      "bg_mu_rms": 0.024328386411070824,
+      "clipping_fraction": 0.0022786457557231188
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/saint_bernard_100.jpg",
+      "fg_variance": 0.0008850260637700558,
+      "bg_variance": 0.0005722762434743345,
+      "fg_mu_rms": 0.021136995404958725,
+      "bg_mu_rms": 0.02619129605591297,
+      "clipping_fraction": 0.11176658421754837
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/wheaten_terrier_107.jpg",
+      "fg_variance": 0.0008256431319750845,
+      "bg_variance": 0.0006254601757973433,
+      "fg_mu_rms": 0.025667808949947357,
+      "bg_mu_rms": 0.021415969356894493,
+      "clipping_fraction": 0.042862456291913986
+    }
+  ],
+  "mu_channel_RMS": [
+    [
+      0.10000002384185791,
+      0.10000000894069672,
+      0.10000002384185791
+    ],
+    [
+      0.10000000894069672,
+      0.10000000894069672,
+      0.1000000387430191
+    ],
+    [
+      0.1000000461935997,
+      0.1000000461935997,
+      0.10000000149011612
+    ],
+    [
+      0.09999998658895493,
+      0.10000002384185791,
+      0.1000000461935997
+    ],
+    [
+      0.10000000149011612,
+      0.10000002384185791,
+      0.1000000387430191
+    ],
+    [
+      0.10000002384185791,
+      0.1000000387430191,
+      0.10000000894069672
+    ]
+  ],
+  "sigma_channel_RMS": [
+    [
+      0.1000000387430191,
+      0.10000002384185791,
+      0.10000001639127731
+    ],
+    [
+      0.09999997913837433,
+      0.09999998658895493,
+      0.1000000461935997
+    ],
+    [
+      0.10000000149011612,
+      0.10000000894069672,
+      0.10000007599592209
+    ],
+    [
+      0.10000001639127731,
+      0.10000001639127731,
+      0.10000000149011612
+    ],
+    [
+      0.10000001639127731,
+      0.09999997913837433,
+      0.1000000461935997
+    ],
+    [
+      0.10000002384185791,
+      0.10000002384185791,
+      0.10000000894069672
+    ]
+  ],
+  "no_amplification": true,
+  "mask_supervision": false,
+  "inference_gt_mask_inputs": false,
+  "selection": "first sorted validation file in six preselected classes"
+}

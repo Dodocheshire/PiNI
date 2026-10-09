@@ -1,0 +1,37 @@
+{
+  "path": "/home/pengcheng/VLG-CBM/datasets/RIVAL10/train/ordinary/n02099601_n02099601_10266.JPEG",
+  "id": 4312,
+  "checkpoint": "artifacts/noise_sequential/best.pt",
+  "checkpoint_sha256": "094df6eac314281f7cb3883e23b4767e5fc8f45caea285a0d97b26d2efcbae0c",
+  "epoch": 2,
+  "selection": "First sorted dog validation image positive for long-snout/ears/tail, with all masks valid; rule fixed before local models completed",
+  "sampling_seed": 1208,
+  "noise_amplification": 1,
+  "inference_gt_mask_inputs": false,
+  "examples": [
+    {
+      "concept": "long-snout",
+      "part_mu_rms": 0.008360360749065876,
+      "other_object_mu_rms": 0.007827467285096645,
+      "part_variance": 0.0001313007960561663,
+      "other_object_variance": 0.0003352565399836749,
+      "clipping_fraction": 0.0
+    },
+    {
+      "concept": "ears",
+      "part_mu_rms": 0.009359505027532578,
+      "other_object_mu_rms": 0.007677045650780201,
+      "part_variance": 0.00022407587675843388,
+      "other_object_variance": 0.0003235860785935074,
+      "clipping_fraction": 0.0
+    },
+    {
+      "concept": "tail",
+      "part_mu_rms": 0.01037673745304346,
+      "other_object_mu_rms": 0.009241992607712746,
+      "part_variance": 0.00019411416724324226,
+      "other_object_variance": 0.0003098621091339737,
+      "clipping_fraction": 0.0
+    }
+  ]
+}

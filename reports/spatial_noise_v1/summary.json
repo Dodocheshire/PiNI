@@ -234,13 +234,227 @@
       "inference_gt_masks": false,
       "name": "mask_sequential",
       "color": "#009E73"
+    },
+    {
+      "mode": "mean",
+      "order": "sequential",
+      "independent_heads": false,
+      "suppress": true,
+      "concept_local": false,
+      "best_epoch": 6,
+      "concepts": {
+        "train": {
+          "mAP": 0.9348946653559231,
+          "macro_precision": 0.8831877708435059,
+          "macro_recall": 0.9152890217085756
+        },
+        "val": {
+          "mAP": 0.914081068398057,
+          "macro_precision": 0.8713162541389465,
+          "macro_recall": 0.9048529055149468
+        },
+        "test": {
+          "mAP": 0.9122065073848115,
+          "macro_precision": 0.8699212670326233,
+          "macro_recall": 0.9028611069009109
+        }
+      },
+      "head_grid": [
+        {
+          "l1": 0.003,
+          "NEC": 4.400000095367432,
+          "val_accuracy": 0.9853150248527527,
+          "val_NLL": 0.06776201725006104
+        },
+        {
+          "l1": 0.01,
+          "NEC": 3.0,
+          "val_accuracy": 0.9819990396499634,
+          "val_NLL": 0.13032503426074982
+        },
+        {
+          "l1": 0.03,
+          "NEC": 2.299999952316284,
+          "val_accuracy": 0.9815253019332886,
+          "val_NLL": 0.29502344131469727
+        },
+        {
+          "l1": 0.06,
+          "NEC": 1.899999976158142,
+          "val_accuracy": 0.9668403267860413,
+          "val_NLL": 0.5444758534431458
+        },
+        {
+          "l1": 0.1,
+          "NEC": 1.3000000715255737,
+          "val_accuracy": 0.8720985054969788,
+          "val_NLL": 0.8740140199661255
+        }
+      ],
+      "head_selected": 0,
+      "NEC": 4.400000095367432,
+      "test_accuracy": 0.9869466515323496,
+      "n_test": 5286,
+      "head_train_size": 6003,
+      "strict_bottleneck": true,
+      "train_labels_and_masks_used": true,
+      "inference_gt_masks": false,
+      "name": "mean_sequential",
+      "color": "#009E73"
+    },
+    {
+      "mode": "noise",
+      "order": "sequential",
+      "independent_heads": false,
+      "suppress": true,
+      "concept_local": false,
+      "best_epoch": 2,
+      "concepts": {
+        "train": {
+          "mAP": 0.9310340141118087,
+          "macro_precision": 0.8743048310279846,
+          "macro_recall": 0.9170788691307012
+        },
+        "val": {
+          "mAP": 0.9102575905360568,
+          "macro_precision": 0.8696027398109436,
+          "macro_recall": 0.9154224489838645
+        },
+        "test": {
+          "mAP": 0.9106525093274674,
+          "macro_precision": 0.8684659004211426,
+          "macro_recall": 0.9076385587368532
+        }
+      },
+      "head_grid": [
+        {
+          "l1": 0.003,
+          "NEC": 4.200000286102295,
+          "val_accuracy": 0.989104688167572,
+          "val_NLL": 0.05894462391734123
+        },
+        {
+          "l1": 0.01,
+          "NEC": 3.0,
+          "val_accuracy": 0.9867361187934875,
+          "val_NLL": 0.11865993589162827
+        },
+        {
+          "l1": 0.03,
+          "NEC": 2.4000000953674316,
+          "val_accuracy": 0.9758408069610596,
+          "val_NLL": 0.28022390604019165
+        },
+        {
+          "l1": 0.06,
+          "NEC": 1.8000000715255737,
+          "val_accuracy": 0.9715774655342102,
+          "val_NLL": 0.5157921314239502
+        },
+        {
+          "l1": 0.1,
+          "NEC": 1.399999976158142,
+          "val_accuracy": 0.8825201392173767,
+          "val_NLL": 0.8283181190490723
+        }
+      ],
+      "head_selected": 0,
+      "NEC": 4.200000286102295,
+      "test_accuracy": 0.9930003783579266,
+      "n_test": 5286,
+      "head_train_size": 6003,
+      "strict_bottleneck": true,
+      "train_labels_and_masks_used": true,
+      "inference_gt_masks": false,
+      "same_checkpoint_mean": {
+        "accuracy": 0.9912977676882331,
+        "mAP": 0.911523614143936,
+        "macro_precision": 0.8674227595329285,
+        "macro_recall": 0.9024131467061256
+      },
+      "name": "noise_sequential",
+      "color": "#E69F00"
+    },
+    {
+      "mode": "noise",
+      "order": "joint",
+      "independent_heads": false,
+      "suppress": true,
+      "concept_local": false,
+      "best_epoch": 4,
+      "concepts": {
+        "train": {
+          "mAP": 0.9324650830994954,
+          "macro_precision": 0.882216215133667,
+          "macro_recall": 0.9035952197149307
+        },
+        "val": {
+          "mAP": 0.9077977696834915,
+          "macro_precision": 0.874396026134491,
+          "macro_recall": 0.8966816558897701
+        },
+        "test": {
+          "mAP": 0.9116321987653012,
+          "macro_precision": 0.8707456588745117,
+          "macro_recall": 0.8933172232150812
+        }
+      },
+      "head_grid": [
+        {
+          "l1": 0.003,
+          "NEC": 4.200000286102295,
+          "val_accuracy": 0.989578366279602,
+          "val_NLL": 0.061687469482421875
+        },
+        {
+          "l1": 0.01,
+          "NEC": 3.0,
+          "val_accuracy": 0.9848412871360779,
+          "val_NLL": 0.12482819706201553
+        },
+        {
+          "l1": 0.03,
+          "NEC": 2.200000047683716,
+          "val_accuracy": 0.9819990396499634,
+          "val_NLL": 0.2940670847892761
+        },
+        {
+          "l1": 0.06,
+          "NEC": 1.7000000476837158,
+          "val_accuracy": 0.9706300497055054,
+          "val_NLL": 0.5484721660614014
+        },
+        {
+          "l1": 0.1,
+          "NEC": 1.399999976158142,
+          "val_accuracy": 0.8829938173294067,
+          "val_NLL": 0.864287793636322
+        }
+      ],
+      "head_selected": 0,
+      "NEC": 4.200000286102295,
+      "test_accuracy": 0.9899735149451381,
+      "n_test": 5286,
+      "head_train_size": 6003,
+      "strict_bottleneck": true,
+      "train_labels_and_masks_used": true,
+      "inference_gt_masks": false,
+      "same_checkpoint_mean": {
+        "accuracy": 0.9871358304956489,
+        "mAP": 0.9123451656696228,
+        "macro_precision": 0.8726329803466797,
+        "macro_recall": 0.8844988684113805
+      },
+      "name": "noise_joint",
+      "color": "#D55E00"
     }
   ],
   "pending": [
-    "mean_sequential",
-    "noise_sequential",
-    "noise_joint",
-    "noise_separate_heads"
+    "noise_separate_heads",
+    "local_mean",
+    "local_noise",
+    "full_joint_mean",
+    "full_joint_noise"
   ],
   "paired": [
     {
@@ -249,6 +463,14 @@
       "CI95_pp": [
         -1.324252743094968,
         -0.4729474082482028
+      ]
+    },
+    {
+      "order": "sequential",
+      "difference_pp": 0.6053726825576996,
+      "CI95_pp": [
+        0.37788497919031405,
+        0.8702232311766931
       ]
     }
   ]
