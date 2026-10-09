@@ -19,5 +19,10 @@ temp*
 latexsource/
 .vscode/
 TODO.md
+/artifacts/
+/outputs/
+/.venv/
+__pycache__/
+!reports/**/*.pdf
 ~*
 *.brf
