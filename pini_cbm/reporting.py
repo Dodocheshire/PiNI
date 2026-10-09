@@ -33,7 +33,7 @@ def write_reports(rows,pending,detail):
             ci=train['CI95_pp'];si=sample['CI95_pp']
             txt+=[f"训练/推理拆分：随机训练模型改用均值推理，仍比 μ-only 训练高 {train['difference_pp']:+.2f} pp，CI [{ci[0]:+.2f}, {ci[1]:+.2f}]；同检查点单次随机采样比均值高 {sample['difference_pp']:+.2f} pp，CI [{si[0]:+.2f}, {si[1]:+.2f}]。这区分训练中的适配/正则化与推理中的随机扰动。",'']
     if Path('reports/spatial_noise_v1/noise_increment.png').exists():txt+=['![随机部分的增量](reports/spatial_noise_v1/noise_increment.png)','']
-    local_pairs=[(k,v) for k,v in uncertainty['pairs'].items() if k.startswith(('local_','full_joint_'))]
+    local_pairs=[(k,v) for k,v in uncertainty['pairs'].items() if k.startswith(('local_','full_joint_','region_','noise_separate_'))]
     for key,r in local_pairs:
         c=r['classification'];ci=c['CI95_pp'];mi=r['mAP_CI95_pp']
         txt+=[f"{key}：分类差 {c['difference_pp']:+.2f} pp，CI [{ci[0]:+.2f}, {ci[1]:+.2f}]；概念 mAP 差 {r['mAP_difference_pp']:+.2f} pp，CI [{mi[0]:+.2f}, {mi[1]:+.2f}]。",'']
@@ -41,6 +41,9 @@ def write_reports(rows,pending,detail):
     if local_clean and clean:
         l=local_clean['concepts']['test'];c=clean['concepts']['test']
         txt+=[f"局部区域监督本身：正概念区域 IoU 从 {c['concept_mask_IoU']*100:.2f}% 提高到 {l['concept_mask_IoU']*100:.2f}%，概念 mAP 从 {c['mAP']*100:.2f}% 变为 {l['mAP']*100:.2f}%。这些变化发生在加噪前，应与后续随机生成器收益分开。",'']
+    if Path('reports/spatial_noise_v1/readout_path_diagnostic.png').exists():
+        txt+=['定位与识别的路径检查：将已经训练好的概念头分解为 CLS 和区域聚合两项，分别测量排序能力。这是冻结权重的贡献诊断，不是重新训练的独立模型。局部掩膜更准并不保证识别真的依赖那个区域。','',
+              '![概念读出贡献诊断](reports/spatial_noise_v1/readout_path_diagnostic.png)','']
     mc_rows=[r for r in rows if 'MC8' in r]
     if mc_rows:
         txt+=['**采样稳定性：**按验证概念 mAP 选配置，再用原分类头评估八次采样均值，测试不参与选择。','',
@@ -48,7 +51,7 @@ def write_reports(rows,pending,detail):
         for r in mc_rows:
             mean=r.get('same_checkpoint_mean',{}).get('accuracy');mean='—' if mean is None else f'{mean*100:.2f}%'
             txt.append(f"| {r['name']} | {r['test_accuracy']*100:.2f}% | {r['MC8']['accuracy']*100:.2f}% | {r['MC8']['mAP']*100:.2f}% | {mean} |")
-        txt+=['','共享生成器与逐概念输出头容量不同；逐概念模型的同检查点 μ 诊断不替代分别训练的匹配 μ-only。','']
+        txt+=['','共享生成器与逐概念输出头容量不同；逐概念噪声必须与同容量 mean_separate_heads 比较，同检查点 μ 只用于推理诊断。','']
     txt+=['## 2. 是否减少背景干扰','',
           '**目的：**保留主体像素、移植异类背景并移除供体主体。真值掩膜仅构造外部干预，模型重新从换背景图像预测所有区域。','']
     bg=read('artifacts/background_intervention/results.json')
@@ -65,6 +68,12 @@ def write_reports(rows,pending,detail):
             if c:
                 ci=c['CI95_pp'];txt.append(f"| {name} | {c['difference_pp']:+.2f} pp | [{ci[0]:+.2f}, {ci[1]:+.2f}] |")
         txt+=['','局部与完整联合对照在同一批 1,000 张图、相同供体背景上评估；读数以实际配对区间为准。','']
+    region_bg=read('artifacts/background_intervention_region/results.json')
+    if region_bg:
+        txt+=['![区域识别背景互换](reports/spatial_noise_v1/background_region_results.png)','']
+        c=region_bg.get('direct_noise_controls',{}).get('region_noise_minus_region_mean_background_swap')
+        if c:
+            ci=c['CI95_pp'];txt+=[f"区域识别：换背景后噪声 − μ-only 分类差 {c['difference_pp']:+.2f} pp，CI [{ci[0]:+.2f}, {ci[1]:+.2f}]。",'']
     txt+=['## 3. 真实噪声是否形成预期空间分布','',
           '**目的：**展示未经放大的实际 μ、σ² 和采样图，检验主体均值与背景方差；同一图像不同概念另外比较。','']
     selected=read('reports/spatial_noise_final/selection.json')
@@ -77,6 +86,14 @@ def write_reports(rows,pending,detail):
         e=energy['summary'];p=e['part_localization']
         txt+=[f"**结论：**全 {e['n']} 个有效验证样本，背景方差/主体方差 {e['sigma2_bg_over_fg']:.2f}，主体 μ/背景 μ {e['mu_fg_over_bg']:.2f}；概念部位 μ/主体其他部位 {p['concept_mu_rms']/p['other_object_mu_rms']:.2f}。主体/背景模式已实现，细粒度概念增强应以区域统计和识别指标同时判断。",'']
     if Path(gallery+'/concept_conditioning.png').exists():txt+=[f'![同图不同概念]({gallery}/concept_conditioning.png)','']
+    region=read('artifacts/region_noise/results.json')
+    if region:
+        txt+=[f"区域读出版本：概念概率由预测主体×概念区域的 CLIP patch 聚合计算，直接 CLS 特征读出关闭；μ 使用预测区域内固定 RMS 预算 {region['mean_budget']:.5f} RGB（由 PiNI 的 0.1 CLIP 单位换算，训练前固定）。这同时改变读出结构和 μ 约束，应与它自己的 region_mean 对照比较。",'']
+        for filename,label in [('figure4_style.png','区域识别实际噪声'),('concept_conditioning.png','区域识别同图不同概念')]:
+            path='reports/spatial_noise_region/'+filename
+            if Path(path).exists():txt+=[f'![{label}]({path})','']
+    elif 'region_noise' in pending:
+        txt+=['区域读出版本仍在训练/排队：让概念识别依赖预测区域，并测试区域内固定 μ 能量。完成前不填写效果。','']
     txt+=['区域监督、主体保护和背景 σ 下限是新增方法的显式约束。μ 是门控后的偏移，总均值变化还包括背景衰减。视觉效果本身不能证明随机噪声收益。','',
           '## 4. 官方 PiNI 复现','',
           '**目的：**用官方原始模型类分别复验主方法与 Figure 4 的图像 CNN；OxfordPets 16-shot，200 轮，seed 1，完整 3,669 张测试。','',

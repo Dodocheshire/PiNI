@@ -22,26 +22,27 @@ def load_cache(path):
     return arrays, splits, labels, records
 
 
-def batch_tensor(array, ids):
-    return torch.from_numpy(np.array(array[ids], copy=True)).cuda(non_blocking=True).float()
+def batch_tensor(array, ids, device='cuda'):
+    return torch.from_numpy(np.array(array[ids], copy=True)).to(device,non_blocking=True).float()
 
 
 @torch.no_grad()
 def predict(model, arrays, ids, batch=256):
     model.eval(); logits=[]; ious=[]; partious=[]
+    device=next(model.parameters()).device
     for start in range(0,len(ids),batch):
         chunk=ids[start:start+batch]
-        l,m,f=model(batch_tensor(arrays['tokens'],chunk))
+        l,m,f=model(batch_tensor(arrays['tokens'],chunk,device))
         logits.append(l.cpu().numpy())
-        gt=batch_tensor(arrays['masks'],chunk)
-        valid=batch_tensor(arrays['mask_valid'],chunk).bool()
+        gt=batch_tensor(arrays['masks'],chunk,device)
+        valid=batch_tensor(arrays['mask_valid'],chunk,device).bool()
         pred=torch.cat([m,f[:,None]],1)>0
         # Fractional GT occupancy preserves the exact native 224px mask area
         # under nearest-upsampled 16px binary predictions, including tiny parts.
         intersection=(gt*pred).sum((-1,-2)); union=(gt+pred-gt*pred).sum((-1,-2)).clamp_min(1e-6)
         iou=intersection/union
         ious.extend(iou[:,18][valid[:,18]].cpu().tolist())
-        present=batch_tensor(arrays['attrs'],chunk).bool()&valid[:,:18]
+        present=batch_tensor(arrays['attrs'],chunk,device).bool()&valid[:,:18]
         partious.extend(iou[:,:18][present].cpu().tolist())
     logits=np.concatenate(logits)
     probs=1/(1+np.exp(-np.clip(logits,-30,30)))
@@ -89,11 +90,12 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--cache',default='artifacts/rival_vitl14')
     p.add_argument('--out',default='artifacts/spatial_clean');p.add_argument('--epochs',type=int,default=40)
     p.add_argument('--batch',type=int,default=128)
-    p.add_argument('--locality-loss',action='store_true'); a=p.parse_args()
+    p.add_argument('--locality-loss',action='store_true');p.add_argument('--region-readout',action='store_true')
+    p.add_argument('--device',choices=['cuda','cpu'],default='cuda');a=p.parse_args()
     torch.set_num_threads(6);torch.manual_seed(42);np.random.seed(42)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     arrays,splits,labels,records=load_cache(a.cache)
-    model=SpatialConcepts(torch.tensor(np.load(Path(a.cache)/'text.npy'),device='cuda')).cuda()
+    model=SpatialConcepts(torch.tensor(np.load(Path(a.cache)/'text.npy'),device=a.device),region_readout=a.region_readout).to(a.device)
     optim=torch.optim.AdamW(model.parameters(),lr=.003,weight_decay=.001)
     sched=torch.optim.lr_scheduler.CosineAnnealingLR(optim,a.epochs)
     train=splits['train'];history=[];best=-1;t=time.time()
@@ -101,9 +103,9 @@ def main():
         model.train();rng=np.random.default_rng(42+epoch);order=rng.permutation(train);losses=[]
         for start in range(0,len(order),a.batch):
             ids=order[start:start+a.batch]
-            logits,m,f=model(batch_tensor(arrays['tokens'],ids))
-            attrs=batch_tensor(arrays['attrs'],ids);gt=batch_tensor(arrays['masks'],ids)
-            valid=batch_tensor(arrays['mask_valid'],ids)
+            logits,m,f=model(batch_tensor(arrays['tokens'],ids,a.device))
+            attrs=batch_tensor(arrays['attrs'],ids,a.device);gt=batch_tensor(arrays['masks'],ids,a.device)
+            valid=batch_tensor(arrays['mask_valid'],ids,a.device)
             loss_c=F.binary_cross_entropy_with_logits(logits,attrs)
             predictions=torch.cat([m,f[:,None]],1)
             loss_m=(F.binary_cross_entropy_with_logits(predictions,gt,reduction='none').mean((-1,-2))*valid).sum()/valid.sum().clamp_min(1)
@@ -122,23 +124,23 @@ def main():
         score=metrics['mAP']+(.1*metrics['concept_mask_IoU'] if a.locality_loss else 0)
         if score>best:
             best=score;state=copy.deepcopy(model.state_dict());best_epoch=epoch+1
-            torch.save(dict(model=state,epoch=best_epoch,validation=metrics),out/'best.pt')
+            torch.save(dict(model=state,epoch=best_epoch,validation=metrics,region_readout=a.region_readout,args=vars(a)),out/'best.pt')
         (out/'history.json').write_text(json.dumps(history,indent=2))
     model.load_state_dict(state)
     predictions={};stats={}
     for s in ['train','val','test']:
         predictions[s],stats[s]=predict(model,arrays,splits[s]);np.save(out/(s+'_logits.npy'),predictions[s])
     probs={s:1/(1+np.exp(-np.clip(l,-30,30))) for s,l in predictions.items()}
-    head,curve,index=fit_head(probs['train'],labels[splits['train']],probs['val'],labels[splits['val']])
+    head,curve,index=fit_head(probs['train'],labels[splits['train']],probs['val'],labels[splits['val']],device=a.device)
     np.save(out/'test_class_logits.npy',head_predict(head,probs['test']))
     torch.save(head,out/'head.pt')
     result=dict(variant='clean spatial ViT-L/14 supervised CBM',best_epoch=best_epoch,
                 selection='validation mAP + 0.1 positive concept mask IoU' if a.locality_loss else 'validation native concept mAP',locality_loss=a.locality_loss,
-                concepts=stats,head_grid=curve,head_selected=index,
+                concepts=stats,head_grid=curve,head_selected=index,region_readout=a.region_readout,
                 test_accuracy=float((head_predict(head,probs['test']).argmax(1)==labels[splits['test']]).mean()),NEC=curve[index]['NEC'],
                 n_test=len(splits['test']),strict_bottleneck=True,mask_supervision=True)
     # Native concept oracle: a separate supervised ceiling, never a learned model.
-    oracle,oc,oi=fit_head(np.array(arrays['attrs'][splits['train']]),labels[splits['train']],np.array(arrays['attrs'][splits['val']]),labels[splits['val']])
+    oracle,oc,oi=fit_head(np.array(arrays['attrs'][splits['train']]),labels[splits['train']],np.array(arrays['attrs'][splits['val']]),labels[splits['val']],device=a.device)
     result['oracle']=dict(test_accuracy=float((head_predict(oracle,np.array(arrays['attrs'][splits['test']])).argmax(1)==labels[splits['test']]).mean()),NEC=oc[oi]['NEC'],head_grid=oc)
     (out/'results.json').write_text(json.dumps(result,indent=2));print(json.dumps(result),flush=True)
 

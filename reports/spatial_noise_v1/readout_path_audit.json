@@ -1,0 +1,461 @@
+{
+  "models": {
+    "spatial_clean": {
+      "checkpoint_sha256": "25c3a4590d36e0c4fcbe66b623ea6eb40e60713510eabd63af279e61d2cef7e7",
+      "epoch": 13,
+      "n_test": 5286,
+      "mAP": {
+        "CLS": 0.8807436633501864,
+        "region": 0.8999034715774555,
+        "combined": 0.9119486241463852
+      },
+      "per_concept": [
+        {
+          "name": "long-snout",
+          "AP": {
+            "CLS": 0.8815233340194104,
+            "region": 0.8765508825259881,
+            "combined": 0.8874587734231455
+          },
+          "CLS_weight_norm": 9.062722206115723,
+          "region_weight_norm": 12.828039169311523,
+          "CLS_logit_std": 1.0055819749832153,
+          "region_logit_std": 3.38236403465271
+        },
+        {
+          "name": "wings",
+          "AP": {
+            "CLS": 0.9215998085833819,
+            "region": 0.9477256353813921,
+            "combined": 0.9452295077691883
+          },
+          "CLS_weight_norm": 12.416116714477539,
+          "region_weight_norm": 16.54950714111328,
+          "CLS_logit_std": 1.2886247634887695,
+          "region_logit_std": 2.828047037124634
+        },
+        {
+          "name": "wheels",
+          "AP": {
+            "CLS": 0.9323625343041428,
+            "region": 0.9704062038969294,
+            "combined": 0.9770818896801063
+          },
+          "CLS_weight_norm": 12.129118919372559,
+          "region_weight_norm": 18.02638816833496,
+          "CLS_logit_std": 1.6392107009887695,
+          "region_logit_std": 3.9541637897491455
+        },
+        {
+          "name": "text",
+          "AP": {
+            "CLS": 0.8147913291958501,
+            "region": 0.8562696479927935,
+            "combined": 0.8708416101487616
+          },
+          "CLS_weight_norm": 9.652361869812012,
+          "region_weight_norm": 13.269267082214355,
+          "CLS_logit_std": 1.354583740234375,
+          "region_logit_std": 2.5903854370117188
+        },
+        {
+          "name": "horns",
+          "AP": {
+            "CLS": 0.933180257118391,
+            "region": 0.9380031942917305,
+            "combined": 0.95176921821332
+          },
+          "CLS_weight_norm": 11.210270881652832,
+          "region_weight_norm": 14.701671600341797,
+          "CLS_logit_std": 1.1960675716400146,
+          "region_logit_std": 2.4655346870422363
+        },
+        {
+          "name": "floppy-ears",
+          "AP": {
+            "CLS": 0.9748986455954861,
+            "region": 0.9718470924554308,
+            "combined": 0.9762290407275475
+          },
+          "CLS_weight_norm": 12.367960929870605,
+          "region_weight_norm": 15.576881408691406,
+          "CLS_logit_std": 1.3726216554641724,
+          "region_logit_std": 2.850430965423584
+        },
+        {
+          "name": "ears",
+          "AP": {
+            "CLS": 0.9529494616543388,
+            "region": 0.9749761332080046,
+            "combined": 0.9773281791890293
+          },
+          "CLS_weight_norm": 9.468547821044922,
+          "region_weight_norm": 15.917898178100586,
+          "CLS_logit_std": 1.3225082159042358,
+          "region_logit_std": 4.446445941925049
+        },
+        {
+          "name": "colored-eyes",
+          "AP": {
+            "CLS": 0.7453261184179606,
+            "region": 0.7533854046161985,
+            "combined": 0.7768229780798401
+          },
+          "CLS_weight_norm": 12.889171600341797,
+          "region_weight_norm": 14.407689094543457,
+          "CLS_logit_std": 1.3122068643569946,
+          "region_logit_std": 1.685375452041626
+        },
+        {
+          "name": "tail",
+          "AP": {
+            "CLS": 0.5405006991465424,
+            "region": 0.7759298595856773,
+            "combined": 0.7875357067219029
+          },
+          "CLS_weight_norm": 12.047505378723145,
+          "region_weight_norm": 14.190827369689941,
+          "CLS_logit_std": 1.4903708696365356,
+          "region_logit_std": 2.2051451206207275
+        },
+        {
+          "name": "mane",
+          "AP": {
+            "CLS": 0.8229364855371687,
+            "region": 0.8595621145659482,
+            "combined": 0.8550550148771194
+          },
+          "CLS_weight_norm": 9.29233169555664,
+          "region_weight_norm": 13.807405471801758,
+          "CLS_logit_std": 0.8852640986442566,
+          "region_logit_std": 2.4308347702026367
+        },
+        {
+          "name": "beak",
+          "AP": {
+            "CLS": 0.9818845166492581,
+            "region": 0.9639026054848645,
+            "combined": 0.9797435711077909
+          },
+          "CLS_weight_norm": 12.668998718261719,
+          "region_weight_norm": 15.987654685974121,
+          "CLS_logit_std": 1.3641841411590576,
+          "region_logit_std": 2.094383716583252
+        },
+        {
+          "name": "hairy",
+          "AP": {
+            "CLS": 0.9655556355713367,
+            "region": 0.9913680518146138,
+            "combined": 0.9935783824115436
+          },
+          "CLS_weight_norm": 11.889719009399414,
+          "region_weight_norm": 15.073568344116211,
+          "CLS_logit_std": 1.7852834463119507,
+          "region_logit_std": 3.7429349422454834
+        },
+        {
+          "name": "metallic",
+          "AP": {
+            "CLS": 0.9635955188787771,
+            "region": 0.9567983824109961,
+            "combined": 0.9634962173453208
+          },
+          "CLS_weight_norm": 10.382820129394531,
+          "region_weight_norm": 14.151712417602539,
+          "CLS_logit_std": 1.6126136779785156,
+          "region_logit_std": 3.515904664993286
+        },
+        {
+          "name": "rectangular",
+          "AP": {
+            "CLS": 0.9096852340807539,
+            "region": 0.9161259689131068,
+            "combined": 0.9209058198996596
+          },
+          "CLS_weight_norm": 10.175714492797852,
+          "region_weight_norm": 12.98405933380127,
+          "CLS_logit_std": 1.478858470916748,
+          "region_logit_std": 2.8343448638916016
+        },
+        {
+          "name": "wet",
+          "AP": {
+            "CLS": 0.8426356026348034,
+            "region": 0.8143157748093032,
+            "combined": 0.8430248396141524
+          },
+          "CLS_weight_norm": 14.941093444824219,
+          "region_weight_norm": 14.81020736694336,
+          "CLS_logit_std": 1.4448795318603516,
+          "region_logit_std": 1.685805082321167
+        },
+        {
+          "name": "long",
+          "AP": {
+            "CLS": 0.926611340308374,
+            "region": 0.9246351390903295,
+            "combined": 0.9337768256963861
+          },
+          "CLS_weight_norm": 9.815709114074707,
+          "region_weight_norm": 13.409138679504395,
+          "CLS_logit_std": 1.4019975662231445,
+          "region_logit_std": 3.159027338027954
+        },
+        {
+          "name": "tall",
+          "AP": {
+            "CLS": 0.9136719788834741,
+            "region": 0.9161334207587807,
+            "combined": 0.9248984075351043
+          },
+          "CLS_weight_norm": 10.662449836730957,
+          "region_weight_norm": 13.909934043884277,
+          "CLS_logit_std": 1.3174004554748535,
+          "region_logit_std": 3.0037760734558105
+        },
+        {
+          "name": "patterned",
+          "AP": {
+            "CLS": 0.829677439723904,
+            "region": 0.7903269765921096,
+            "combined": 0.8502992521950138
+          },
+          "CLS_weight_norm": 14.27568244934082,
+          "region_weight_norm": 14.497284889221191,
+          "CLS_logit_std": 1.161307454109192,
+          "region_logit_std": 0.6520551443099976
+        }
+      ]
+    },
+    "spatial_local": {
+      "checkpoint_sha256": "15ecc240aca5653f8db6c5860827e0221d411707ec10aab40095db99562078bd",
+      "epoch": 12,
+      "n_test": 5286,
+      "mAP": {
+        "CLS": 0.89136487144693,
+        "region": 0.8896982083971441,
+        "combined": 0.9065502440272554
+      },
+      "per_concept": [
+        {
+          "name": "long-snout",
+          "AP": {
+            "CLS": 0.846818565479913,
+            "region": 0.8660561682023548,
+            "combined": 0.8692135204643886
+          },
+          "CLS_weight_norm": 17.20091438293457,
+          "region_weight_norm": 15.986106872558594,
+          "CLS_logit_std": 2.0104849338531494,
+          "region_logit_std": 1.5910365581512451
+        },
+        {
+          "name": "wings",
+          "AP": {
+            "CLS": 0.9325309708593731,
+            "region": 0.9501294380615414,
+            "combined": 0.9506946408969418
+          },
+          "CLS_weight_norm": 16.086811065673828,
+          "region_weight_norm": 19.137178421020508,
+          "CLS_logit_std": 1.7275164127349854,
+          "region_logit_std": 2.05061674118042
+        },
+        {
+          "name": "wheels",
+          "AP": {
+            "CLS": 0.960702275961464,
+            "region": 0.9634380788708252,
+            "combined": 0.9735308501405788
+          },
+          "CLS_weight_norm": 14.985097885131836,
+          "region_weight_norm": 20.536497116088867,
+          "CLS_logit_std": 2.038182497024536,
+          "region_logit_std": 2.6796929836273193
+        },
+        {
+          "name": "text",
+          "AP": {
+            "CLS": 0.8305277534872879,
+            "region": 0.8185336841242761,
+            "combined": 0.8610994879543401
+          },
+          "CLS_weight_norm": 14.789127349853516,
+          "region_weight_norm": 15.70268440246582,
+          "CLS_logit_std": 2.0257208347320557,
+          "region_logit_std": 1.5114339590072632
+        },
+        {
+          "name": "horns",
+          "AP": {
+            "CLS": 0.9395473415954081,
+            "region": 0.9405826921583615,
+            "combined": 0.9527812663036884
+          },
+          "CLS_weight_norm": 14.241215705871582,
+          "region_weight_norm": 16.389333724975586,
+          "CLS_logit_std": 1.4462846517562866,
+          "region_logit_std": 1.6230871677398682
+        },
+        {
+          "name": "floppy-ears",
+          "AP": {
+            "CLS": 0.9738443395060904,
+            "region": 0.9719018423297401,
+            "combined": 0.977925679577565
+          },
+          "CLS_weight_norm": 16.761394500732422,
+          "region_weight_norm": 16.582904815673828,
+          "CLS_logit_std": 1.6965993642807007,
+          "region_logit_std": 1.718258023262024
+        },
+        {
+          "name": "ears",
+          "AP": {
+            "CLS": 0.9696654416659134,
+            "region": 0.9720216282157472,
+            "combined": 0.9753457910312969
+          },
+          "CLS_weight_norm": 14.981941223144531,
+          "region_weight_norm": 18.673290252685547,
+          "CLS_logit_std": 2.020319938659668,
+          "region_logit_std": 2.915637969970703
+        },
+        {
+          "name": "colored-eyes",
+          "AP": {
+            "CLS": 0.7435928257142829,
+            "region": 0.7149411387573608,
+            "combined": 0.7716307745985488
+          },
+          "CLS_weight_norm": 13.980345726013184,
+          "region_weight_norm": 14.754992485046387,
+          "CLS_logit_std": 1.4376804828643799,
+          "region_logit_std": 1.3050732612609863
+        },
+        {
+          "name": "tail",
+          "AP": {
+            "CLS": 0.6936961308346568,
+            "region": 0.678391500596508,
+            "combined": 0.7339706416692314
+          },
+          "CLS_weight_norm": 15.564682006835938,
+          "region_weight_norm": 16.293991088867188,
+          "CLS_logit_std": 1.5648317337036133,
+          "region_logit_std": 1.6729830503463745
+        },
+        {
+          "name": "mane",
+          "AP": {
+            "CLS": 0.820088031569195,
+            "region": 0.8588022006344389,
+            "combined": 0.8553541146276546
+          },
+          "CLS_weight_norm": 15.955821990966797,
+          "region_weight_norm": 16.285919189453125,
+          "CLS_logit_std": 1.3508926630020142,
+          "region_logit_std": 1.3715472221374512
+        },
+        {
+          "name": "beak",
+          "AP": {
+            "CLS": 0.9877853587681202,
+            "region": 0.9742224034212765,
+            "combined": 0.9838543347436453
+          },
+          "CLS_weight_norm": 13.43790054321289,
+          "region_weight_norm": 15.516532897949219,
+          "CLS_logit_std": 1.5153906345367432,
+          "region_logit_std": 1.724450945854187
+        },
+        {
+          "name": "hairy",
+          "AP": {
+            "CLS": 0.9915934643882637,
+            "region": 0.9932793784528181,
+            "combined": 0.9949787076435682
+          },
+          "CLS_weight_norm": 18.00729751586914,
+          "region_weight_norm": 19.58421516418457,
+          "CLS_logit_std": 2.8207035064697266,
+          "region_logit_std": 2.2588248252868652
+        },
+        {
+          "name": "metallic",
+          "AP": {
+            "CLS": 0.9617339495990013,
+            "region": 0.9489779571534418,
+            "combined": 0.9585881079731013
+          },
+          "CLS_weight_norm": 16.376977920532227,
+          "region_weight_norm": 16.281566619873047,
+          "CLS_logit_std": 2.8614540100097656,
+          "region_logit_std": 1.7627596855163574
+        },
+        {
+          "name": "rectangular",
+          "AP": {
+            "CLS": 0.904853161099585,
+            "region": 0.9169228506998739,
+            "combined": 0.918308337608077
+          },
+          "CLS_weight_norm": 13.992883682250977,
+          "region_weight_norm": 14.150830268859863,
+          "CLS_logit_std": 2.4197614192962646,
+          "region_logit_std": 1.499537706375122
+        },
+        {
+          "name": "wet",
+          "AP": {
+            "CLS": 0.8227708177143804,
+            "region": 0.807517139765535,
+            "combined": 0.8345590436268935
+          },
+          "CLS_weight_norm": 15.240887641906738,
+          "region_weight_norm": 15.102423667907715,
+          "CLS_logit_std": 1.4731391668319702,
+          "region_logit_std": 1.4124133586883545
+        },
+        {
+          "name": "long",
+          "AP": {
+            "CLS": 0.9251255613690319,
+            "region": 0.9127084392247453,
+            "combined": 0.9323191039878306
+          },
+          "CLS_weight_norm": 13.85922622680664,
+          "region_weight_norm": 14.227514266967773,
+          "CLS_logit_std": 2.274813652038574,
+          "region_logit_std": 1.4217742681503296
+        },
+        {
+          "name": "tall",
+          "AP": {
+            "CLS": 0.9048104835386316,
+            "region": 0.9044182736794472,
+            "combined": 0.9246691296804798
+          },
+          "CLS_weight_norm": 14.260919570922852,
+          "region_weight_norm": 15.244667053222656,
+          "CLS_logit_std": 2.1023497581481934,
+          "region_logit_std": 1.506127119064331
+        },
+        {
+          "name": "patterned",
+          "AP": {
+            "CLS": 0.8348812128941416,
+            "region": 0.8217229368003023,
+            "combined": 0.8490808599627648
+          },
+          "CLS_weight_norm": 13.858663558959961,
+          "region_weight_norm": 13.231945037841797,
+          "CLS_logit_std": 1.0358589887619019,
+          "region_logit_std": 0.7206667065620422
+        }
+      ]
+    }
+  },
+  "interpretation": "Ablations of additive contributions in the existing fitted head, not retrained standalone models. Better masks alone do not establish that the recognition/classification path relies on the indicated region. Spatial CLIP tokens are contextualized and can also contain global information."
+}

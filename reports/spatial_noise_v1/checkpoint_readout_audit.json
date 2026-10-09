@@ -1,0 +1,8 @@
+{
+  "historical_CLS_checkpoint_max_logit_delta_vs_saved_GPU_outputs": 1.049041748046875e-05,
+  "region_checkpoint_roundtrip_max_logit_delta": 0.0,
+  "actual_native_validation_images": 8,
+  "trained_region_checkpoint_epoch": 6,
+  "original_readout_preserved": true,
+  "regional_readout_restored": true
+}

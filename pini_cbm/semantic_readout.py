@@ -19,12 +19,12 @@ def main():
         (out/'fit.json').write_text(json.dumps(fit,indent=2))
     yt=np.array(arrays['attrs'][splits['test']]);target=labels[splits['test']]
     oracle=head_predict(head,yt);result=dict(NEC=fit['NEC'],head_train_size=len(ids),oracle_accuracy=float((oracle.argmax(1)==target).mean()),models={})
-    names=['clean','local_clean','mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads',
-           'local_mean','local_noise','full_joint_mean','full_joint_noise']
+    names=['clean','local_clean','mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','mean_separate_heads','noise_separate_heads',
+           'local_mean','local_noise','full_joint_mean','full_joint_noise','region_clean','region_mean','region_noise']
     for name in names:
-        run=Path('artifacts/spatial_clean' if name=='clean' else 'artifacts/spatial_local' if name=='local_clean' else 'artifacts/'+name)
+        run=Path('artifacts/spatial_clean' if name=='clean' else 'artifacts/spatial_local' if name=='local_clean' else 'artifacts/spatial_region' if name=='region_clean' else 'artifacts/'+name)
         if not (run/'results.json').exists():continue
-        if name in ['clean','local_clean']:probs=1/(1+np.exp(-np.clip(np.load(run/'test_logits.npy'),-30,30)))
+        if name in ['clean','local_clean','region_clean']:probs=1/(1+np.exp(-np.clip(np.load(run/'test_logits.npy'),-30,30)))
         else:probs=np.load(run/'test_probs.npy')
         logits=head_predict(head,probs);binary_logits=head_predict(head,(probs>=.5).astype('float32'))
         correct=logits.argmax(1)==target;np.save(out/(name+'_correct.npy'),correct)

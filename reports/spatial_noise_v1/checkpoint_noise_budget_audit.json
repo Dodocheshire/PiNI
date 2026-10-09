@@ -1,0 +1,18 @@
+{
+  "actual_validation_images": 8,
+  "historical_checkpoint": "noise_sequential",
+  "historical_field_max_absolute_changes": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "budget_RGB": 0.02686347473647816,
+  "regional_field_restore_max_absolute_changes": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "restored_region_readout": true,
+  "restored_mean_budget": 0.026863474398851395,
+  "noise_not_amplified": true
+}

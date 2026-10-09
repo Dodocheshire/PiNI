@@ -8,8 +8,8 @@ import numpy as np
 from .train_spatial import load_cache
 
 
-RUNS=['mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads',
-      'local_mean','local_noise','full_joint_mean','full_joint_noise']
+RUNS=['mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','mean_separate_heads','noise_separate_heads',
+      'local_mean','local_noise','full_joint_mean','full_joint_noise','region_mean','region_noise']
 
 
 def pair_ci(a,b):
@@ -34,7 +34,7 @@ def main():
         p=Path('artifacts')/name/'results.json'
         if not p.exists():pending.append(name);continue
         row=json.loads(p.read_text());row['name']=name
-        row['color']='#E69F00' if name.startswith('noise') else '#009E73'
+        row['color']='#E69F00' if 'noise' in name else '#009E73'
         if 'joint' in name:row['color']='#D55E00'
         if 'separate' in name:row['color']='#CC79A7'
         rows.append(row)
@@ -42,6 +42,10 @@ def main():
     if local_audit.exists():
         lc=json.loads(Path('artifacts/spatial_local/results.json').read_text());la=json.loads(local_audit.read_text())['matched_6000_continuous']
         rows.append(dict(name='local clean matched head',test_accuracy=la['test_accuracy'],NEC=la['NEC'],concepts=lc['concepts'],color='#0072B2'))
+    region_audit=Path('artifacts/spatial_region/semantic_audit.json')
+    if region_audit.exists():
+        rc=json.loads(Path('artifacts/spatial_region/results.json').read_text());ra=json.loads(region_audit.read_text())['matched_6000_continuous']
+        rows.append(dict(name='region clean matched head',test_accuracy=ra['test_accuracy'],NEC=ra['NEC'],concepts=rc['concepts'],color='#0072B2'))
     fig,axes=plt.subplots(1,3,figsize=(14,max(4.8,len(rows)*.48+1.6)),layout='constrained')
     vals=[[r['test_accuracy']*100 for r in rows],[r['concepts']['test']['mAP']*100 for r in rows],[r['NEC'] for r in rows]]
     titles=['Classification accuracy (%)','Native concept mAP (%)','NEC (active connections / class)']
@@ -78,7 +82,7 @@ def main():
            '## 随机噪声的增量作用','']
     contrasts=[]
     for order,an,bn in [('independent','noise_independent','mean_independent'),('sequential','noise_sequential','mean_sequential'),
-                        ('local','local_noise','local_mean'),('full_joint','full_joint_noise','full_joint_mean')]:
+                        ('local','local_noise','local_mean'),('full_joint','full_joint_noise','full_joint_mean'),('region','region_noise','region_mean')]:
         a=Path('artifacts')/an;b=Path('artifacts')/bn
         if (a/'results.json').exists() and (b/'results.json').exists():
             ap=np.load(a/'test_class_logits.npy').argmax(1)==labels[splits['test']]

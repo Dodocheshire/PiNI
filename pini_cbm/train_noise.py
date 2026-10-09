@@ -66,18 +66,22 @@ def main():
     p.add_argument('--batch',type=int,default=32);p.add_argument('--eval-batch',type=int,default=128)
     p.add_argument('--independent-heads',action='store_true');p.add_argument('--suppress',action='store_true')
     p.add_argument('--concept-local',action='store_true')
+    p.add_argument('--mean-budget',type=float,default=0.0)
     p.add_argument('--mc-test',type=int,default=1);a=p.parse_args()
     torch.set_num_threads(6);torch.manual_seed(42);np.random.seed(42)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     arrays,splits,labels,records=load_cache(a.cache);rgb=np.load(Path(a.cache)/'rgb.npy',mmap_mode='r')
-    concepts=SpatialConcepts(torch.tensor(np.load(Path(a.cache)/'text.npy'),device='cuda')).cuda()
-    concepts.load_state_dict(torch.load(Path(a.clean)/'best.pt',map_location='cuda',weights_only=False)['model'])
-    noise=ConditionalRGBNoise(concepts,a.independent_heads,a.concept_local).cuda()
+    clean_checkpoint=torch.load(Path(a.clean)/'best.pt',map_location='cuda',weights_only=False)
+    a.region_readout=clean_checkpoint.get('region_readout',False)
+    concepts=SpatialConcepts(torch.tensor(np.load(Path(a.cache)/'text.npy'),device='cuda'),region_readout=a.region_readout).cuda()
+    concepts.load_state_dict(clean_checkpoint['model'])
+    noise=ConditionalRGBNoise(concepts,a.independent_heads,a.concept_local,a.mean_budget).cuda()
     if a.order=='independent':noise.concepts.requires_grad_(False)
     backbone,_=clip.load('ViT-L/14',device='cuda',jit=False);backbone.float().eval().requires_grad_(False)
     train=fixed_subset(splits['train'],labels,a.train_size);val_small=fixed_subset(splits['val'],labels,500,seed=45)
     (out/'protocol.json').write_text(json.dumps(dict(args=vars(a),train_ids=train.tolist(),val_selection_ids=val_small.tolist(),
         inference_annotation_inputs=False,noise_units='RGB [0,1]',selection='native concept validation mAP on fixed subset',
+        mean_budget_rule='0.15*tanh(mean)*predicted gate' if a.mean_budget==0 else 'fixed RMS budget within squared predicted relevant support at 16x16; bilinear resize to RGB; no test tuning',
         sigma_constraints='0.008+(1-predicted foreground)*(0.08+0.12*sigmoid(std head))'+(' + foreground*(1-concept relevance)*0.025' if a.concept_local else ''),
         locality_regularization='positive-mask Dice weight 0.25 plus BCE' if a.concept_local else 'mask BCE only',
         joint_approximation='one sampled real concept view; other 17 current clean predictions detached for task loss'),indent=2))
@@ -101,6 +105,16 @@ def main():
                 visual=backbone.encode_image(normalize(x),spatial=True)
                 all_logits,_,_=noise.concepts(visual)
                 loss=F.binary_cross_entropy_with_logits(all_logits[ii,ks].float(),target[ii,ks])
+                if a.region_readout and epoch==0 and start==0:
+                    # Audit the native recognition path through actual RGB,
+                    # before adding any original-image/mask regularizer.
+                    cg=torch.autograd.grad(loss,[noise.mean.weight,noise.std.weight],retain_graph=True,allow_unused=True)
+                    ga=dict(mode=a.mode,actual_RGB_views=len(ids),mean_BCE_gradient_norm=0.0 if cg[0] is None else float(cg[0].float().norm()),
+                            sigma_BCE_gradient_norm=0.0 if cg[1] is None else float(cg[1].float().norm()),
+                            mean_budget=a.mean_budget,region_readout=True,gt_forward_inputs=False)
+                    assert np.isfinite(ga['mean_BCE_gradient_norm']) and ga['mean_BCE_gradient_norm']>0
+                    if a.mode=='noise':assert np.isfinite(ga['sigma_BCE_gradient_norm']) and ga['sigma_BCE_gradient_norm']>0
+                    (out/'recognition_gradient_audit.json').write_text(json.dumps(ga,indent=2));print(json.dumps(ga),flush=True)
                 if a.order!='independent':
                     anchors,mask,fg=noise.concepts(tokens)
                     gt=batch_tensor(arrays['masks'],ids);valid=batch_tensor(arrays['mask_valid'],ids)
@@ -141,7 +155,8 @@ def main():
     head,curve,index=fit_head(predictions['train'],labels[train],predictions['val'],labels[splits['val']])
     torch.save(head,out/'head.pt');test_logits=head_predict(head,predictions['test']);np.save(out/'test_class_logits.npy',test_logits)
     result=dict(mode=a.mode,order=a.order,independent_heads=a.independent_heads,suppress=a.suppress,
-                concept_local=a.concept_local,best_epoch=best_epoch,concepts=metrics,head_grid=curve,head_selected=index,NEC=curve[index]['NEC'],
+                concept_local=a.concept_local,region_readout=a.region_readout,mean_budget=a.mean_budget,
+                best_epoch=best_epoch,concepts=metrics,head_grid=curve,head_selected=index,NEC=curve[index]['NEC'],
                 test_accuracy=float((test_logits.argmax(1)==labels[splits['test']]).mean()),n_test=len(splits['test']),
                 head_train_size=len(train),strict_bottleneck=True,train_labels_and_masks_used=True,inference_gt_masks=False)
     if a.mode=='noise':

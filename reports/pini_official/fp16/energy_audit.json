@@ -1,0 +1,1056 @@
+{
+  "summary": {
+    "fg_variance": 0.000678514796336891,
+    "bg_variance": 0.0007269174730893047,
+    "fg_mu_rms": 0.023823498171709832,
+    "bg_mu_rms": 0.024124565331556765,
+    "n": 147,
+    "sigma2_bg_over_fg": 1.071336214057123,
+    "mu_fg_over_bg": 0.9875203073833991,
+    "fraction_images_bg_variance_greater": 0.5102040816326531,
+    "fraction_images_fg_mu_greater": 0.47619047619047616,
+    "checkpoint_epoch": 200,
+    "checkpoint_sha256": "8f9e4981ddf2ba7df2652b372b556db23415651db1f8154328112753b1982c23",
+    "training_precision": "fp16",
+    "inference": "original CNN, literal CUDA fp16",
+    "mask_supervision": false,
+    "gt_mask_usage": "OxfordPets native trimaps only for independent statistics, exclude boundary label3"
+  },
+  "per_image": [
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Abyssinian_140.jpg",
+      "fg_variance": 0.000603350403252989,
+      "bg_variance": 0.0007681965944357216,
+      "fg_mu_rms": 0.02331949770450592,
+      "bg_mu_rms": 0.02466008998453617
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Abyssinian_109.jpg",
+      "fg_variance": 0.0007551011512987316,
+      "bg_variance": 0.000660665740724653,
+      "fg_mu_rms": 0.02493211254477501,
+      "bg_mu_rms": 0.022747540846467018
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Abyssinian_119.jpg",
+      "fg_variance": 0.000540870416443795,
+      "bg_variance": 0.0008434524061158299,
+      "fg_mu_rms": 0.02180490829050541,
+      "bg_mu_rms": 0.02579924464225769
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Abyssinian_134.jpg",
+      "fg_variance": 0.0005556710530072451,
+      "bg_variance": 0.0009125493816100061,
+      "fg_mu_rms": 0.023096425458788872,
+      "bg_mu_rms": 0.02699931152164936
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_bulldog_171.jpg",
+      "fg_variance": 0.0006516720168292522,
+      "bg_variance": 0.0006627588882111013,
+      "fg_mu_rms": 0.02763749472796917,
+      "bg_mu_rms": 0.021894948557019234
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_bulldog_153.jpg",
+      "fg_variance": 0.0006477187853306532,
+      "bg_variance": 0.0008773687877692282,
+      "fg_mu_rms": 0.022209346294403076,
+      "bg_mu_rms": 0.025117555633187294
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_bulldog_106.jpg",
+      "fg_variance": 0.0006356860394589603,
+      "bg_variance": 0.0007166985305957496,
+      "fg_mu_rms": 0.024840332567691803,
+      "bg_mu_rms": 0.023880071938037872
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_bulldog_112.jpg",
+      "fg_variance": 0.0008445499697700143,
+      "bg_variance": 0.0005670445971190929,
+      "fg_mu_rms": 0.020111439749598503,
+      "bg_mu_rms": 0.02831358276307583
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_pit_bull_terrier_168.jpg",
+      "fg_variance": 0.00027380866231396794,
+      "bg_variance": 0.0008369314018636942,
+      "fg_mu_rms": 0.023751268163323402,
+      "bg_mu_rms": 0.024627622216939926
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_pit_bull_terrier_130.jpg",
+      "fg_variance": 0.0005553446826525033,
+      "bg_variance": 0.0010309874778613448,
+      "fg_mu_rms": 0.02643008343875408,
+      "bg_mu_rms": 0.02053661085665226
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_pit_bull_terrier_186.jpg",
+      "fg_variance": 0.0005728782853111625,
+      "bg_variance": 0.0007198979146778584,
+      "fg_mu_rms": 0.026040157303214073,
+      "bg_mu_rms": 0.024316931143403053
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/american_pit_bull_terrier_156.jpg",
+      "fg_variance": 0.0009251998853869736,
+      "bg_variance": 0.0005773270386271179,
+      "fg_mu_rms": 0.023946506902575493,
+      "bg_mu_rms": 0.02330895885825157
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/basset_hound_121.jpg",
+      "fg_variance": 0.000635951932054013,
+      "bg_variance": 0.0008000930538401008,
+      "fg_mu_rms": 0.02824115753173828,
+      "bg_mu_rms": 0.019289400428533554
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/basset_hound_158.jpg",
+      "fg_variance": 0.0006075715646147728,
+      "bg_variance": 0.0007221197010949254,
+      "fg_mu_rms": 0.028833357617259026,
+      "bg_mu_rms": 0.02209416590631008
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/basset_hound_137.jpg",
+      "fg_variance": 0.0005529886693693697,
+      "bg_variance": 0.0007388624362647533,
+      "fg_mu_rms": 0.022685566917061806,
+      "bg_mu_rms": 0.023892035707831383
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/basset_hound_183.jpg",
+      "fg_variance": 0.0006170743727125227,
+      "bg_variance": 0.0009694250184111297,
+      "fg_mu_rms": 0.019536778330802917,
+      "bg_mu_rms": 0.03300262242555618
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/beagle_116.jpg",
+      "fg_variance": 0.0008304815273731947,
+      "bg_variance": 0.0006134129944257438,
+      "fg_mu_rms": 0.029322894290089607,
+      "bg_mu_rms": 0.01323931198567152
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/beagle_126.jpg",
+      "fg_variance": 0.0006022584275342524,
+      "bg_variance": 0.0009386637830175459,
+      "fg_mu_rms": 0.021125439554452896,
+      "bg_mu_rms": 0.026989994570612907
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/beagle_15.jpg",
+      "fg_variance": 0.0005251941038295627,
+      "bg_variance": 0.0007432803395204246,
+      "fg_mu_rms": 0.02902768738567829,
+      "bg_mu_rms": 0.023406440392136574
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/beagle_124.jpg",
+      "fg_variance": 0.00043438232387416065,
+      "bg_variance": 0.0009562302147969604,
+      "fg_mu_rms": 0.028345610946416855,
+      "bg_mu_rms": 0.022287286818027496
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bengal_117.jpg",
+      "fg_variance": 0.0012513715773820877,
+      "bg_variance": 0.00043892645044252276,
+      "fg_mu_rms": 0.022554920986294746,
+      "bg_mu_rms": 0.026930643245577812
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bengal_163.jpg",
+      "fg_variance": 0.0007786246715113521,
+      "bg_variance": 0.0006913880351930857,
+      "fg_mu_rms": 0.0243188738822937,
+      "bg_mu_rms": 0.024510502815246582
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bengal_16.jpg",
+      "fg_variance": 0.0007749179494567215,
+      "bg_variance": 0.0006489355000667274,
+      "fg_mu_rms": 0.026901286095380783,
+      "bg_mu_rms": 0.01875339262187481
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bengal_165.jpg",
+      "fg_variance": 0.0005677748122252524,
+      "bg_variance": 0.0007967740530148149,
+      "fg_mu_rms": 0.027149472385644913,
+      "bg_mu_rms": 0.022955769672989845
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Birman_190.jpg",
+      "fg_variance": 0.0007081091753207147,
+      "bg_variance": 0.0007298228447325528,
+      "fg_mu_rms": 0.02738957293331623,
+      "bg_mu_rms": 0.01722630485892296
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Birman_150.jpg",
+      "fg_variance": 0.0008201159653253853,
+      "bg_variance": 0.00034730543848127127,
+      "fg_mu_rms": 0.025959286838769913,
+      "bg_mu_rms": 0.017792465165257454
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Birman_181.jpg",
+      "fg_variance": 0.0008944693254306912,
+      "bg_variance": 0.0001892524305731058,
+      "fg_mu_rms": 0.027334878221154213,
+      "bg_mu_rms": 0.009846623055636883
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Birman_178.jpg",
+      "fg_variance": 0.0007694327505305409,
+      "bg_variance": 0.0007217777892947197,
+      "fg_mu_rms": 0.0215699914842844,
+      "bg_mu_rms": 0.024641184136271477
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bombay_193.jpg",
+      "fg_variance": 0.0006140542100183666,
+      "bg_variance": 0.0007781147724017501,
+      "fg_mu_rms": 0.019877120852470398,
+      "bg_mu_rms": 0.026155009865760803
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bombay_123.jpg",
+      "fg_variance": 0.0007263083825819194,
+      "bg_variance": 0.0006678448989987373,
+      "fg_mu_rms": 0.019815722480416298,
+      "bg_mu_rms": 0.029441921040415764
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bombay_134.jpg",
+      "fg_variance": 0.0001785448257578537,
+      "bg_variance": 0.0009022370795719326,
+      "fg_mu_rms": 0.00968635082244873,
+      "bg_mu_rms": 0.030185801908373833
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Bombay_111.jpg",
+      "fg_variance": 0.0004181510303169489,
+      "bg_variance": 0.0008067599264904857,
+      "fg_mu_rms": 0.018182219937443733,
+      "bg_mu_rms": 0.027838733047246933
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/boxer_104.jpg",
+      "fg_variance": 0.0006174687296152115,
+      "bg_variance": 0.0007576195057481527,
+      "fg_mu_rms": 0.0243332888931036,
+      "bg_mu_rms": 0.02471139281988144
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/boxer_132.jpg",
+      "fg_variance": 0.000767370278481394,
+      "bg_variance": 0.00048120092833414674,
+      "fg_mu_rms": 0.01811608485877514,
+      "bg_mu_rms": 0.034000299870967865
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/boxer_100.jpg",
+      "fg_variance": 0.0007432692218571901,
+      "bg_variance": 0.0005694650462828577,
+      "fg_mu_rms": 0.02372548170387745,
+      "bg_mu_rms": 0.021949078887701035
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/boxer_18.jpg",
+      "fg_variance": 0.0007394287968054414,
+      "bg_variance": 0.0007105388212949038,
+      "fg_mu_rms": 0.04213620722293854,
+      "bg_mu_rms": 0.020890681073069572
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/British_Shorthair_129.jpg",
+      "fg_variance": 0.0005934799555689096,
+      "bg_variance": 0.0007477789185941219,
+      "fg_mu_rms": 0.016710475087165833,
+      "bg_mu_rms": 0.025974035263061523
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/British_Shorthair_100.jpg",
+      "fg_variance": 0.0009085007477551699,
+      "bg_variance": 0.0005644541815854609,
+      "fg_mu_rms": 0.01975877210497856,
+      "bg_mu_rms": 0.024332348257303238
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/British_Shorthair_120.jpg",
+      "fg_variance": 0.0005329206469468772,
+      "bg_variance": 0.0008539519039914012,
+      "fg_mu_rms": 0.023778848350048065,
+      "bg_mu_rms": 0.024104999378323555
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/British_Shorthair_108.jpg",
+      "fg_variance": 0.0004194998473394662,
+      "bg_variance": 0.0011766630923375487,
+      "fg_mu_rms": 0.022922644391655922,
+      "bg_mu_rms": 0.026435120031237602
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/chihuahua_155.jpg",
+      "fg_variance": 0.0006828797049820423,
+      "bg_variance": 0.0005782879306934774,
+      "fg_mu_rms": 0.02625114843249321,
+      "bg_mu_rms": 0.024588577449321747
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/chihuahua_122.jpg",
+      "fg_variance": 0.000613907934166491,
+      "bg_variance": 0.0007540071383118629,
+      "fg_mu_rms": 0.02766311727464199,
+      "bg_mu_rms": 0.022616012021899223
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/chihuahua_10.jpg",
+      "fg_variance": 0.0006499323062598705,
+      "bg_variance": 0.0009359271498396993,
+      "fg_mu_rms": 0.025325533002614975,
+      "bg_mu_rms": 0.021452412009239197
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/chihuahua_172.jpg",
+      "fg_variance": 0.0007952759624458849,
+      "bg_variance": 0.0007370096864178777,
+      "fg_mu_rms": 0.029143670573830605,
+      "bg_mu_rms": 0.022665660828351974
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Egyptian_Mau_15.jpg",
+      "fg_variance": 0.0006780576659366488,
+      "bg_variance": 0.0007163467817008495,
+      "fg_mu_rms": 0.030181964859366417,
+      "bg_mu_rms": 0.02324593998491764
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Egyptian_Mau_117.jpg",
+      "fg_variance": 0.0008723929640837014,
+      "bg_variance": 0.0006587855750694871,
+      "fg_mu_rms": 0.017721500247716904,
+      "bg_mu_rms": 0.026321016252040863
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Egyptian_Mau_189.jpg",
+      "fg_variance": 0.0016758599085733294,
+      "bg_variance": 0.0002147097693523392,
+      "fg_mu_rms": 0.03450019657611847,
+      "bg_mu_rms": 0.019902411848306656
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Egyptian_Mau_185.jpg",
+      "fg_variance": 0.0005692545091733336,
+      "bg_variance": 0.0008008457371033728,
+      "fg_mu_rms": 0.021543290466070175,
+      "bg_mu_rms": 0.025228949263691902
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_cocker_spaniel_130.jpg",
+      "fg_variance": 0.0004703165905084461,
+      "bg_variance": 0.0009309776360169053,
+      "fg_mu_rms": 0.02092829905450344,
+      "bg_mu_rms": 0.02385767549276352
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_cocker_spaniel_168.jpg",
+      "fg_variance": 0.0004797401197720319,
+      "bg_variance": 0.0007760343141853809,
+      "fg_mu_rms": 0.0180918350815773,
+      "bg_mu_rms": 0.025100458413362503
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_cocker_spaniel_10.jpg",
+      "fg_variance": 0.0009923146571964025,
+      "bg_variance": 0.00036602362524718046,
+      "fg_mu_rms": 0.03223932906985283,
+      "bg_mu_rms": 0.010652865283191204
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_cocker_spaniel_165.jpg",
+      "fg_variance": 0.0007590061868540943,
+      "bg_variance": 0.0006964754429645836,
+      "fg_mu_rms": 0.0241953507065773,
+      "bg_mu_rms": 0.02119758166372776
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_setter_122.jpg",
+      "fg_variance": 0.0005247513763606548,
+      "bg_variance": 0.0008869734592735767,
+      "fg_mu_rms": 0.024247698485851288,
+      "bg_mu_rms": 0.023766152560710907
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_setter_182.jpg",
+      "fg_variance": 0.0007565694977529347,
+      "bg_variance": 0.000719468283932656,
+      "fg_mu_rms": 0.025737138465046883,
+      "bg_mu_rms": 0.020371057093143463
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_setter_120.jpg",
+      "fg_variance": 0.0009375427616760135,
+      "bg_variance": 0.0005793076124973595,
+      "fg_mu_rms": 0.02678951993584633,
+      "bg_mu_rms": 0.022755559533834457
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/english_setter_102.jpg",
+      "fg_variance": 0.000482128350995481,
+      "bg_variance": 0.0009647883125580847,
+      "fg_mu_rms": 0.027893148362636566,
+      "bg_mu_rms": 0.021339820697903633
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/german_shorthaired_179.jpg",
+      "fg_variance": 0.0004960832302458584,
+      "bg_variance": 0.0010013673454523087,
+      "fg_mu_rms": 0.02239508181810379,
+      "bg_mu_rms": 0.02564402110874653
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/german_shorthaired_115.jpg",
+      "fg_variance": 0.000737180351279676,
+      "bg_variance": 0.0007156563806347549,
+      "fg_mu_rms": 0.016508394852280617,
+      "bg_mu_rms": 0.033467840403318405
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/german_shorthaired_149.jpg",
+      "fg_variance": 0.00027946775662712753,
+      "bg_variance": 0.0008363662054762244,
+      "fg_mu_rms": 0.016153564676642418,
+      "bg_mu_rms": 0.025353683158755302
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/german_shorthaired_16.jpg",
+      "fg_variance": 0.0008687794324941933,
+      "bg_variance": 0.0005524768494069576,
+      "fg_mu_rms": 0.022914204746484756,
+      "bg_mu_rms": 0.02414662390947342
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/great_pyrenees_126.jpg",
+      "fg_variance": 0.00040766230085864663,
+      "bg_variance": 0.0007673188811168075,
+      "fg_mu_rms": 0.028586495667696,
+      "bg_mu_rms": 0.023188291117548943
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/great_pyrenees_181.jpg",
+      "fg_variance": 0.0006336963851936162,
+      "bg_variance": 0.0015425841556861997,
+      "fg_mu_rms": 0.0252299252897501,
+      "bg_mu_rms": 0.018474135547876358
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/great_pyrenees_157.jpg",
+      "fg_variance": 0.0007588951848447323,
+      "bg_variance": 0.0006308520678430796,
+      "fg_mu_rms": 0.02588154561817646,
+      "bg_mu_rms": 0.020294709131121635
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/great_pyrenees_190.jpg",
+      "fg_variance": 0.0005010682507418096,
+      "bg_variance": 0.0009278457728214562,
+      "fg_mu_rms": 0.020068757236003876,
+      "bg_mu_rms": 0.0276945848017931
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/havanese_148.jpg",
+      "fg_variance": 0.00037419062573462725,
+      "bg_variance": 0.0009733620681799948,
+      "fg_mu_rms": 0.021170353516936302,
+      "bg_mu_rms": 0.02601381577551365
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/havanese_182.jpg",
+      "fg_variance": 0.000755956512875855,
+      "bg_variance": 0.0007229180773720145,
+      "fg_mu_rms": 0.024844639003276825,
+      "bg_mu_rms": 0.025868959724903107
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/havanese_189.jpg",
+      "fg_variance": 0.0002447031729388982,
+      "bg_variance": 0.0013879908947274089,
+      "fg_mu_rms": 0.01917707361280918,
+      "bg_mu_rms": 0.024934932589530945
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/havanese_118.jpg",
+      "fg_variance": 0.0005918776150792837,
+      "bg_variance": 0.0010607896838337183,
+      "fg_mu_rms": 0.026344744488596916,
+      "bg_mu_rms": 0.018984971567988396
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/japanese_chin_11.jpg",
+      "fg_variance": 0.0007260474376380444,
+      "bg_variance": 0.0006780620897188783,
+      "fg_mu_rms": 0.022947227582335472,
+      "bg_mu_rms": 0.027077242732048035
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/japanese_chin_174.jpg",
+      "fg_variance": 0.0006277266074903309,
+      "bg_variance": 0.0006720285164192319,
+      "fg_mu_rms": 0.022599946707487106,
+      "bg_mu_rms": 0.022551190108060837
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/japanese_chin_184.jpg",
+      "fg_variance": 0.00042779784416779876,
+      "bg_variance": 0.0010855980217456818,
+      "fg_mu_rms": 0.026950113475322723,
+      "bg_mu_rms": 0.022200830280780792
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/japanese_chin_183.jpg",
+      "fg_variance": 0.00029669649666175246,
+      "bg_variance": 0.0014120738487690687,
+      "fg_mu_rms": 0.022642185911536217,
+      "bg_mu_rms": 0.027214284986257553
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/keeshond_168.jpg",
+      "fg_variance": 0.000687868392560631,
+      "bg_variance": 0.0008141064317896962,
+      "fg_mu_rms": 0.02115476131439209,
+      "bg_mu_rms": 0.027454035356640816
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/keeshond_105.jpg",
+      "fg_variance": 0.0007077576010487974,
+      "bg_variance": 0.0007472155266441405,
+      "fg_mu_rms": 0.023320650681853294,
+      "bg_mu_rms": 0.023752421140670776
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/keeshond_129.jpg",
+      "fg_variance": 0.00040270661702379584,
+      "bg_variance": 0.0008869158336892724,
+      "fg_mu_rms": 0.01971791498363018,
+      "bg_mu_rms": 0.026718005537986755
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/keeshond_15.jpg",
+      "fg_variance": 0.00042403439874760807,
+      "bg_variance": 0.0009105452336370945,
+      "fg_mu_rms": 0.02074337936937809,
+      "bg_mu_rms": 0.02487037144601345
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/leonberger_182.jpg",
+      "fg_variance": 0.0008754699374549091,
+      "bg_variance": 0.0004472102446015924,
+      "fg_mu_rms": 0.021381519734859467,
+      "bg_mu_rms": 0.029403898864984512
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/leonberger_17.jpg",
+      "fg_variance": 0.00034933522692881525,
+      "bg_variance": 0.0007790019735693932,
+      "fg_mu_rms": 0.01968744769692421,
+      "bg_mu_rms": 0.024875447154045105
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/leonberger_10.jpg",
+      "fg_variance": 0.0005305688828229904,
+      "bg_variance": 0.0008471625624224544,
+      "fg_mu_rms": 0.024135088548064232,
+      "bg_mu_rms": 0.02125118300318718
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/leonberger_137.jpg",
+      "fg_variance": 0.0005017991643399,
+      "bg_variance": 0.0012056579580530524,
+      "fg_mu_rms": 0.020876066759228706,
+      "bg_mu_rms": 0.026448426768183708
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Maine_Coon_173.jpg",
+      "fg_variance": 0.0006563992938026786,
+      "bg_variance": 0.0008380563813261688,
+      "fg_mu_rms": 0.0273935254663229,
+      "bg_mu_rms": 0.015535007230937481
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Maine_Coon_144.jpg",
+      "fg_variance": 0.0004940764629282057,
+      "bg_variance": 0.0010541651863604784,
+      "fg_mu_rms": 0.026182202622294426,
+      "bg_mu_rms": 0.02056170254945755
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Maine_Coon_129.jpg",
+      "fg_variance": 0.0007298368727788329,
+      "bg_variance": 0.0007438783650286496,
+      "fg_mu_rms": 0.02291734516620636,
+      "bg_mu_rms": 0.024694308638572693
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Maine_Coon_131.jpg",
+      "fg_variance": 0.0010608441662043333,
+      "bg_variance": 0.0006370283663272858,
+      "fg_mu_rms": 0.029600167647004128,
+      "bg_mu_rms": 0.02274268865585327
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/miniature_pinscher_101.jpg",
+      "fg_variance": 0.0007149942102842033,
+      "bg_variance": 0.0006573207792825997,
+      "fg_mu_rms": 0.019377976655960083,
+      "bg_mu_rms": 0.026145681738853455
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/miniature_pinscher_172.jpg",
+      "fg_variance": 0.0011019045487046242,
+      "bg_variance": 0.00046027524513192475,
+      "fg_mu_rms": 0.020467538386583328,
+      "bg_mu_rms": 0.025223081931471825
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/miniature_pinscher_11.jpg",
+      "fg_variance": 0.0009438036940991879,
+      "bg_variance": 0.00028185496921651065,
+      "fg_mu_rms": 0.022046903148293495,
+      "bg_mu_rms": 0.02755153365433216
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/miniature_pinscher_148.jpg",
+      "fg_variance": 0.0005962006980553269,
+      "bg_variance": 0.0007497708429582417,
+      "fg_mu_rms": 0.03389255329966545,
+      "bg_mu_rms": 0.018884968012571335
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/newfoundland_173.jpg",
+      "fg_variance": 0.0008490575710311532,
+      "bg_variance": 0.0005809645517729223,
+      "fg_mu_rms": 0.022034214809536934,
+      "bg_mu_rms": 0.026687325909733772
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/newfoundland_15.jpg",
+      "fg_variance": 0.0005986706237308681,
+      "bg_variance": 0.0009459180873818696,
+      "fg_mu_rms": 0.01838374137878418,
+      "bg_mu_rms": 0.035686179995536804
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/newfoundland_120.jpg",
+      "fg_variance": 0.0008445435669273138,
+      "bg_variance": 0.0006358137470670044,
+      "fg_mu_rms": 0.017606768757104874,
+      "bg_mu_rms": 0.02785732038319111
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/newfoundland_110.jpg",
+      "fg_variance": 0.0008669371018186212,
+      "bg_variance": 0.0003111804253421724,
+      "fg_mu_rms": 0.01740024797618389,
+      "bg_mu_rms": 0.03125777840614319
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Persian_137.jpg",
+      "fg_variance": 0.0009125365759246051,
+      "bg_variance": 0.0005705339717678726,
+      "fg_mu_rms": 0.01828467845916748,
+      "bg_mu_rms": 0.028726112097501755
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Persian_11.jpg",
+      "fg_variance": 0.000757592439185828,
+      "bg_variance": 0.00017145929450634867,
+      "fg_mu_rms": 0.024921171367168427,
+      "bg_mu_rms": 0.01985267549753189
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Persian_100.jpg",
+      "fg_variance": 0.0007227935711853206,
+      "bg_variance": 0.0004312679811846465,
+      "fg_mu_rms": 0.02487669326364994,
+      "bg_mu_rms": 0.02398313581943512
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Persian_123.jpg",
+      "fg_variance": 0.000761424598749727,
+      "bg_variance": 0.0003412010846659541,
+      "fg_mu_rms": 0.023696977645158768,
+      "bg_mu_rms": 0.03924785926938057
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pomeranian_117.jpg",
+      "fg_variance": 0.0007347179926000535,
+      "bg_variance": 0.0006617858889512718,
+      "fg_mu_rms": 0.02927648462355137,
+      "bg_mu_rms": 0.023133501410484314
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pomeranian_189.jpg",
+      "fg_variance": 0.0008503322605974972,
+      "bg_variance": 0.0006155489827506244,
+      "fg_mu_rms": 0.019926711916923523,
+      "bg_mu_rms": 0.02658267505466938
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pomeranian_172.jpg",
+      "fg_variance": 0.00037433329271152616,
+      "bg_variance": 0.0010558308567851782,
+      "fg_mu_rms": 0.029399177059531212,
+      "bg_mu_rms": 0.018445352092385292
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pomeranian_114.jpg",
+      "fg_variance": 0.0008006309508346021,
+      "bg_variance": 0.000702034798450768,
+      "fg_mu_rms": 0.015649743378162384,
+      "bg_mu_rms": 0.027486538514494896
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pug_162.jpg",
+      "fg_variance": 0.000348647910868749,
+      "bg_variance": 0.001445240923203528,
+      "fg_mu_rms": 0.021012667566537857,
+      "bg_mu_rms": 0.030888404697179794
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pug_147.jpg",
+      "fg_variance": 0.0007066577672958374,
+      "bg_variance": 0.000677004805766046,
+      "fg_mu_rms": 0.026391906663775444,
+      "bg_mu_rms": 0.022362109273672104
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pug_116.jpg",
+      "fg_variance": 0.0005210808594711125,
+      "bg_variance": 0.0012815132504329085,
+      "fg_mu_rms": 0.02528366632759571,
+      "bg_mu_rms": 0.018856218084692955
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/pug_168.jpg",
+      "fg_variance": 0.000828195596113801,
+      "bg_variance": 0.00031959082116372883,
+      "fg_mu_rms": 0.024195509031414986,
+      "bg_mu_rms": 0.021814268082380295
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Ragdoll_152.jpg",
+      "fg_variance": 0.0009778188541531563,
+      "bg_variance": 0.0005347924306988716,
+      "fg_mu_rms": 0.028852535411715508,
+      "bg_mu_rms": 0.023019662126898766
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Ragdoll_115.jpg",
+      "fg_variance": 0.0007188894669525325,
+      "bg_variance": 0.000630777096375823,
+      "fg_mu_rms": 0.02892076037824154,
+      "bg_mu_rms": 0.014388627372682095
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Ragdoll_184.jpg",
+      "fg_variance": 0.00097838684450835,
+      "bg_variance": 0.000354981078999117,
+      "fg_mu_rms": 0.027051245793700218,
+      "bg_mu_rms": 0.020380936563014984
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Ragdoll_18.jpg",
+      "fg_variance": 0.0005984727176837623,
+      "bg_variance": 0.0008755565504543483,
+      "fg_mu_rms": 0.024559449404478073,
+      "bg_mu_rms": 0.02825309894979
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Russian_Blue_144.jpg",
+      "fg_variance": 0.001101824687793851,
+      "bg_variance": 0.0004892468568868935,
+      "fg_mu_rms": 0.03127371892333031,
+      "bg_mu_rms": 0.019165968522429466
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Russian_Blue_187.jpg",
+      "fg_variance": 0.0008635506383143365,
+      "bg_variance": 0.0006108799716457725,
+      "fg_mu_rms": 0.015814146026968956,
+      "bg_mu_rms": 0.029826436191797256
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Russian_Blue_174.jpg",
+      "fg_variance": 0.001096248277463019,
+      "bg_variance": 0.0005954016232863069,
+      "fg_mu_rms": 0.019555237144231796,
+      "bg_mu_rms": 0.02464582957327366
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Russian_Blue_17.jpg",
+      "fg_variance": 0.000747590500395745,
+      "bg_variance": 0.0007287084008567035,
+      "fg_mu_rms": 0.021797306835651398,
+      "bg_mu_rms": 0.030057430267333984
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/saint_bernard_100.jpg",
+      "fg_variance": 0.0009359514224343002,
+      "bg_variance": 0.0005248987581580877,
+      "fg_mu_rms": 0.019781893119215965,
+      "bg_mu_rms": 0.029107239097356796
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/saint_bernard_178.jpg",
+      "fg_variance": 0.0006488723447546363,
+      "bg_variance": 0.0007914505549706519,
+      "fg_mu_rms": 0.020554428920149803,
+      "bg_mu_rms": 0.025250935927033424
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/saint_bernard_144.jpg",
+      "fg_variance": 0.0006274271290749311,
+      "bg_variance": 0.0007776612765155733,
+      "fg_mu_rms": 0.024960869923233986,
+      "bg_mu_rms": 0.021758731454610825
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/samoyed_142.jpg",
+      "fg_variance": 0.0007332513341680169,
+      "bg_variance": 0.0006837329710833728,
+      "fg_mu_rms": 0.030068879947066307,
+      "bg_mu_rms": 0.021204188466072083
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/samoyed_153.jpg",
+      "fg_variance": 0.0007510735304094851,
+      "bg_variance": 0.0005938761169090867,
+      "fg_mu_rms": 0.024155348539352417,
+      "bg_mu_rms": 0.02373466268181801
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/samoyed_136.jpg",
+      "fg_variance": 0.00039940528222359717,
+      "bg_variance": 0.0007471403223462403,
+      "fg_mu_rms": 0.026565242558717728,
+      "bg_mu_rms": 0.023313652724027634
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/samoyed_149.jpg",
+      "fg_variance": 0.0003939578600693494,
+      "bg_variance": 0.0008147302432917058,
+      "fg_mu_rms": 0.028953179717063904,
+      "bg_mu_rms": 0.023912472650408745
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/scottish_terrier_162.jpg",
+      "fg_variance": 0.0003308897139504552,
+      "bg_variance": 0.0007298960699699819,
+      "fg_mu_rms": 0.010305898264050484,
+      "bg_mu_rms": 0.028279736638069153
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/scottish_terrier_133.jpg",
+      "fg_variance": 0.0007035417947918177,
+      "bg_variance": 0.0006953117554076016,
+      "fg_mu_rms": 0.026985134929418564,
+      "bg_mu_rms": 0.022875219583511353
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/scottish_terrier_112.jpg",
+      "fg_variance": 0.0007502727676182985,
+      "bg_variance": 0.000651152862701565,
+      "fg_mu_rms": 0.013856519013643265,
+      "bg_mu_rms": 0.02661762572824955
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/scottish_terrier_119.jpg",
+      "fg_variance": 0.0006687930435873568,
+      "bg_variance": 0.0006322268163785338,
+      "fg_mu_rms": 0.018366524949669838,
+      "bg_mu_rms": 0.028142105787992477
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/shiba_inu_124.jpg",
+      "fg_variance": 0.000548850919585675,
+      "bg_variance": 0.0007820285973139107,
+      "fg_mu_rms": 0.02492491342127323,
+      "bg_mu_rms": 0.02477422170341015
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/shiba_inu_11.jpg",
+      "fg_variance": 0.0007282238802872598,
+      "bg_variance": 0.0007031189743429422,
+      "fg_mu_rms": 0.023584065958857536,
+      "bg_mu_rms": 0.025514595210552216
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/shiba_inu_146.jpg",
+      "fg_variance": 0.0008731181151233613,
+      "bg_variance": 0.0006894722464494407,
+      "fg_mu_rms": 0.027567068114876747,
+      "bg_mu_rms": 0.02272043749690056
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/shiba_inu_171.jpg",
+      "fg_variance": 0.0006977923912927508,
+      "bg_variance": 0.0007830806425772607,
+      "fg_mu_rms": 0.02494627796113491,
+      "bg_mu_rms": 0.02191244252026081
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Siamese_154.jpg",
+      "fg_variance": 0.0007688714540563524,
+      "bg_variance": 0.000718063791282475,
+      "fg_mu_rms": 0.024899935349822044,
+      "bg_mu_rms": 0.02226509153842926
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Siamese_145.jpg",
+      "fg_variance": 0.0008721623453311622,
+      "bg_variance": 0.00032867665868252516,
+      "fg_mu_rms": 0.021844884380698204,
+      "bg_mu_rms": 0.02757466770708561
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Siamese_148.jpg",
+      "fg_variance": 0.00042202204349450767,
+      "bg_variance": 0.00076117372373119,
+      "fg_mu_rms": 0.022687474265694618,
+      "bg_mu_rms": 0.024854449555277824
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Siamese_182.jpg",
+      "fg_variance": 0.0007943262462504208,
+      "bg_variance": 0.0006670416332781315,
+      "fg_mu_rms": 0.024784324690699577,
+      "bg_mu_rms": 0.02493070438504219
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Sphynx_192.jpg",
+      "fg_variance": 0.00035014425520785153,
+      "bg_variance": 0.00083136186003685,
+      "fg_mu_rms": 0.031193329021334648,
+      "bg_mu_rms": 0.022616907954216003
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Sphynx_168.jpg",
+      "fg_variance": 0.0007452130084857345,
+      "bg_variance": 0.0006668230635114014,
+      "fg_mu_rms": 0.02266218699514866,
+      "bg_mu_rms": 0.025016585364937782
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Sphynx_1.jpg",
+      "fg_variance": 0.000870772055350244,
+      "bg_variance": 0.0002763992524705827,
+      "fg_mu_rms": 0.024136453866958618,
+      "bg_mu_rms": 0.02439522184431553
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/Sphynx_206.jpg",
+      "fg_variance": 0.0007077883346937597,
+      "bg_variance": 0.0005627378704957664,
+      "fg_mu_rms": 0.02949550934135914,
+      "bg_mu_rms": 0.015776516869664192
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/staffordshire_bull_terrier_198.jpg",
+      "fg_variance": 0.0005096134264022112,
+      "bg_variance": 0.000782082206569612,
+      "fg_mu_rms": 0.01930205151438713,
+      "bg_mu_rms": 0.02535339817404747
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/staffordshire_bull_terrier_179.jpg",
+      "fg_variance": 0.0005198557046242058,
+      "bg_variance": 0.000790403108112514,
+      "fg_mu_rms": 0.025703223422169685,
+      "bg_mu_rms": 0.02415955439209938
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/staffordshire_bull_terrier_121.jpg",
+      "fg_variance": 0.0006689730798825622,
+      "bg_variance": 0.0006122180493548512,
+      "fg_mu_rms": 0.020735029131174088,
+      "bg_mu_rms": 0.02837350405752659
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/staffordshire_bull_terrier_110.jpg",
+      "fg_variance": 0.0012095354031771421,
+      "bg_variance": 0.00022350274957716465,
+      "fg_mu_rms": 0.02805854007601738,
+      "bg_mu_rms": 0.016164565458893776
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/wheaten_terrier_120.jpg",
+      "fg_variance": 0.0006638308404944837,
+      "bg_variance": 0.0007304069004021585,
+      "fg_mu_rms": 0.02809390425682068,
+      "bg_mu_rms": 0.01881479099392891
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/wheaten_terrier_127.jpg",
+      "fg_variance": 0.00036940284189768136,
+      "bg_variance": 0.0009110148530453444,
+      "fg_mu_rms": 0.02423427440226078,
+      "bg_mu_rms": 0.02476952224969864
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/wheaten_terrier_14.jpg",
+      "fg_variance": 0.0008602823945693672,
+      "bg_variance": 0.0006605595117434859,
+      "fg_mu_rms": 0.02216806262731552,
+      "bg_mu_rms": 0.025509530678391457
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/wheaten_terrier_107.jpg",
+      "fg_variance": 0.0007204008288681507,
+      "bg_variance": 0.0006854892708361149,
+      "fg_mu_rms": 0.029551997780799866,
+      "bg_mu_rms": 0.021054144948720932
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/yorkshire_terrier_146.jpg",
+      "fg_variance": 0.0005786385736428201,
+      "bg_variance": 0.000773524574469775,
+      "fg_mu_rms": 0.027963310480117798,
+      "bg_mu_rms": 0.022675227373838425
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/yorkshire_terrier_174.jpg",
+      "fg_variance": 0.0006531988037750125,
+      "bg_variance": 0.0007533535826951265,
+      "fg_mu_rms": 0.018739866092801094,
+      "bg_mu_rms": 0.029894471168518066
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/yorkshire_terrier_183.jpg",
+      "fg_variance": 0.0007049626437947154,
+      "bg_variance": 0.0007011566194705665,
+      "fg_mu_rms": 0.019574375823140144,
+      "bg_mu_rms": 0.027829116210341454
+    },
+    {
+      "path": "artifacts/data/oxford_pets/oxford-iiit-pet/images/yorkshire_terrier_161.jpg",
+      "fg_variance": 0.0007623975398018956,
+      "bg_variance": 0.0006736644427292049,
+      "fg_mu_rms": 0.027262890711426735,
+      "bg_mu_rms": 0.023194357752799988
+    }
+  ],
+  "provenance": {
+    "source": "/home/pengcheng/Pi-CBM/PiNI/trainers/clip_vpn_cnn_image.py",
+    "sha256": "a34f653b6c894b0b9384ea8572c89135d9f73b8b86e2a0274852f186aba36b4f",
+    "upstream": "c6f89a4bcb76a33fc8ad3a7e7992b5c110630c00",
+    "definitions": "unmodified AST classes"
+  }
+}

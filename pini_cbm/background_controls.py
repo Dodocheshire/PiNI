@@ -6,11 +6,11 @@ from .uncertainty import ci_correct
 
 
 def main():
-    for folder in ['background_intervention','background_intervention_local']:
+    for folder in ['background_intervention','background_intervention_local','background_intervention_region']:
         out=Path('artifacts')/folder;p=out/'results.json'
         if not p.exists():continue
         data=json.loads(p.read_text());contrasts={}
-        for a,b in [('noise_sequential','mean_sequential'),('local_noise','local_mean'),('full_joint_noise','full_joint_mean')]:
+        for a,b in [('noise_sequential','mean_sequential'),('local_noise','local_mean'),('full_joint_noise','full_joint_mean'),('region_noise','region_mean')]:
             if a not in data['models']:continue
             for comparator in [b,a+'_same_checkpoint_mean']:
                 if comparator not in data['models']:continue

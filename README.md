@@ -1,5 +1,7 @@
 # Enhance Vision-Language Alignment with Noise (AAAI 2025)
 
+本仓库保留官方 PiNI 历史与网络实现，并在 `pini_cbm/` 中单独实现真实 RGB 空间加噪概念瓶颈模型。研究记录：[主要结果与图表](EXPERIMENT_RESULT.md)、[完整报告](EXPERIMENT_REPORT.md)、[固定实验协议](RESEARCH_PROTOCOL.md)。官方复验与新增掩膜监督模型分开报告；训练、评估与机制对照仍在推进，待完成配置不填成绩。
+
 ## Introduction
 This is a [Pytorch](https://pytorch.org) implementation of **PiNI**:
 >   Sida Huang, Hongyuan Zhang<sup>\*</sup>, and Xuelong Li<sup>\*</sup>, "Enhance Vision-Language Alignment with Noise", in Proceedings of the AAAI Conference on Artificial Intelligence (AAAI), 2025. ([arXiv](https://arxiv.org/abs/2412.10817))

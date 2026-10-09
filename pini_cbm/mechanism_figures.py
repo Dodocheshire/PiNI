@@ -11,7 +11,8 @@ COLORS=dict(clean='#0072B2',mask='#56B4E9',mean='#009E73',noise='#E69F00',joint=
 LABELS={'clean':'Clean','mask_sequential':'Mask only','mean_sequential':'Mean only','noise_sequential':'Gaussian (MC1)',
         'noise_sequential_same_checkpoint_mean':'Gaussian checkpoint, mean inference',
         'local_mean':'Local mean','local_noise':'Local Gaussian','local_noise_same_checkpoint_mean':'Local Gaussian checkpoint, mean',
-        'full_joint_mean':'Full joint mean','full_joint_noise':'Full joint Gaussian','full_joint_noise_same_checkpoint_mean':'Full joint Gaussian checkpoint, mean'}
+        'full_joint_mean':'Full joint mean','full_joint_noise':'Full joint Gaussian','full_joint_noise_same_checkpoint_mean':'Full joint Gaussian checkpoint, mean',
+        'region_mean':'Region mean','region_noise':'Region Gaussian','region_noise_same_checkpoint_mean':'Region Gaussian checkpoint, mean'}
 
 
 def save(fig,path):
@@ -26,7 +27,19 @@ def errors(ax,y,center,ci,color,label=None):
 
 def main():
     out=Path('reports/spatial_noise_v1');out.mkdir(parents=True,exist_ok=True)
-    for folder,figure in [('background_intervention','background_results'),('background_intervention_local','background_local_results')]:
+    readout=out/'readout_path_audit.json'
+    if readout.exists():
+        data=json.loads(readout.read_text())['models'];fig,ax=plt.subplots(figsize=(7,3.5),layout='constrained')
+        y=np.arange(len(data))
+        for offset,key,color in [(-.15,'CLS',COLORS['clean']),(0,'region',COLORS['mean']),(.15,'combined',COLORS['noise'])]:
+            values=[r['mAP'][key]*100 for r in data.values()]
+            ax.scatter(values,y+offset,color=color,label=key,s=55)
+            for pos,value in zip(y+offset,values):ax.annotate(f'{value:.2f}',(value,pos),xytext=(4,0),textcoords='offset points',fontsize=9)
+        ax.set_yticks(y,['Original clean','Locality-supervised clean'][:len(data)]);ax.invert_yaxis()
+        ax.set_xlim(86,93);ax.set_xlabel('Native concept mAP (%)');ax.grid(axis='x',alpha=.2);ax.legend(fontsize=8)
+        ax.set_title('Existing fitted head: isolated additive contributions\nDiagnostic only; no retraining or test calibration',fontsize=10)
+        save(fig,out/'readout_path_diagnostic')
+    for folder,figure in [('background_intervention','background_results'),('background_intervention_local','background_local_results'),('background_intervention_region','background_region_results')]:
         bg=Path('artifacts')/folder/'results.json'
         if not bg.exists():continue
         data=json.loads(bg.read_text());rows=list(data['models'].items());y=np.arange(len(rows))

@@ -20,7 +20,11 @@
 | noise_sequential | 99.30% | 4.20 | 91.07% | 86.85% | 90.76% |
 | noise_joint | 99.00% | 4.20 | 91.16% | 87.07% | 89.33% |
 | noise_separate_heads | 99.05% | 4.30 | 91.14% | 86.86% | 90.74% |
+| local_mean | 99.13% | 4.50 | 90.81% | 87.26% | 88.56% |
+| local_noise | 98.52% | 4.40 | 90.30% | 87.34% | 86.74% |
+| full_joint_mean | 99.24% | 4.10 | 90.72% | 86.64% | 89.59% |
 | local clean matched head | 99.45% | 4.30 | 90.65% | 86.87% | 89.71% |
+| region clean matched head | 99.32% | 4.30 | 89.64% | 85.85% | 90.29% |
 
 ![主要结果](reports/spatial_noise_v1/main_results.png)
 
@@ -44,6 +48,8 @@ independent：分别训练的 μ+σξ − μ-only 为 -0.908 个百分点，配�
 
 sequential：分别训练的 μ+σξ − μ-only 为 +0.605 个百分点，配对 bootstrap 95% CI [+0.378, +0.870]。同样主体抑制和初始化，随机部分的收益必须由这组比较支持。
 
+local：分别训练的 μ+σξ − μ-only 为 -0.605 个百分点，配对 bootstrap 95% CI [-0.908, -0.303]。同样主体抑制和初始化，随机部分的收益必须由这组比较支持。
+
 noise_independent 同一检查点 MC1 − 均值推理为 -0.416 个百分点；这是推理诊断，不代替分别训练的均值对照。
 
 noise_sequential 同一检查点 MC1 − 均值推理为 +0.170 个百分点；这是推理诊断，不代替分别训练的均值对照。
@@ -51,6 +57,8 @@ noise_sequential 同一检查点 MC1 − 均值推理为 +0.170 个百分点；�
 noise_joint 同一检查点 MC1 − 均值推理为 +0.284 个百分点；这是推理诊断，不代替分别训练的均值对照。
 
 noise_separate_heads 同一检查点 MC1 − 均值推理为 -0.019 个百分点；这是推理诊断，不代替分别训练的均值对照。
+
+local_noise 同一检查点 MC1 − 均值推理为 -0.643 个百分点；这是推理诊断，不代替分别训练的均值对照。
 
 固定 0.5 阈值的精确率提升可能来自召回率下降。以下阈值只由验证集正样本的第 10 百分位确定，以目标召回率 90% 比较：
 
@@ -65,6 +73,10 @@ noise_separate_heads 同一检查点 MC1 − 均值推理为 -0.019 个百分点
 | noise_sequential | 85.24% | 88.51% |
 | noise_joint | 85.03% | 89.06% |
 | noise_separate_heads | 84.87% | 88.98% |
+| local_mean | 84.80% | 89.74% |
+| local_noise | 84.27% | 89.80% |
+| full_joint_mean | 84.75% | 89.49% |
+| region_clean | 83.92% | 89.63% |
 
 不同模型的测试召回率仍可能不同，需同时读取这两列；逐概念 AP 和阈值见 `reports/spatial_noise_v1/concept_audit.json`。
 
@@ -104,7 +116,7 @@ image：OxfordPets 16-shot、200 epochs、seed 1；MC1 89.29%，MC8 89.51%，同
 
 ## 仍待完成
 
-V1 对照：local_mean, local_noise, full_joint_mean, full_joint_noise
+V1 对照：mean_separate_heads, full_joint_noise, region_mean, region_noise
 
 V1 joint 采用单概念真实视图、其他 17 个当前干净概念概率作为 detach 锚的近似；full_joint 分类前向使用全部 18 张实际概念视图。细粒度 V2、MC 稳定性与机制归因以对应完成记录为准；不能只用图像外观判断完成。
 
