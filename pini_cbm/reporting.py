@@ -24,15 +24,31 @@ def write_reports(rows,pending,detail):
     seq=uncertainty['pairs'].get('noise_sequential_minus_mean_sequential')
     if seq:
         c=seq['classification'];ci=c['CI95_pp'];mci=seq['mAP_CI95_pp']
-        txt+=[f"**已证实的结论：**顺序训练 μ+σξ 比分别训练的 μ-only 分类高 {c['difference_pp']:.2f} 个百分点，配对 95% CI [{ci[0]:.2f}, {ci[1]:.2f}]；概念 mAP 差为 {seq['mAP_difference_pp']:+.2f}，CI [{mci[0]:+.2f}, {mci[1]:+.2f}]，尚无整体概念识别提升证据。",'']
+        txt+=[f"**本次结果：**顺序训练 μ+σξ 比分别训练的 μ-only 分类高 {c['difference_pp']:.2f} 个百分点，配对 95% CI [{ci[0]:.2f}, {ci[1]:.2f}]；概念 mAP 差为 {seq['mAP_difference_pp']:+.2f}，CI [{mci[0]:+.2f}, {mci[1]:+.2f}]，尚无整体概念识别提升证据。",'']
         shared=seq.get('shared_GT_semantic_head')
         if shared:
             ci=shared['CI95_pp'];txt+=[f"使用同一个、仅由真值概念训练的分类头，增益仍为 {shared['difference_pp']:+.2f} 个百分点，CI [{ci[0]:+.2f}, {ci[1]:+.2f}]，说明收益不完全依赖分别拟合分类头。",'']
+        train=seq.get('trained_noise_mean_inference_minus_trained_mean');sample=seq.get('same_checkpoint_sampling')
+        if train and sample:
+            ci=train['CI95_pp'];si=sample['CI95_pp']
+            txt+=[f"训练/推理拆分：随机训练模型改用均值推理，仍比 μ-only 训练高 {train['difference_pp']:+.2f} pp，CI [{ci[0]:+.2f}, {ci[1]:+.2f}]；同检查点单次随机采样比均值高 {sample['difference_pp']:+.2f} pp，CI [{si[0]:+.2f}, {si[1]:+.2f}]。这区分训练中的适配/正则化与推理中的随机扰动。",'']
     if Path('reports/spatial_noise_v1/noise_increment.png').exists():txt+=['![随机部分的增量](reports/spatial_noise_v1/noise_increment.png)','']
     local_pairs=[(k,v) for k,v in uncertainty['pairs'].items() if k.startswith(('local_','full_joint_'))]
     for key,r in local_pairs:
         c=r['classification'];ci=c['CI95_pp'];mi=r['mAP_CI95_pp']
         txt+=[f"{key}：分类差 {c['difference_pp']:+.2f} pp，CI [{ci[0]:+.2f}, {ci[1]:+.2f}]；概念 mAP 差 {r['mAP_difference_pp']:+.2f} pp，CI [{mi[0]:+.2f}, {mi[1]:+.2f}]。",'']
+    local_clean=read('artifacts/spatial_local/results.json');clean=read('artifacts/spatial_clean/results.json')
+    if local_clean and clean:
+        l=local_clean['concepts']['test'];c=clean['concepts']['test']
+        txt+=[f"局部区域监督本身：正概念区域 IoU 从 {c['concept_mask_IoU']*100:.2f}% 提高到 {l['concept_mask_IoU']*100:.2f}%，概念 mAP 从 {c['mAP']*100:.2f}% 变为 {l['mAP']*100:.2f}%。这些变化发生在加噪前，应与后续随机生成器收益分开。",'']
+    mc_rows=[r for r in rows if 'MC8' in r]
+    if mc_rows:
+        txt+=['**采样稳定性：**按验证概念 mAP 选配置，再用原分类头评估八次采样均值，测试不参与选择。','',
+              '| 验证选择的随机模型 | MC1 分类 | MC8 分类 | MC8 概念 mAP | 同检查点 μ 分类 |','|---|---:|---:|---:|---:|']
+        for r in mc_rows:
+            mean=r.get('same_checkpoint_mean',{}).get('accuracy');mean='—' if mean is None else f'{mean*100:.2f}%'
+            txt.append(f"| {r['name']} | {r['test_accuracy']*100:.2f}% | {r['MC8']['accuracy']*100:.2f}% | {r['MC8']['mAP']*100:.2f}% | {mean} |")
+        txt+=['','共享生成器与逐概念输出头容量不同；逐概念模型的同检查点 μ 诊断不替代分别训练的匹配 μ-only。','']
     txt+=['## 2. 是否减少背景干扰','',
           '**目的：**保留主体像素、移植异类背景并移除供体主体。真值掩膜仅构造外部干预，模型重新从换背景图像预测所有区域。','']
     bg=read('artifacts/background_intervention/results.json')
@@ -40,12 +56,23 @@ def write_reports(rows,pending,detail):
         txt+=['![背景互换](reports/spatial_noise_v1/background_results.png)','',
               '**结论：**主体屏蔽提高换背景后的分类与概念识别；当前顺序加噪 94.7%，μ-only 95.2%，未证实随机噪声额外提高抗背景干扰能力。','']
     else:txt+=['实验尚未完成。','']
+    local_bg=read('artifacts/background_intervention_local/results.json')
+    if local_bg:
+        txt+=['![局部与完整联合背景互换](reports/spatial_noise_v1/background_local_results.png)','',
+              '| 匹配随机对照 | 换背景后分类差（噪声 − μ-only） | 配对 95% CI |','|---|---:|---:|']
+        for name in ['local_noise_minus_local_mean_background_swap','full_joint_noise_minus_full_joint_mean_background_swap']:
+            c=local_bg.get('direct_noise_controls',{}).get(name)
+            if c:
+                ci=c['CI95_pp'];txt.append(f"| {name} | {c['difference_pp']:+.2f} pp | [{ci[0]:+.2f}, {ci[1]:+.2f}] |")
+        txt+=['','局部与完整联合对照在同一批 1,000 张图、相同供体背景上评估；读数以实际配对区间为准。','']
     txt+=['## 3. 真实噪声是否形成预期空间分布','',
           '**目的：**展示未经放大的实际 μ、σ² 和采样图，检验主体均值与背景方差；同一图像不同概念另外比较。','']
     selected=read('reports/spatial_noise_final/selection.json')
-    gallery='reports/spatial_noise_final' if selected else 'reports/spatial_noise_v1'
-    txt+=[f'![实际加噪图]({gallery}/figure4_style.png)','']
-    energy=read((selected['run'] if selected else 'artifacts/noise_independent')+'/energy_audit.json')
+    sequential_gallery=Path('reports/spatial_noise_v1/sequential/figure4_style.png').exists()
+    gallery='reports/spatial_noise_final' if selected else 'reports/spatial_noise_v1/sequential' if sequential_gallery else 'reports/spatial_noise_v1'
+    chosen_run=selected['run'] if selected else 'artifacts/noise_sequential' if sequential_gallery else 'artifacts/noise_independent'
+    txt+=[f"图中模型：`{chosen_run}`；最终模型按完整验证概念 mAP 选择，当前中期图展示指定顺序配置。",'',f'![实际加噪图]({gallery}/figure4_style.png)','']
+    energy=read(chosen_run+'/energy_audit.json')
     if energy:
         e=energy['summary'];p=e['part_localization']
         txt+=[f"**结论：**全 {e['n']} 个有效验证样本，背景方差/主体方差 {e['sigma2_bg_over_fg']:.2f}，主体 μ/背景 μ {e['mu_fg_over_bg']:.2f}；概念部位 μ/主体其他部位 {p['concept_mu_rms']/p['other_object_mu_rms']:.2f}。主体/背景模式已实现，细粒度概念增强应以区域统计和识别指标同时判断。",'']
@@ -72,7 +99,10 @@ def write_reports(rows,pending,detail):
     txt+=['**结论：**原始图像 CNN 的 AMP MC8 为 89.51%，数值上接近论文；主方法仍有复现差距。MC8 是新增诊断，不能等同论文未明确的采样协议。Pets 专用 LR 和论文 split 文件未公开，本次固定 LR=0.002，不依据测试调参。','']
     oe=read('reports/pini_official/energy_audit.json')
     if oe:
-        e=oe['summary'];txt+=[f"原始 CNN 全 {e['n']} 个有效验证样本：背景方差/主体方差 {e['sigma2_bg_over_fg']:.2f}，主体 μ/背景 μ {e['mu_fg_over_bg']:.2f}。它没有稳定产生理想的主体/背景分离；原分类 CE 和固定 RMS 不能保证这种模式。见[校正后的原始 CNN 图](reports/pini_official/figure4_official.png)。",'']
+        e=oe['summary'];txt+=[f"原始 CNN 的 AMP 训练权重，全 {e['n']} 个有效验证样本：背景方差/主体方差 {e['sigma2_bg_over_fg']:.2f}，主体 μ/背景 μ {e['mu_fg_over_bg']:.2f}。本次 AMP 复验没有稳定产生理想的主体/背景分离；原分类 CE 和固定 RMS 不保证这种模式。见[校正后的 AMP CNN 图](reports/pini_official/figure4_official.png)。",'']
+    canonical=read('reports/pini_official/fp16/energy_audit.json')
+    if canonical:
+        e=canonical['summary'];txt+=[f"原始默认 FP16 训练及实际 FP16 前向，全 {e['n']} 个有效验证样本：背景方差/主体方差 {e['sigma2_bg_over_fg']:.2f}，主体 μ/背景 μ {e['mu_fg_over_bg']:.2f}。对应[FP16 真实 CNN 图](reports/pini_official/fp16/figure4_official.png)，与 AMP 版本分开评估。",'']
     txt+=['主方法在全局视觉特征和文本提示上联合加噪，Figure 4 属于单独的 RGB CNN 实验。其较大分类增益不能全部解释为图像背景屏蔽。[论文](https://arxiv.org/abs/2412.10817)，[官方代码](https://github.com/hyzhang98/PiNI)。','',
           '## 5. 当前状态与完整记录','']
     txt+=['待完成：'+', '.join(pending)+'。' if pending else '所列表中的训练配置均已完成；MC、定位及背景审计以对应完成记录为准。','',

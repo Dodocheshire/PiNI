@@ -19,6 +19,8 @@
 | mean_sequential | 98.69% | 4.40 | 91.22% | 86.99% | 90.29% |
 | noise_sequential | 99.30% | 4.20 | 91.07% | 86.85% | 90.76% |
 | noise_joint | 99.00% | 4.20 | 91.16% | 87.07% | 89.33% |
+| noise_separate_heads | 99.05% | 4.30 | 91.14% | 86.86% | 90.74% |
+| local clean matched head | 99.45% | 4.30 | 90.65% | 86.87% | 89.71% |
 
 ![主要结果](reports/spatial_noise_v1/main_results.png)
 
@@ -48,17 +50,21 @@ noise_sequential 同一检查点 MC1 − 均值推理为 +0.170 个百分点；�
 
 noise_joint 同一检查点 MC1 − 均值推理为 +0.284 个百分点；这是推理诊断，不代替分别训练的均值对照。
 
+noise_separate_heads 同一检查点 MC1 − 均值推理为 -0.019 个百分点；这是推理诊断，不代替分别训练的均值对照。
+
 固定 0.5 阈值的精确率提升可能来自召回率下降。以下阈值只由验证集正样本的第 10 百分位确定，以目标召回率 90% 比较：
 
 | 方法 | 测试宏精确率 | 测试宏召回率 |
 |---|---:|---:|
 | clean | 85.27% | 89.58% |
+| local_clean | 85.33% | 88.95% |
 | mean_independent | 84.53% | 89.36% |
 | noise_independent | 83.91% | 89.50% |
 | mask_sequential | 84.90% | 88.97% |
 | mean_sequential | 84.89% | 88.97% |
 | noise_sequential | 85.24% | 88.51% |
 | noise_joint | 85.03% | 89.06% |
+| noise_separate_heads | 84.87% | 88.98% |
 
 不同模型的测试召回率仍可能不同，需同时读取这两列；逐概念 AP 和阈值见 `reports/spatial_noise_v1/concept_audit.json`。
 
@@ -98,7 +104,7 @@ image：OxfordPets 16-shot、200 epochs、seed 1；MC1 89.29%，MC8 89.51%，同
 
 ## 仍待完成
 
-V1 对照：noise_separate_heads, local_mean, local_noise, full_joint_mean, full_joint_noise
+V1 对照：local_mean, local_noise, full_joint_mean, full_joint_noise
 
 V1 joint 采用单概念真实视图、其他 17 个当前干净概念概率作为 detach 锚的近似；full_joint 分类前向使用全部 18 张实际概念视图。细粒度 V2、MC 稳定性与机制归因以对应完成记录为准；不能只用图像外观判断完成。
 

@@ -10,12 +10,12 @@ from .train_spatial import load_cache
 def main():
     arrays,splits,labels,records=load_cache('artifacts/rival_vitl14')
     yv=np.array(arrays['attrs'][splits['val']]);yt=np.array(arrays['attrs'][splits['test']]);results={}
-    names=['clean','mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads',
+    names=['clean','local_clean','mean_independent','noise_independent','mask_sequential','mean_sequential','noise_sequential','noise_joint','noise_separate_heads',
            'local_mean','local_noise','full_joint_mean','full_joint_noise']
     for name in names:
-        run=Path('artifacts/spatial_clean' if name=='clean' else 'artifacts/'+name)
+        run=Path('artifacts/spatial_clean' if name=='clean' else 'artifacts/spatial_local' if name=='local_clean' else 'artifacts/'+name)
         if not (run/'results.json').exists():continue
-        if name=='clean':
+        if name in ['clean','local_clean']:
             val=1/(1+np.exp(-np.clip(np.load(run/'val_logits.npy'),-30,30)))
             test=1/(1+np.exp(-np.clip(np.load(run/'test_logits.npy'),-30,30)))
         else:val=np.load(run/'val_probs.npy');test=np.load(run/'test_probs.npy')

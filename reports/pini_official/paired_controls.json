@@ -166,6 +166,47 @@
       },
       "precision_protocol": "fp32 master weights + torch AMP fp16; only original generators optimized",
       "independently_trained_mean_accuracy": 0.8950667756881984
+    },
+    "image_fp16_seed1": {
+      "n_test": 3669,
+      "comparison": {
+        "MC8_minus_MC1": {
+          "difference_pp": 0.0,
+          "CI95_pp": [
+            -0.46334150994821477,
+            0.49059689288634506
+          ]
+        },
+        "MC1_minus_mean": {
+          "difference_pp": 0.5451076587626056,
+          "CI95_pp": [
+            -0.1635322976287817,
+            1.2264922322158627
+          ]
+        },
+        "MC8_minus_mean": {
+          "difference_pp": 0.5451076587626056,
+          "CI95_pp": [
+            -0.1362769146906514,
+            1.2264922322158627
+          ]
+        },
+        "MC1_minus_zero_shot": {
+          "difference_pp": 0.2725538293813028,
+          "CI95_pp": [
+            -0.46334150994821477,
+            0.9811937857726901
+          ]
+        },
+        "MC8_minus_zero_shot": {
+          "difference_pp": 0.2725538293813028,
+          "CI95_pp": [
+            -0.46334150994821477,
+            0.9818751703461397
+          ]
+        }
+      },
+      "precision_protocol": "original fp16 model/generators, direct fp16 CE/SGD, no scaler"
     }
   },
   "interpretation": "Paired image bootstrap within each precision/batch protocol; no cross-protocol causal contrast, no training-seed variability. MC8 is added inference diagnostic."

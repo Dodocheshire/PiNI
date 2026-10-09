@@ -9,7 +9,9 @@ import numpy as np
 
 COLORS=dict(clean='#0072B2',mask='#56B4E9',mean='#009E73',noise='#E69F00',joint='#D55E00',separate='#CC79A7')
 LABELS={'clean':'Clean','mask_sequential':'Mask only','mean_sequential':'Mean only','noise_sequential':'Gaussian (MC1)',
-        'noise_sequential_same_checkpoint_mean':'Gaussian checkpoint, mean inference'}
+        'noise_sequential_same_checkpoint_mean':'Gaussian checkpoint, mean inference',
+        'local_mean':'Local mean','local_noise':'Local Gaussian','local_noise_same_checkpoint_mean':'Local Gaussian checkpoint, mean',
+        'full_joint_mean':'Full joint mean','full_joint_noise':'Full joint Gaussian','full_joint_noise_same_checkpoint_mean':'Full joint Gaussian checkpoint, mean'}
 
 
 def save(fig,path):
@@ -24,13 +26,14 @@ def errors(ax,y,center,ci,color,label=None):
 
 def main():
     out=Path('reports/spatial_noise_v1');out.mkdir(parents=True,exist_ok=True)
-    bg=Path('artifacts/background_intervention/results.json')
-    if bg.exists():
+    for folder,figure in [('background_intervention','background_results'),('background_intervention_local','background_local_results')]:
+        bg=Path('artifacts')/folder/'results.json'
+        if not bg.exists():continue
         data=json.loads(bg.read_text());rows=list(data['models'].items());y=np.arange(len(rows))
         fig,axes=plt.subplots(1,2,figsize=(12,5),layout='constrained')
         for j,(name,row) in enumerate(rows):
             v=[row['original']['accuracy']*100,row['background_swap']['accuracy']*100]
-            color=COLORS['noise' if name.startswith('noise') else 'mean' if name.startswith('mean') else 'mask' if name.startswith('mask') else 'clean']
+            color=COLORS['mean' if 'mean' in name else 'noise' if 'noise' in name else 'mask' if 'mask' in name else 'clean']
             axes[0].plot(v,[j,j],color=color,alpha=.6)
             axes[0].scatter(v[0],j,facecolors='none',edgecolors=color,s=70)
             axes[0].scatter(v[1],j,color=color,s=60)
@@ -40,11 +43,12 @@ def main():
         names=[LABELS.get(n,n) for n,_ in rows]
         for ax in axes:
             ax.set_yticks(y,names);ax.invert_yaxis();ax.grid(axis='x',alpha=.2)
-        axes[0].set_xlabel('Classification accuracy (%)');axes[0].set_xlim(90,100.2)
+        axes[0].set_xlabel('Classification accuracy (%)');axes[0].set_xlim(min(90,min(r['background_swap']['accuracy']*100 for _,r in rows)-2),100.2)
         axes[0].set_title('Open: original; filled: foreign background')
-        axes[1].set_title('Native concept mAP after background swap');axes[1].set_xlabel('mAP (%)');axes[1].set_xlim(87,91)
+        axes[1].set_title('Native concept mAP after background swap');axes[1].set_xlabel('mAP (%)')
+        ap_values=[r['background_swap']['mAP']*100 for _,r in rows];axes[1].set_xlim(min(ap_values)-1,max(ap_values)+1)
         fig.suptitle(f"Fixed {data['n']}-image intervention — target foreground preserved; donor object removed",fontsize=12)
-        save(fig,out/'background_results')
+        save(fig,out/figure)
     uncertainty=out/'paired_uncertainty.json'
     if uncertainty.exists():
         data=json.loads(uncertainty.read_text());pairs=list(data['pairs'].items())

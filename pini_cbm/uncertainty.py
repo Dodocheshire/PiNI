@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics import average_precision_score
 from .data import ATTRS
-from .train_spatial import load_cache
+from .train_spatial import load_cache,head_predict
 
 
 PAIRS=[('noise_independent','mean_independent'),('noise_sequential','mean_sequential'),
@@ -91,6 +91,18 @@ def main():
         for suffix,name in [('correct','shared_GT_semantic_head'),('binary_correct','shared_GT_semantic_head_binary')]:
             if all((semantic/(n+'_'+suffix+'.npy')).exists() for n in [a,b]):
                 row[name]=ci_correct(np.load(semantic/(a+'_'+suffix+'.npy')),np.load(semantic/(b+'_'+suffix+'.npy')))
+        if (ra/'test_mean_class_logits.npy').exists():
+            noisy=np.load(ra/'test_class_logits.npy').argmax(1)==target
+            mean=np.load(ra/'test_mean_class_logits.npy').argmax(1)==target
+            deterministic=np.load(rb/'test_class_logits.npy').argmax(1)==target
+            row['same_checkpoint_sampling']=ci_correct(noisy,mean)
+            row['trained_noise_mean_inference_minus_trained_mean']=ci_correct(mean,deterministic)
+            if (semantic/'head.pt').exists():
+                import torch
+                head=torch.load(semantic/'head.pt',map_location='cpu',weights_only=False)
+                correct=head_predict(head,np.load(ra/'test_mean_probs.npy')).argmax(1)==target
+                comparator=head_predict(head,np.load(rb/'test_probs.npy')).argmax(1)==target
+                row['shared_GT_head_trained_noise_mean_minus_trained_mean']=ci_correct(correct,comparator)
         result['pairs'][key]=row
         print(key,{k:v for k,v in row.items() if k not in ['per_concept','validation_AP_differences_pp','input_sha256']},flush=True)
     dst.write_text(json.dumps(result,indent=2))

@@ -273,7 +273,7 @@
         -0.5587314469101434
       ],
       "validation_largest_gain_concept": "long-snout",
-      "input_sha256": "7ac57e8e54a8ea19cead45c2e42422b0d560301d0e076e9f08ae71a275164397",
+      "input_sha256": "31381ec20e03a70d082d660269eb7c9d6717eab3000a69ef43c3c62dd2175316",
       "shared_GT_semantic_head": {
         "difference_pp": -0.681044267877412,
         "CI95_pp": [
@@ -286,6 +286,27 @@
         "CI95_pp": [
           -0.7377979568671964,
           0.37835792659856227
+        ]
+      },
+      "same_checkpoint_sampling": {
+        "difference_pp": -0.41619371925841847,
+        "CI95_pp": [
+          -0.851305334846765,
+          0.0
+        ]
+      },
+      "trained_noise_mean_inference_minus_trained_mean": {
+        "difference_pp": -0.4918653045781309,
+        "CI95_pp": [
+          -0.7945516458569807,
+          -0.18917896329928113
+        ]
+      },
+      "shared_GT_head_trained_noise_mean_minus_trained_mean": {
+        "difference_pp": 0.037835792659856225,
+        "CI95_pp": [
+          -0.22701475595913734,
+          0.3026863412788498
         ]
       }
     },
@@ -560,7 +581,7 @@
         0.23432224248395306
       ],
       "validation_largest_gain_concept": "wet",
-      "input_sha256": "57b34023c5746ce8ffa2faa736b1e049117f8362a4bba73c2dbf687ee3a2565c",
+      "input_sha256": "5e8c1881a196055b50b75598bca6d5089144f3480b648f8c80d2c4eb56d72937",
       "shared_GT_semantic_head": {
         "difference_pp": 0.35944003026863414,
         "CI95_pp": [
@@ -573,6 +594,27 @@
         "CI95_pp": [
           -0.01939084373817629,
           0.7193530079455138
+        ]
+      },
+      "same_checkpoint_sampling": {
+        "difference_pp": 0.170261066969353,
+        "CI95_pp": [
+          -0.018917896329928113,
+          0.37835792659856227
+        ]
+      },
+      "trained_noise_mean_inference_minus_trained_mean": {
+        "difference_pp": 0.43511161558834655,
+        "CI95_pp": [
+          0.18870601589103295,
+          0.6999621642073401
+        ]
+      },
+      "shared_GT_head_trained_noise_mean_minus_trained_mean": {
+        "difference_pp": 0.4918653045781309,
+        "CI95_pp": [
+          0.20809685962920924,
+          0.7756337495270527
         ]
       }
     }

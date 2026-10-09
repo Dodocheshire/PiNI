@@ -44,6 +44,8 @@ flock ../D-Pi/artifacts/resources/gpu_work.lock python -m pini_cbm.official_gall
 
 概念局部适配继续保留正区域 Dice，避免稀小部位被大量负像素的 BCE 淹没。`concept_gallery` 用同一张固定验证图查询长嘴、耳朵、尾巴；`localization_audit` 检查全部正概念区域，而不是只看漂亮个例。`uncertainty` 给出全部 18 个概念的配对 AP 区间；`semantic_readout` 让所有模型通过同一个真值概念训练的稀疏头，检查分类增益对分别拟合置信度的依赖。
 
+这里 `order=independent` 表示噪声适配时冻结概念识别器。标准 CBM 的独立式分类头（只用真值概念训练）由 `semantic_readout` 另行评估；两种“独立”含义不混用。18 个实际 RGB 概念视图仍有较高推理成本，低 NEC 仅表示分类头稀疏。
+
 `train_full_joint` 在一张图的全部 18 张真实概念视图上构造完整 CBM 分类 CE；`run_full_joint_when_ready` 等待局部模型与匹配顺序训练后，再运行完整联合的 mean/noise 对照。完整联合的 36,018 次训练视图预算对应 2,001 张源图，覆盖方式与单概念抽样不同，详见协议。
 
 所有实际前向只读取 RGB、缓存图像 tokens、概念文本。原生标签与掩膜用于训练和外部评估，不作为 learned 模型推理输入。报告区分确定性主体抑制、均值适配和随机噪声，不将漂亮图表自动当作性能收益。

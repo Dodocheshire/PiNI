@@ -41,7 +41,7 @@ def main():
     run('uncertainty_final',['pini_cbm.uncertainty'])
     report=Path('reports/spatial_noise_final');report.mkdir(parents=True,exist_ok=True)
     candidates=[dict(run='artifacts/'+n,validation_mAP=json.loads((Path('artifacts')/n/'results.json').read_text())['concepts']['val']['mAP']) for n in V1+LOCAL]
-    selection=max(candidates,key=lambda x:x['validation_mAP']);selection['rule']='highest complete native validation mAP among fixed stochastic variants; no test selection'
+    selection=dict(max(candidates,key=lambda x:x['validation_mAP']));selection['rule']='highest complete native validation mAP among fixed stochastic variants; no test selection'
     selection['candidates']=candidates;(report/'selection.json').write_text(json.dumps(selection,indent=2))
     for name in list(dict.fromkeys(['noise_sequential','local_noise','full_joint_noise',Path(selection['run']).name])):
         run('energy_'+name,['pini_cbm.energy_audit','--run','artifacts/'+name])

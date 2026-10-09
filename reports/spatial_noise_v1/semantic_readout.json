@@ -7,6 +7,10 @@
       "accuracy": 0.9861899356791525,
       "binary_accuracy": 0.960272417707151
     },
+    "local_clean": {
+      "accuracy": 0.9930003783579266,
+      "binary_accuracy": 0.9684071131290201
+    },
     "mean_independent": {
       "accuracy": 0.9702989027620129,
       "binary_accuracy": 0.9413545213772229
@@ -30,7 +34,11 @@
     "noise_joint": {
       "accuracy": 0.9854332198259553,
       "binary_accuracy": 0.9551645856980704
+    },
+    "noise_separate_heads": {
+      "accuracy": 0.9888384411653424,
+      "binary_accuracy": 0.9699205448354143
     }
   },
-  "interpretation": "Same sparse head fitted only on native training GT labels for every learned model. Standard predicted-probability-fitted heads can exploit systematic concept errors/confidence; this audit does not."
+  "interpretation": "Same sparse head fitted only on native training GT concepts for every learned model; no per-model probability/confidence fitting. Predictions may still carry class information through confidence or systematic concept errors, even under this common head."
 }
