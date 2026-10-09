@@ -33,10 +33,12 @@ def predict(model, arrays, ids, batch=256):
         chunk=ids[start:start+batch]
         l,m,f=model(batch_tensor(arrays['tokens'],chunk))
         logits.append(l.cpu().numpy())
-        gt=batch_tensor(arrays['masks'],chunk)>.5
+        gt=batch_tensor(arrays['masks'],chunk)
         valid=batch_tensor(arrays['mask_valid'],chunk).bool()
         pred=torch.cat([m,f[:,None]],1)>0
-        intersection=(gt&pred).sum((-1,-2)); union=(gt|pred).sum((-1,-2)).clamp_min(1)
+        # Fractional GT occupancy preserves the exact native 224px mask area
+        # under nearest-upsampled 16px binary predictions, including tiny parts.
+        intersection=(gt*pred).sum((-1,-2)); union=(gt+pred-gt*pred).sum((-1,-2)).clamp_min(1e-6)
         iou=intersection/union
         ious.extend(iou[:,18][valid[:,18]].cpu().tolist())
         present=batch_tensor(arrays['attrs'],chunk).bool()&valid[:,:18]

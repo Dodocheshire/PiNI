@@ -63,7 +63,7 @@ def main():
     if energy.exists():
         e=json.loads(energy.read_text())['summary'];p=e['part_localization']
         text+=[f"结论：全 {e['n']} 个有效验证样本的背景方差/主体方差为 {e['sigma2_bg_over_fg']:.2f}，主体 μ/背景 μ 为 {e['mu_fg_over_bg']:.2f}。概念部位 μ 与主体其他部位之比仅为 {p['concept_mu_rms']/p['other_object_mu_rms']:.2f}，尚需改善细粒度定位。",'']
-    text+=['主体区域由带监督的 ViT/text 模型预测；高背景 σ 和前景 μ 保护包含显式结构先验。图形证明实际机制实现，不证明这些区域是原始 PiNI 分类 CE 自发发现的，也不能单独证明随机噪声带来性能收益。','',
+    text+=['主体区域由带监督的 ViT/text 模型预测；高背景 σ 和前景 μ 保护包含显式结构先验。μ 表示主体门控之后的概念均值偏移；相对原图的总均值变化还包括背景抑制。图形证明实际机制实现，不证明这些区域是原始 PiNI 分类 CE 自发发现的，也不能单独证明随机噪声带来性能收益。','',
            '## 随机噪声的增量作用','']
     contrasts=[]
     for order in ['independent','sequential']:
@@ -80,6 +80,20 @@ def main():
             text.append(f"{r['name']} 同一检查点 MC1 − 均值推理为 {d:+.3f} 个百分点；这是推理诊断，不代替分别训练的均值对照。")
             text.append('')
     if not contrasts:text+=['匹配的确定性均值对照尚未全部完成，不给随机噪声独立增益结论。','']
+    concept=report/'concept_audit.json'
+    if concept.exists():
+        c=json.loads(concept.read_text());text+=['固定 0.5 阈值的精确率提升可能来自召回率下降。以下阈值只由验证集正样本的第 10 百分位确定，以目标召回率 90% 比较：','',
+            '| 方法 | 测试宏精确率 | 测试宏召回率 |','|---|---:|---:|']
+        for name,r in c.items():text.append(f"| {name} | {r['macro_precision']*100:.2f}% | {r['macro_recall']*100:.2f}% |")
+        text+=['','不同模型的测试召回率仍可能不同，需同时读取这两列；逐概念 AP 和阈值见 `reports/spatial_noise_v1/concept_audit.json`。','']
+    bg=Path('artifacts/background_intervention/results.json')
+    text+=['## 背景互换实验','']
+    if bg.exists():
+        b=json.loads(bg.read_text());text+=['目的：将主体像素保留、移植异类图像背景，并先移除供体主体；真值掩膜仅构造外部干预，不作为 learned 模型推理输入。','',
+            '| 方法 | 原图分类准确率 | 换背景分类准确率 | 换背景概念 mAP |','|---|---:|---:|---:|']
+        for name,r in b['models'].items():text.append(f"| {name} | {r['original']['accuracy']*100:.2f}% | {r['background_swap']['accuracy']*100:.2f}% | {r['background_swap']['mAP']*100:.2f}% |")
+        text+=['',f"固定分层测试子集 N={b['n']}；配对差值与区间保存在 `artifacts/background_intervention/results.json`。需同时比较 noise 和 same-checkpoint mean，不能将主体门控效应全部归给随机采样。",'']
+    else:text+=['已固定构造和采样规则，尚待 GPU 队列完成。','']
     text+=['## 为什么 PiNI 可能有效','',
            '图像 CNN 将每张图每个通道 μ、σ 的 RMS 固定为 0.1，避免方差直接收缩到零。对平滑分类损失，局部近似 E[L(x+μ+σξ)]≈L(x+μ)+½∑σ²·Hii；固定噪声预算促使方差移向损失曲率较小的区域，均值承担适配。这是可验证的机制假说，曲率小不必然等同背景。', '',
            '主方法在全局视觉特征和文本提示嵌入上联合加噪，与 Figure 4 的图像 CNN 属于不同实验。论文 OxfordPets 图像 CNN 89.51%，主方法 92.97%，zero-shot 89.13%。主方法较大增益不能全部归因图像背景屏蔽。[论文](https://arxiv.org/abs/2412.10817)，[官方代码](https://github.com/hyzhang98/PiNI)。', '',
@@ -90,10 +104,13 @@ def main():
         if p.exists():
             r=json.loads(p.read_text());text+=[f"{kind}：OxfordPets 16-shot、200 epochs、seed 1；MC1 {r['MC1']['accuracy']*100:.2f}%，MC8 {r['MC8']['accuracy']*100:.2f}%，同骨干 zero-shot {r['zero_shot']['accuracy']*100:.2f}%。",'']
         else:text+=[f'{kind}：排队或训练中，尚无复现成绩。','']
+    if Path('reports/pini_official/figure4_official.png').exists():
+        text+=['![官方 CNN 校正可视化](reports/pini_official/figure4_official.png)','',
+               '目的：检查原始 CE/RMS 约束是否自身产生背景高方差和主体均值，未使用区域监督。该图与新增带掩膜监督的 CBM 图分开解释。','']
     text+=['官方神经网络类由原始源码 AST 无修改加载，冻结 CLIP，只训练原始生成器。Pets 专用 LR 和论文 split 文件未公开，本次固定 LR=0.002 并使用官方划分算法 seed 1；不宣称匹配作者未公开配置或三种子均值。','',
            '## 仍待完成','',
            ('V1 对照：'+', '.join(pending)) if pending else 'V1 训练方式与生成器对照已完成。','',
-           '背景互换、MC 稳定性、细粒度概念区域训练版本、官方 CNN 图像复验仍需分别核查。联合训练采用单概念真实视图、其他 17 个当前干净概念概率作为 detach 锚的近似；最终评估使用全部 18 张真实概念视图。','',
+           '联合训练采用单概念真实视图、其他 17 个当前干净概念概率作为 detach 锚的近似；最终评估使用全部 18 张真实概念视图。细粒度 V2、MC 稳定性与机制归因以对应完成记录为准；不能只用图像外观判断完成。','',
            '训练可用原生概念和主体掩膜；推理没有真值掩膜。缺失的 39 张主体掩膜不参与对应定位损失/指标。所有性能数字来自固定测试集；当前属于单划分单种子探索实验，尚无跨数据集或多种子确认。','',
            '运行协议见 [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md)。真实缓存、完整预测、checkpoint 和日志保存在本机 ignored `artifacts/`，图表及简要结论入库。']
     Path('EXPERIMENT_RESULT.md').write_text('\n'.join(text)+'\n')

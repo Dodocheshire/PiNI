@@ -2,10 +2,13 @@
 import argparse
 import hashlib
 import json
+import pickle
 from pathlib import Path
 import numpy as np
 import torch
 from torch.nn import functional as F
+from PIL import Image
+from .data import ATTRS,mask_from_uri
 from .models import ConditionalRGBNoise,SpatialConcepts
 from .train_spatial import load_cache
 
@@ -23,10 +26,13 @@ def main():
             ii=ids[start:start+64];attr=np.array(arrays['attrs'][ii]);ks=attr.argmax(-1)
             tokens=torch.tensor(np.array(arrays['tokens'][ii]),dtype=torch.float32)
             mu,sigma,gate=noise.distribution(tokens,torch.tensor(ks))
-            truth=torch.tensor(np.array(arrays['masks'][ii]),dtype=torch.float32)
-            obj=F.interpolate(truth[:,18:19],(224,224),mode='nearest')[:,0]>.5
-            part=truth[torch.arange(len(ii)),torch.tensor(ks)]
-            part=F.interpolate(part[:,None],(224,224),mode='nearest')[:,0]>.5
+            objects=[];parts=[]
+            for i,k in zip(ii,ks):
+                p=Path(records[i]['path'])
+                with p.with_name(p.stem+'_attr_dict.pkl').open('rb') as f:d=pickle.load(f)
+                objects.append(np.asarray(mask_from_uri(d['entire-object']).resize((224,224),Image.Resampling.NEAREST))>0)
+                parts.append(np.asarray(mask_from_uri(d[ATTRS[k]]).resize((224,224),Image.Resampling.NEAREST))>0 if ATTRS[k] in d else np.zeros((224,224),dtype=bool))
+            obj=torch.tensor(np.stack(objects));part=torch.tensor(np.stack(parts))
             s2=sigma.square().mean(1);mr=mu.square().mean(1).sqrt()
             for j,i in enumerate(ii):
                 fg=obj[j];bg=~fg

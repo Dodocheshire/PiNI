@@ -1,6 +1,7 @@
 """Fixed validation gallery of unamplified, actually sampled learned RGB noise."""
 import argparse
 import json
+import pickle
 from pathlib import Path
 
 import matplotlib
@@ -8,7 +9,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from .data import ATTRS,CLASSES
+from .data import ATTRS,CLASSES,mask_from_uri
+from PIL import Image
 from .models import ConditionalRGBNoise,SpatialConcepts
 from .train_spatial import load_cache
 
@@ -40,12 +42,12 @@ def main():
     variance=sigma.square().mean(1).numpy();mean_rms=mu.square().mean(1).sqrt().numpy()
     panel=plt.subplots(len(ids),6,figsize=(15,2.5*len(ids)),layout='constrained')
     fig,axes=panel
-    headers=['Original','Predicted object gate','Mean |μ| RMS (RGB)','Variance σ² (RGB²)','Deterministic view','Actual Gaussian sample']
+    headers=['Original','Inferred preservation gate','Concept offset |μ| RMS','Variance σ² (RGB²)','Deterministic view','Actual Gaussian sample']
     mu_max=max(float(mean_rms.max()),.001);var_max=max(float(variance.max()),.001)
     stats=[]
     for j,i in enumerate(ids):
         axes[j,0].imshow(images[j].permute(1,2,0));axes[j,0].set_ylabel(CLASSES[labels[i]]+'\n'+ATTRS[ks[j]],fontsize=11)
-        axes[j,1].imshow(torch.sigmoid(fg[j]).reshape(16,16),cmap='cividis',vmin=0,vmax=1)
+        axes[j,1].imshow(gate[j,0],cmap='cividis',vmin=0,vmax=1)
         hm=axes[j,2].imshow(mean_rms[j],cmap='magma',vmin=0,vmax=mu_max)
         hv=axes[j,3].imshow(variance[j],cmap='viridis',vmin=0,vmax=var_max)
         axes[j,4].imshow(mean[j].permute(1,2,0).clamp(0,1))
@@ -53,8 +55,9 @@ def main():
         for col in range(6):
             axes[j,col].set_xticks([]);axes[j,col].set_yticks([])
             if j==0:axes[j,col].set_title(headers[col],fontsize=11)
-        gt=torch.tensor(np.array(arrays['masks'][i,18]))
-        gt=torch.nn.functional.interpolate(gt[None,None],(224,224),mode='nearest')[0,0]>.5
+        p=Path(records[i]['path'])
+        with p.with_name(p.stem+'_attr_dict.pkl').open('rb') as f:d=pickle.load(f)
+        gt=torch.tensor(np.asarray(mask_from_uri(d['entire-object']).resize((224,224),Image.Resampling.NEAREST)).copy())>0
         s2=sigma[j].square().mean(0);mr=mu[j].square().mean(0).sqrt()
         stats.append(dict(id=int(i),path=records[i]['path'],concept=ATTRS[ks[j]],
                           clipping_fraction=float(((noisy[j]<0)|(noisy[j]>1)).float().mean()),
@@ -69,10 +72,11 @@ def main():
                   selection='first sorted validation sample per fixed class/concept with positive native label',
                   mu_scale=[0,mu_max],variance_scale=[0,var_max],examples=stats,
                   inference_gt_mask_inputs=False,mean_unit='RGB',variance_unit='RGB squared',noise_amplification=1,
+                  mean_reference='Gaussian offset after predicted background suppression; total mean shift also includes gate attenuation',
                   claim='Visualization validates actual tensors and imposed/localized energy, not classification benefit by itself.')
     (out/'figure4_style.json').write_text(json.dumps(metadata,indent=2))
     # A machine-readable artifact retains every tensor used to draw the panel.
-    np.savez_compressed(Path(a.run)/'figure4_tensors.npz',original=images.numpy(),mu=mu.numpy(),sigma=sigma.numpy(),gate=gate.numpy(),sample=noisy.numpy(),mean=mean.numpy(),ids=ids,concept_ids=ks)
+    np.savez_compressed(Path(a.run)/'figure4_tensors.npz',original=images.numpy(),mu=mu.numpy(),sigma=sigma.numpy(),gate=gate.numpy(),sample=noisy.numpy(),mean=mean.numpy(),total_mean_shift=(mean-images).numpy(),ids=ids,concept_ids=ks)
     print(json.dumps(metadata),flush=True)
 
 

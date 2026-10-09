@@ -1,4 +1,5 @@
 """Semantic discretization and matched-head controls, CPU-only."""
+import argparse
 import json
 from pathlib import Path
 import numpy as np
@@ -9,7 +10,8 @@ from .train_noise import fixed_subset
 
 def main():
     torch.set_num_threads(2)
-    cache=Path('artifacts/rival_vitl14');out=Path('artifacts/spatial_clean')
+    p=argparse.ArgumentParser();p.add_argument('--clean',default='artifacts/spatial_clean');a=p.parse_args()
+    cache=Path('artifacts/rival_vitl14');out=Path(a.clean)
     arrays,splits,labels,records=load_cache(cache)
     logits={s:np.load(out/(s+'_logits.npy')) for s in splits}
     probs={s:1/(1+np.exp(-np.clip(v,-30,30))) for s,v in logits.items()}

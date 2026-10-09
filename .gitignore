@@ -24,5 +24,6 @@ TODO.md
 /.venv/
 __pycache__/
 !reports/**/*.pdf
+!pini_cbm/cache_rival.py
 ~*
 *.brf

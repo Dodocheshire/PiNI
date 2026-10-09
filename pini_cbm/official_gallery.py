@@ -53,7 +53,7 @@ def main():
                          clipping_fraction=float(((y[j]<0)|(y[j]>1)).float().mean())))
     fig.colorbar(hm,ax=axes[:,1],shrink=.4,label='RGB mean RMS',pad=.01)
     fig.colorbar(hv,ax=axes[:,2],shrink=.4,label='RGB variance',pad=.01)
-    fig.suptitle('Official PiNI image CNN — OxfordPets 16-shot, 200 epochs\nActual CLIP inverse normalization; common physical scales; no amplification; fixed validation examples',fontsize=11)
+    fig.suptitle(f'Official PiNI image CNN — OxfordPets 16-shot, {ck["epoch"]} epochs\nActual CLIP inverse normalization; common physical scales; no amplification; fixed validation examples',fontsize=11)
     for ext in ['png','svg','pdf']:fig.savefig(out/('figure4_official.'+ext),dpi=180)
     plt.close(fig)
     metadata=dict(checkpoint=str(run/'last.pt'),epoch=ck['epoch'],sha256=hashlib.sha256((run/'last.pt').read_bytes()).hexdigest(),
