@@ -127,6 +127,10 @@ def write_report(result):
 
 ## 模型怎么工作
 
+![空间加噪 CBM Pipeline](reports/main/pipeline.png)
+
+图中从上到下依次是：学习主体与概念区域、在 RGB 像素上训练噪声、取均值图预测 18 个概念并分类。
+
 使用 **RIVAL10**，包含卡车、飞机、猫等 10 个类别，以及车轮、机翼、耳朵等 18 个概念。Backbone 是冻结的 **CLIP ViT-L/14**。模型结合图像特征和概念文本，找出主体和相应部位，先减弱背景，再在原图的 **RGB 像素**上加噪：背景的随机扰动更强，概念部位的均值偏移更大。每个概念对应一张处理后的图片，再由 ViT 识别；最后用 18 个概念的预测概率完成分类。
 
 训练顺序是先学概念和区域，再训练噪声生成器与概念识别器，最后训练稀疏分类头。区域模型用 18,987 张训练图预训练；加噪阶段用 6,003 张图训练 6 轮，分别运行 seed 42 和 43。训练时使用随机采样，性能测试时使用学到的均值。
@@ -190,9 +194,11 @@ def write_report(result):
 def main():
     OUTPUT.mkdir(parents=True,exist_ok=True);style();result=collect()
     spatial_figure(result);classification_figure(result);background_figure(result)
+    from .pipeline_figure import main as pipeline
+    result['pipeline']=pipeline()
     write_report(result)
     (OUTPUT/'results.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-    print('Updated EXPERIMENT_RESULT.md and three main figure groups',flush=True)
+    print('Updated EXPERIMENT_RESULT.md, pipeline, and three main figure groups',flush=True)
 
 
 if __name__=='__main__':

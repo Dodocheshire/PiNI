@@ -90,26 +90,15 @@
     "artifacts/region_seed43_noise/localization_audit.json": "057a4d112fc8d43c1e850ebc760ec57c81fcf9b42d9f8d82289f7affe78b8e44",
     "artifacts/background_intervention_region_seed43/results.json": "8785ebe19f95e07230008168fdc216571a36eb82428ac9a68003953d7395271a"
   },
-  "visualization": {
-    "ids": [
-      18055,
-      12759,
-      6376
-    ],
-    "concept_ids": [
-      2,
-      1,
-      6
-    ],
-    "sampling_seed": 1207,
-    "tensor_sha256": "37fb743a51d4f19305581525ca30d8642bf8647b18e80b21431ef6c0c531bac6",
-    "mean_scale": [
-      0,
-      0.030293507501482964
-    ],
-    "variance_scale": [
-      0,
-      0.016780812293291092
+  "pipeline": {
+    "reference": "/home/pengcheng/Reference/Style/image.png",
+    "reference_sha256": "5c58b3169b54e2d2a4998f7836e436ca509a1bc2ad5ebc800f72a93cb623c8d7",
+    "image_id": 6376,
+    "example_tensor_sha256": "37fb743a51d4f19305581525ca30d8642bf8647b18e80b21431ef6c0c531bac6",
+    "stages": [
+      "Learn concepts and foreground regions",
+      "Train concept-conditional RGB noise",
+      "Mean inference through 18 native concepts and sparse linear classifier"
     ]
   }
 }
