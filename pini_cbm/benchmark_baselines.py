@@ -77,7 +77,8 @@ def train():
                     scheduler.step()
                     with torch.no_grad():
                         scores = projection(x[splits['val']]).sigmoid().numpy()
-                        score = native_metrics(scores, np.array(arrays['attrs'][splits['val']]))['mAP']
+                        score = float(average_precision_score(
+                            np.array(arrays['attrs'][splits['val']]), scores, average='macro'))
                     history.append(dict(epoch=epoch+1, validation_mAP=score))
                     if score > best:
                         best = score; state = copy.deepcopy(projection.state_dict())
