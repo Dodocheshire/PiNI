@@ -1,0 +1,115 @@
+{
+  "dataset": "RIVAL10",
+  "backbone": "Frozen OpenAI CLIP ViT-L/14",
+  "classes": 10,
+  "concepts": 18,
+  "noise_location": "RGB image pixels",
+  "classification": [
+    {
+      "seed": 42,
+      "accuracy": 0.9909194097616345,
+      "NEC": 4.5,
+      "concept_mAP": 0.8977160276688801
+    },
+    {
+      "seed": 43,
+      "accuracy": 0.9912977676882331,
+      "NEC": 4.400000095367432,
+      "concept_mAP": 0.8966726430797171
+    }
+  ],
+  "spatial": [
+    {
+      "seed": 42,
+      "n_positive_pairs": 9022,
+      "n_local_pairs": 4080,
+      "sigma2_bg_over_fg": 6.444811340850391,
+      "mu_fg_over_bg": 11.881117318473231,
+      "local_part_mu_over_other_object": 10.385480091037374
+    },
+    {
+      "seed": 43,
+      "n_positive_pairs": 9022,
+      "n_local_pairs": 4080,
+      "sigma2_bg_over_fg": 7.606746090305065,
+      "mu_fg_over_bg": 10.572460783877865,
+      "local_part_mu_over_other_object": 10.557744240660217
+    }
+  ],
+  "background": [
+    {
+      "seed": 42,
+      "mean_trained": {
+        "accuracy": 0.959,
+        "mAP": 0.8792144895616102,
+        "macro_precision": 0.8604199886322021,
+        "macro_recall": 0.8185179919446179
+      },
+      "noise_trained_mean_inference": {
+        "accuracy": 0.964,
+        "mAP": 0.8899188486215885,
+        "macro_precision": 0.8512592315673828,
+        "macro_recall": 0.8551259023231366
+      }
+    },
+    {
+      "seed": 43,
+      "mean_trained": {
+        "accuracy": 0.953,
+        "mAP": 0.8818978512408684,
+        "macro_precision": 0.8563697934150696,
+        "macro_recall": 0.8093796025279381
+      },
+      "noise_trained_mean_inference": {
+        "accuracy": 0.968,
+        "mAP": 0.8862326763063373,
+        "macro_precision": 0.8481723070144653,
+        "macro_recall": 0.8491117616483308
+      }
+    }
+  ],
+  "background_average": {
+    "mean_trained": {
+      "accuracy": 0.956,
+      "mAP": 0.8805561704012392
+    },
+    "noise_trained_mean_inference": {
+      "accuracy": 0.966,
+      "mAP": 0.8880757624639629
+    }
+  },
+  "background_gain_pp": {
+    "accuracy": 1.0000000000000009,
+    "mAP": 0.7519592062723679
+  },
+  "source_sha256": {
+    "artifacts/region_noise/results.json": "ca6b1a66012a4c528b695d989e341b58445a3063465510db9f854d4304ba00c7",
+    "artifacts/region_noise/localization_audit.json": "99a80e86f3042722aa203131d74f52c5291d1e099808a54f9b085486e71d01c3",
+    "artifacts/background_intervention_region/results.json": "918a2d040ea1c4311e2410507033b2c272ae963be414e65b7051935c04930b3d",
+    "artifacts/region_seed43_noise/results.json": "faf193be9655c4d1ce5b3e457e1919f07df2ed311c01c040b665233b2a20a1d5",
+    "artifacts/region_seed43_noise/localization_audit.json": "057a4d112fc8d43c1e850ebc760ec57c81fcf9b42d9f8d82289f7affe78b8e44",
+    "artifacts/background_intervention_region_seed43/results.json": "8785ebe19f95e07230008168fdc216571a36eb82428ac9a68003953d7395271a"
+  },
+  "visualization": {
+    "ids": [
+      18055,
+      12759,
+      6376
+    ],
+    "concept_ids": [
+      2,
+      1,
+      6
+    ],
+    "sampling_seed": 1207,
+    "tensor_sha256": "37fb743a51d4f19305581525ca30d8642bf8647b18e80b21431ef6c0c531bac6",
+    "mean_scale": [
+      0,
+      0.030293507501482964
+    ],
+    "variance_scale": [
+      0,
+      0.016780812293291092
+    ]
+  }
+}
