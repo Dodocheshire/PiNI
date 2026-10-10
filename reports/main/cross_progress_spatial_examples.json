@@ -1,0 +1,25 @@
+{
+  "seed": 42,
+  "sampling_seed": 1207,
+  "examples": [
+    {
+      "name": "cub",
+      "image_id": 22,
+      "concept_id": 7,
+      "concept": "has_wing_color::black",
+      "class_name": "001.Black_footed_Albatross",
+      "teacher_target": 1.0
+    },
+    {
+      "name": "cifar10",
+      "image_id": 962,
+      "concept_id": 43,
+      "concept": "four wheels",
+      "class_name": "automobile",
+      "teacher_target": 0.6985490322113037
+    }
+  ],
+  "selection": "first valid validation example in predefined concept preference order; CIFAR native class must match the depicted part (wheels: automobile/truck; wings: airplane/bird; petals: flowers; leaves: trees; fur: mammals); object area 12–85%, local part area 8–85%",
+  "mean_color_max": 0.048902422189712524,
+  "variance_color_max": 0.0189061276614666
+}

@@ -88,7 +88,10 @@ def main():
     assert re.findall(r'^## (.+)$',text,re.M)==['Abstract','Background（为什么要做）','原理与方法','主要实验和结果']
     assert re.findall(r'^### ([abc])\.',text,re.M)==['a','b','c']
     images=re.findall(r'!\[[^\]]*\]\(([^)]+)\)',text)
-    assert len(images)==6
+    expected_images=9 if (root/'cross_results.json').exists() else (
+        6+int('reports/main/cross_baselines.png' in images)+
+        3*int('reports/main/cross_progress_classification.png' in images))
+    assert len(images)==expected_images
     for name in images:
         path=report.parent/name
         with Image.open(path) as image:image.verify()
@@ -102,7 +105,7 @@ def main():
         verification='Raw per-image native scores, class logits, classifier weights, per-region statistics, and identical background pixels checked.',
         background_gain_pp=result['background_gain_pp'])
     (root/'verification.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2))
-    print(f"Verified {len(checks)} numerical claims, three rounds, two baselines, six figures and the single paper report.",flush=True)
+    print(f"Verified {len(checks)} RIVAL10 numerical claims, three rounds, two baselines, {len(images)} figures and the single paper report.",flush=True)
 
 
 if __name__=='__main__':main()

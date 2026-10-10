@@ -165,6 +165,12 @@ def main():
     result['tensor_shapes']=detailed()
     write_report(result)
     (OUTPUT/'results.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+    if Path('artifacts/cross_dataset/ALL_COMPLETE.json').exists():
+        from .cross_reporting import main as cross_report
+        cross_report()
+    elif Path('artifacts/cross_dataset/BASELINE_VERIFICATION.json').exists():
+        from .cross_reporting import baseline_progress
+        baseline_progress()
     print('Updated EXPERIMENT_REPORT.md, detailed modules, and three-round main experiments',flush=True)
 
 

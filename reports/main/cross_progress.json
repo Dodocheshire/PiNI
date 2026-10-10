@@ -1,0 +1,633 @@
+{
+  "passed": true,
+  "datasets": {
+    "cub": {
+      "seeds": [
+        42
+      ],
+      "models": {
+        "lf_cbm": [
+          {
+            "seed": 42,
+            "original": {
+              "mAP": 0.3363133066203546,
+              "accuracy": 0.24059371763893683,
+              "NEC": 5.704999923706055
+            },
+            "background": {
+              "mAP": 0.31397644895423554,
+              "accuracy": 0.12
+            }
+          }
+        ],
+        "supervised_cbm": [
+          {
+            "seed": 42,
+            "original": {
+              "mAP": 0.5333495766889991,
+              "accuracy": 0.7129789437348981,
+              "NEC": 15.484999656677246
+            },
+            "background": {
+              "mAP": 0.5003702720669325,
+              "accuracy": 0.472
+            }
+          }
+        ],
+        "mean": [
+          {
+            "seed": 42,
+            "original": {
+              "mAP": 0.5570786421510013,
+              "accuracy": 0.5680013807386952,
+              "NEC": 8.114999771118164
+            },
+            "background": {
+              "mAP": 0.5332215837692045,
+              "accuracy": 0.497
+            }
+          }
+        ],
+        "noise": [
+          {
+            "seed": 42,
+            "original": {
+              "mAP": 0.5596010108526991,
+              "accuracy": 0.5507421470486711,
+              "NEC": 8.125
+            },
+            "background": {
+              "mAP": 0.5309406787106206,
+              "accuracy": 0.45
+            }
+          }
+        ]
+      },
+      "spatial": [
+        {
+          "dataset": "cub",
+          "seed": 42,
+          "n_images": 500,
+          "positive_pairs": 12114,
+          "local_pairs": 10631,
+          "ratios": {
+            "background_foreground_variance": 4.752808494198097,
+            "foreground_background_mean": 31.29741014060072,
+            "part_other_mean": 7.5955920227241345
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "native CUB foreground and part-point disks"
+        }
+      ],
+      "concepts": [
+        "has_bill_shape::dagger",
+        "has_bill_shape::hooked_seabird",
+        "has_bill_shape::all-purpose",
+        "has_bill_shape::cone",
+        "has_wing_color::brown",
+        "has_wing_color::grey",
+        "has_wing_color::yellow",
+        "has_wing_color::black",
+        "has_wing_color::white",
+        "has_wing_color::buff",
+        "has_upperparts_color::brown",
+        "has_upperparts_color::grey",
+        "has_upperparts_color::yellow",
+        "has_upperparts_color::black",
+        "has_upperparts_color::white",
+        "has_upperparts_color::buff",
+        "has_underparts_color::brown",
+        "has_underparts_color::grey",
+        "has_underparts_color::yellow",
+        "has_underparts_color::black",
+        "has_underparts_color::white",
+        "has_underparts_color::buff",
+        "has_breast_pattern::solid",
+        "has_breast_pattern::striped",
+        "has_breast_pattern::multi-colored",
+        "has_back_color::brown",
+        "has_back_color::grey",
+        "has_back_color::yellow",
+        "has_back_color::black",
+        "has_back_color::white",
+        "has_back_color::buff",
+        "has_tail_shape::notched_tail",
+        "has_upper_tail_color::brown",
+        "has_upper_tail_color::grey",
+        "has_upper_tail_color::black",
+        "has_upper_tail_color::white",
+        "has_upper_tail_color::buff",
+        "has_head_pattern::eyebrow",
+        "has_head_pattern::plain",
+        "has_breast_color::brown",
+        "has_breast_color::grey",
+        "has_breast_color::yellow",
+        "has_breast_color::black",
+        "has_breast_color::white",
+        "has_breast_color::buff",
+        "has_throat_color::grey",
+        "has_throat_color::yellow",
+        "has_throat_color::black",
+        "has_throat_color::white",
+        "has_throat_color::buff",
+        "has_eye_color::black",
+        "has_bill_length::about_the_same_as_head",
+        "has_bill_length::shorter_than_head",
+        "has_forehead_color::blue",
+        "has_forehead_color::brown",
+        "has_forehead_color::grey",
+        "has_forehead_color::yellow",
+        "has_forehead_color::black",
+        "has_forehead_color::white",
+        "has_under_tail_color::brown",
+        "has_under_tail_color::grey",
+        "has_under_tail_color::black",
+        "has_under_tail_color::white",
+        "has_under_tail_color::buff",
+        "has_nape_color::brown",
+        "has_nape_color::grey",
+        "has_nape_color::yellow",
+        "has_nape_color::black",
+        "has_nape_color::white",
+        "has_nape_color::buff",
+        "has_belly_color::brown",
+        "has_belly_color::grey",
+        "has_belly_color::yellow",
+        "has_belly_color::black",
+        "has_belly_color::white",
+        "has_belly_color::buff",
+        "has_wing_shape::rounded-wings",
+        "has_wing_shape::pointed-wings",
+        "has_size::small_(5_-_9_in)",
+        "has_size::medium_(9_-_16_in)",
+        "has_size::very_small_(3_-_5_in)",
+        "has_shape::duck-like",
+        "has_shape::perching-like",
+        "has_back_pattern::solid",
+        "has_back_pattern::striped",
+        "has_back_pattern::multi-colored",
+        "has_tail_pattern::solid",
+        "has_tail_pattern::striped",
+        "has_tail_pattern::multi-colored",
+        "has_belly_pattern::solid",
+        "has_primary_color::brown",
+        "has_primary_color::grey",
+        "has_primary_color::yellow",
+        "has_primary_color::black",
+        "has_primary_color::white",
+        "has_primary_color::buff",
+        "has_leg_color::grey",
+        "has_leg_color::black",
+        "has_leg_color::buff",
+        "has_bill_color::grey",
+        "has_bill_color::black",
+        "has_bill_color::buff",
+        "has_crown_color::blue",
+        "has_crown_color::brown",
+        "has_crown_color::grey",
+        "has_crown_color::yellow",
+        "has_crown_color::black",
+        "has_crown_color::white",
+        "has_wing_pattern::solid",
+        "has_wing_pattern::spotted",
+        "has_wing_pattern::striped",
+        "has_wing_pattern::multi-colored"
+      ]
+    }
+  },
+  "source_sha256": {
+    "artifacts/cross_dataset/cub/mean_seed43/original_results.json": "fa5422feb2c2b61c62b87cf51b315d08700fe29b7ccbbd45161d38dd60e92c31",
+    "artifacts/cross_dataset/cub/lf_cbm_seed42/results.json": "23678b3a94ebd3c462f1c1d3ff200e0f54f77a0d76e151d21690335df5e63e6b",
+    "artifacts/cross_dataset/cub/supervised_cbm_seed42/results.json": "9ee8a3358ba684afb7f3fcfb6ca3721c25f097415edda51fa137ec3c05100088",
+    "artifacts/cross_dataset/cub/mean_seed42/results.json": "3003466440c11e2aef6f1b0b98d2361902543eea5c0ed9cb88eb72f61f8c2296",
+    "artifacts/cross_dataset/cub/noise_seed42/results.json": "d2e382afd9a0ce1dea14bc2654e681de653eb26ae842683f4b5c7dcab6200821",
+    "artifacts/cross_dataset/cub/noise_seed42/spatial_statistics.json": "56a67cbefd7b5c0d7b0748d6f756de119189ed7b2bc5119710476dff7a411128",
+    "artifacts/cross_dataset/cifar10/mean_seed42/original_results.json": "d0e7445cec212b3de5872d82724c8ad9478ed4150c0848945c0177fa9fbf4cd6",
+    "artifacts/cross_dataset/cub/noise_seed43/spatial_statistics.json": "6a22da35b696f347c907deb0dcf84d703fde5014a9be6e442e32892dad7b3f0f",
+    "artifacts/cross_dataset/cifar10/noise_seed42/spatial_statistics.json": "7210cff3376f4b39394fe465456ead71d8e978041105368f8a9963667eb92593",
+    "artifacts/cross_dataset/cifar10/lf_cbm_seed42/results.json": "310af1ce4b7900ae36c23e87a85b92cf7b544f4bde4f0326ccb39d4e319e629a",
+    "artifacts/cross_dataset/cifar10/lf_cbm_seed43/results.json": "973472cb57a9e3fb21cb7311185ba155a73fef65be51f01c783445391c4d0a2f",
+    "artifacts/cross_dataset/cifar10/lf_cbm_seed44/results.json": "880246fbaf15cad8b1563eac42d8979a801fe4b8ce724075a970a7cc03e02b3f",
+    "artifacts/cross_dataset/cifar100/lf_cbm_seed42/results.json": "175d56bfe84dea20d5d78f4b5492cc4dd0da8c9e6fd2318cf9615cea50563a10",
+    "artifacts/cross_dataset/cifar100/lf_cbm_seed43/results.json": "32034993c35746559bb7a9b54e977a831d7c35a8ff10bdad05e45a203184639e",
+    "artifacts/cross_dataset/cifar100/lf_cbm_seed44/results.json": "9504f492817ec3ab3f3290701bb7e692a639d489295188d9ca5164d11cb3ebd9"
+  },
+  "head_selection": [
+    {
+      "dataset": "cub",
+      "method": "mean",
+      "seed": 43,
+      "selected": 2,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.6533333333333333,
+      "validation_NLL": 1.6070350408554077,
+      "NEC": 15.789999961853027,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "lf_cbm",
+      "seed": 42,
+      "selected": 3,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.24333333333333335,
+      "validation_NLL": 3.857185125350952,
+      "NEC": 5.704999923706055,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "supervised_cbm",
+      "seed": 42,
+      "selected": 2,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.7016666666666667,
+      "validation_NLL": 1.5790411233901978,
+      "NEC": 15.484999656677246,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "mean",
+      "seed": 42,
+      "selected": 3,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.55,
+      "validation_NLL": 2.2162418365478516,
+      "NEC": 8.114999771118164,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "noise",
+      "seed": 42,
+      "selected": 3,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.5366666666666666,
+      "validation_NLL": 2.260138511657715,
+      "NEC": 8.125,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar10",
+      "method": "mean",
+      "seed": 42,
+      "selected": 0,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.951,
+      "validation_NLL": 0.1858217716217041,
+      "NEC": 8.800000190734863,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    }
+  ],
+  "original_models": [
+    {
+      "dataset": "cub",
+      "method": "mean",
+      "seed": 43,
+      "test_n": 5794,
+      "original": {
+        "mAP": 0.5589447144121976,
+        "accuracy": 0.6879530548843631,
+        "NEC": 15.789999961853027
+      }
+    },
+    {
+      "dataset": "cifar10",
+      "method": "mean",
+      "seed": 42,
+      "test_n": 10000,
+      "original": {
+        "concept_correlation": 0.8730064534548094,
+        "accuracy": 0.9479,
+        "NEC": 8.800000190734863
+      }
+    }
+  ],
+  "spatial_datasets": {
+    "cub": {
+      "concepts": [
+        "has_bill_shape::dagger",
+        "has_bill_shape::hooked_seabird",
+        "has_bill_shape::all-purpose",
+        "has_bill_shape::cone",
+        "has_wing_color::brown",
+        "has_wing_color::grey",
+        "has_wing_color::yellow",
+        "has_wing_color::black",
+        "has_wing_color::white",
+        "has_wing_color::buff",
+        "has_upperparts_color::brown",
+        "has_upperparts_color::grey",
+        "has_upperparts_color::yellow",
+        "has_upperparts_color::black",
+        "has_upperparts_color::white",
+        "has_upperparts_color::buff",
+        "has_underparts_color::brown",
+        "has_underparts_color::grey",
+        "has_underparts_color::yellow",
+        "has_underparts_color::black",
+        "has_underparts_color::white",
+        "has_underparts_color::buff",
+        "has_breast_pattern::solid",
+        "has_breast_pattern::striped",
+        "has_breast_pattern::multi-colored",
+        "has_back_color::brown",
+        "has_back_color::grey",
+        "has_back_color::yellow",
+        "has_back_color::black",
+        "has_back_color::white",
+        "has_back_color::buff",
+        "has_tail_shape::notched_tail",
+        "has_upper_tail_color::brown",
+        "has_upper_tail_color::grey",
+        "has_upper_tail_color::black",
+        "has_upper_tail_color::white",
+        "has_upper_tail_color::buff",
+        "has_head_pattern::eyebrow",
+        "has_head_pattern::plain",
+        "has_breast_color::brown",
+        "has_breast_color::grey",
+        "has_breast_color::yellow",
+        "has_breast_color::black",
+        "has_breast_color::white",
+        "has_breast_color::buff",
+        "has_throat_color::grey",
+        "has_throat_color::yellow",
+        "has_throat_color::black",
+        "has_throat_color::white",
+        "has_throat_color::buff",
+        "has_eye_color::black",
+        "has_bill_length::about_the_same_as_head",
+        "has_bill_length::shorter_than_head",
+        "has_forehead_color::blue",
+        "has_forehead_color::brown",
+        "has_forehead_color::grey",
+        "has_forehead_color::yellow",
+        "has_forehead_color::black",
+        "has_forehead_color::white",
+        "has_under_tail_color::brown",
+        "has_under_tail_color::grey",
+        "has_under_tail_color::black",
+        "has_under_tail_color::white",
+        "has_under_tail_color::buff",
+        "has_nape_color::brown",
+        "has_nape_color::grey",
+        "has_nape_color::yellow",
+        "has_nape_color::black",
+        "has_nape_color::white",
+        "has_nape_color::buff",
+        "has_belly_color::brown",
+        "has_belly_color::grey",
+        "has_belly_color::yellow",
+        "has_belly_color::black",
+        "has_belly_color::white",
+        "has_belly_color::buff",
+        "has_wing_shape::rounded-wings",
+        "has_wing_shape::pointed-wings",
+        "has_size::small_(5_-_9_in)",
+        "has_size::medium_(9_-_16_in)",
+        "has_size::very_small_(3_-_5_in)",
+        "has_shape::duck-like",
+        "has_shape::perching-like",
+        "has_back_pattern::solid",
+        "has_back_pattern::striped",
+        "has_back_pattern::multi-colored",
+        "has_tail_pattern::solid",
+        "has_tail_pattern::striped",
+        "has_tail_pattern::multi-colored",
+        "has_belly_pattern::solid",
+        "has_primary_color::brown",
+        "has_primary_color::grey",
+        "has_primary_color::yellow",
+        "has_primary_color::black",
+        "has_primary_color::white",
+        "has_primary_color::buff",
+        "has_leg_color::grey",
+        "has_leg_color::black",
+        "has_leg_color::buff",
+        "has_bill_color::grey",
+        "has_bill_color::black",
+        "has_bill_color::buff",
+        "has_crown_color::blue",
+        "has_crown_color::brown",
+        "has_crown_color::grey",
+        "has_crown_color::yellow",
+        "has_crown_color::black",
+        "has_crown_color::white",
+        "has_wing_pattern::solid",
+        "has_wing_pattern::spotted",
+        "has_wing_pattern::striped",
+        "has_wing_pattern::multi-colored"
+      ],
+      "spatial": [
+        {
+          "dataset": "cub",
+          "seed": 42,
+          "n_images": 500,
+          "positive_pairs": 12114,
+          "local_pairs": 10631,
+          "ratios": {
+            "background_foreground_variance": 4.752808494198097,
+            "foreground_background_mean": 31.29741014060072,
+            "part_other_mean": 7.5955920227241345
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "native CUB foreground and part-point disks"
+        },
+        {
+          "dataset": "cub",
+          "seed": 43,
+          "n_images": 500,
+          "positive_pairs": 12114,
+          "local_pairs": 10631,
+          "ratios": {
+            "background_foreground_variance": 5.501849762430538,
+            "foreground_background_mean": 32.85392791681245,
+            "part_other_mean": 6.139209720606584
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "native CUB foreground and part-point disks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "5e99989ba0cbfb06709b9c4b35c4097b42f23ee2873a5383a64913a27eb8b9af"
+        }
+      ]
+    },
+    "cifar10": {
+      "concepts": [
+        "a Hunter",
+        "a barn",
+        "a beak",
+        "a bed for carrying cargo",
+        "a bird feeder",
+        "a birdfeeder",
+        "a boat",
+        "a bridle",
+        "a cab for the driver",
+        "a cat bed",
+        "a cat food dish",
+        "a cat toy",
+        "a dashboard",
+        "a deer stand",
+        "a dog bowl",
+        "a forest",
+        "a four-legged mammal",
+        "a grille",
+        "a halter",
+        "a lead rope",
+        "a leaf",
+        "a leash",
+        "a lily pad",
+        "a litter box",
+        "a mane and tail",
+        "a nest",
+        "a pasture",
+        "a pilot",
+        "a reins",
+        "a rider",
+        "a runway",
+        "a saddle",
+        "a scratching post",
+        "a steering wheel",
+        "a trailer",
+        "a wet nose",
+        "amphibian",
+        "animal",
+        "antlers",
+        "engines on the wings",
+        "feathers",
+        "four legs",
+        "four round, black tires",
+        "four wheels",
+        "fur",
+        "hooves",
+        "insects",
+        "large sails or engines",
+        "large, brown eyes",
+        "large, bulging eyes",
+        "living thing",
+        "long ears",
+        "long hind legs for jumping",
+        "mammal",
+        "multiple sails",
+        "nature",
+        "quadruped",
+        "transportation",
+        "vertebrate",
+        "watercraft",
+        "webbed feet",
+        "whiskers",
+        "white spots on the coat",
+        "wings"
+      ],
+      "spatial": [
+        {
+          "dataset": "cifar10",
+          "seed": 42,
+          "n_images": 500,
+          "positive_pairs": 8773,
+          "local_pairs": 8773,
+          "ratios": {
+            "background_foreground_variance": 3.655143360460452,
+            "foreground_background_mean": 4.298396567372394,
+            "part_other_mean": 2.7520496301259127
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "ec6bc74e2575106e16b6c309e74f47f9ea9d6898b7d2368d8a86284d8e00e84e"
+        }
+      ]
+    }
+  },
+  "background_baselines": {
+    "cifar10": [
+      {
+        "seed": 42,
+        "original": {
+          "concept_correlation": 0.9944021910736622,
+          "accuracy": 0.9619,
+          "NEC": 7.700000286102295
+        },
+        "background": {
+          "concept_correlation": 0.44981677089932076,
+          "accuracy": 0.787
+        }
+      },
+      {
+        "seed": 43,
+        "original": {
+          "concept_correlation": 0.9944079663503365,
+          "accuracy": 0.9619,
+          "NEC": 7.800000190734863
+        },
+        "background": {
+          "concept_correlation": 0.44952492004588995,
+          "accuracy": 0.791
+        }
+      },
+      {
+        "seed": 44,
+        "original": {
+          "concept_correlation": 0.9943855694752166,
+          "accuracy": 0.9619,
+          "NEC": 7.700000286102295
+        },
+        "background": {
+          "concept_correlation": 0.45029196677933403,
+          "accuracy": 0.788
+        }
+      }
+    ],
+    "cifar100": [
+      {
+        "seed": 42,
+        "original": {
+          "concept_correlation": 0.9935993817099262,
+          "accuracy": 0.6353,
+          "NEC": 7.730000019073486
+        },
+        "background": {
+          "concept_correlation": 0.4612036958741499,
+          "accuracy": 0.332
+        }
+      },
+      {
+        "seed": 43,
+        "original": {
+          "concept_correlation": 0.9935420893401117,
+          "accuracy": 0.6344,
+          "NEC": 7.759999752044678
+        },
+        "background": {
+          "concept_correlation": 0.4611984049177708,
+          "accuracy": 0.331
+        }
+      },
+      {
+        "seed": 44,
+        "original": {
+          "concept_correlation": 0.9935640845740683,
+          "accuracy": 0.6358,
+          "NEC": 7.679999828338623
+        },
+        "background": {
+          "concept_correlation": 0.4607823293005411,
+          "accuracy": 0.329
+        }
+      }
+    ]
+  }
+}

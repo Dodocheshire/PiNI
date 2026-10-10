@@ -66,10 +66,14 @@
     "reports/main/concept_region_detail.png",
     "reports/main/noise_generator_detail.png",
     "reports/main/spatial_noise.png",
+    "reports/main/cross_progress_spatial.png",
     "reports/main/classification.png",
-    "reports/main/background_gain.png"
+    "reports/main/cross_baselines.png",
+    "reports/main/cross_progress_classification.png",
+    "reports/main/background_gain.png",
+    "reports/main/cross_progress_background.png"
   ],
-  "report_sha256": "272fa2d9747f028dd96255e779932f799f2ed931406c3bcd77207ed8bcd452e1",
+  "report_sha256": "41cb355347dca046634eeaca30ba1c6fed9894a0d95b7986264ab6ca277863a0",
   "verification": "Raw per-image native scores, class logits, classifier weights, per-region statistics, and identical background pixels checked.",
   "background_gain_pp": {
     "accuracy": 1.0333333333333306,
