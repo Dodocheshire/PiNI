@@ -3,7 +3,8 @@
   "datasets": {
     "cub": {
       "seeds": [
-        42
+        42,
+        43
       ],
       "models": {
         "lf_cbm": [
@@ -17,6 +18,18 @@
             "background": {
               "mAP": 0.31397644895423554,
               "accuracy": 0.12
+            }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "mAP": 0.3363522359629191,
+              "accuracy": 0.2454263030721436,
+              "NEC": 5.784999847412109
+            },
+            "background": {
+              "mAP": 0.3139771102877837,
+              "accuracy": 0.115
             }
           }
         ],
@@ -32,6 +45,18 @@
               "mAP": 0.5003702720669325,
               "accuracy": 0.472
             }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "mAP": 0.5333241280555936,
+              "accuracy": 0.712806351397998,
+              "NEC": 15.460000038146973
+            },
+            "background": {
+              "mAP": 0.5004813560723741,
+              "accuracy": 0.464
+            }
           }
         ],
         "mean": [
@@ -46,6 +71,18 @@
               "mAP": 0.5332215837692045,
               "accuracy": 0.497
             }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "mAP": 0.5589447144121976,
+              "accuracy": 0.6879530548843631,
+              "NEC": 15.789999961853027
+            },
+            "background": {
+              "mAP": 0.534248578607009,
+              "accuracy": 0.599
+            }
           }
         ],
         "noise": [
@@ -59,6 +96,18 @@
             "background": {
               "mAP": 0.5309406787106206,
               "accuracy": 0.45
+            }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "mAP": 0.5583006972569527,
+              "accuracy": 0.5312392129789437,
+              "NEC": 8.204999923706055
+            },
+            "background": {
+              "mAP": 0.5318873488497429,
+              "accuracy": 0.452
             }
           }
         ]
@@ -77,6 +126,22 @@
           },
           "aggregation": "ratio of per-region means, matching RIVAL10",
           "region_source": "native CUB foreground and part-point disks"
+        },
+        {
+          "dataset": "cub",
+          "seed": 43,
+          "n_images": 500,
+          "positive_pairs": 12114,
+          "local_pairs": 10631,
+          "ratios": {
+            "background_foreground_variance": 5.501849762430538,
+            "foreground_background_mean": 32.85392791681245,
+            "part_other_mean": 6.139209720606584
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "native CUB foreground and part-point disks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "5e99989ba0cbfb06709b9c4b35c4097b42f23ee2873a5383a64913a27eb8b9af"
         }
       ],
       "concepts": [
@@ -193,19 +258,156 @@
         "has_wing_pattern::striped",
         "has_wing_pattern::multi-colored"
       ]
+    },
+    "cifar10": {
+      "seeds": [
+        42
+      ],
+      "models": {
+        "lf_cbm": [
+          {
+            "seed": 42,
+            "original": {
+              "concept_correlation": 0.9944021910736622,
+              "accuracy": 0.9619,
+              "NEC": 7.700000286102295
+            },
+            "background": {
+              "concept_correlation": 0.44981677089932076,
+              "accuracy": 0.787
+            }
+          }
+        ],
+        "mean": [
+          {
+            "seed": 42,
+            "original": {
+              "concept_correlation": 0.8730064534548094,
+              "accuracy": 0.9479,
+              "NEC": 8.800000190734863
+            },
+            "background": {
+              "concept_correlation": 0.4352959168456687,
+              "accuracy": 0.737
+            }
+          }
+        ],
+        "noise": [
+          {
+            "seed": 42,
+            "original": {
+              "concept_correlation": 0.738836787009018,
+              "accuracy": 0.9045,
+              "NEC": 11.699999809265137
+            },
+            "background": {
+              "concept_correlation": 0.4937712848697075,
+              "accuracy": 0.767
+            }
+          }
+        ]
+      },
+      "spatial": [
+        {
+          "dataset": "cifar10",
+          "seed": 42,
+          "n_images": 500,
+          "positive_pairs": 8773,
+          "local_pairs": 8773,
+          "ratios": {
+            "background_foreground_variance": 3.655143360460452,
+            "foreground_background_mean": 4.298396567372394,
+            "part_other_mean": 2.7520496301259127
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "ec6bc74e2575106e16b6c309e74f47f9ea9d6898b7d2368d8a86284d8e00e84e"
+        }
+      ],
+      "concepts": [
+        "a Hunter",
+        "a barn",
+        "a beak",
+        "a bed for carrying cargo",
+        "a bird feeder",
+        "a birdfeeder",
+        "a boat",
+        "a bridle",
+        "a cab for the driver",
+        "a cat bed",
+        "a cat food dish",
+        "a cat toy",
+        "a dashboard",
+        "a deer stand",
+        "a dog bowl",
+        "a forest",
+        "a four-legged mammal",
+        "a grille",
+        "a halter",
+        "a lead rope",
+        "a leaf",
+        "a leash",
+        "a lily pad",
+        "a litter box",
+        "a mane and tail",
+        "a nest",
+        "a pasture",
+        "a pilot",
+        "a reins",
+        "a rider",
+        "a runway",
+        "a saddle",
+        "a scratching post",
+        "a steering wheel",
+        "a trailer",
+        "a wet nose",
+        "amphibian",
+        "animal",
+        "antlers",
+        "engines on the wings",
+        "feathers",
+        "four legs",
+        "four round, black tires",
+        "four wheels",
+        "fur",
+        "hooves",
+        "insects",
+        "large sails or engines",
+        "large, brown eyes",
+        "large, bulging eyes",
+        "living thing",
+        "long ears",
+        "long hind legs for jumping",
+        "mammal",
+        "multiple sails",
+        "nature",
+        "quadruped",
+        "transportation",
+        "vertebrate",
+        "watercraft",
+        "webbed feet",
+        "whiskers",
+        "white spots on the coat",
+        "wings"
+      ]
     }
   },
   "source_sha256": {
-    "artifacts/cross_dataset/cub/mean_seed43/original_results.json": "fa5422feb2c2b61c62b87cf51b315d08700fe29b7ccbbd45161d38dd60e92c31",
     "artifacts/cross_dataset/cub/lf_cbm_seed42/results.json": "23678b3a94ebd3c462f1c1d3ff200e0f54f77a0d76e151d21690335df5e63e6b",
     "artifacts/cross_dataset/cub/supervised_cbm_seed42/results.json": "9ee8a3358ba684afb7f3fcfb6ca3721c25f097415edda51fa137ec3c05100088",
     "artifacts/cross_dataset/cub/mean_seed42/results.json": "3003466440c11e2aef6f1b0b98d2361902543eea5c0ed9cb88eb72f61f8c2296",
     "artifacts/cross_dataset/cub/noise_seed42/results.json": "d2e382afd9a0ce1dea14bc2654e681de653eb26ae842683f4b5c7dcab6200821",
     "artifacts/cross_dataset/cub/noise_seed42/spatial_statistics.json": "56a67cbefd7b5c0d7b0748d6f756de119189ed7b2bc5119710476dff7a411128",
-    "artifacts/cross_dataset/cifar10/mean_seed42/original_results.json": "d0e7445cec212b3de5872d82724c8ad9478ed4150c0848945c0177fa9fbf4cd6",
+    "artifacts/cross_dataset/cub/lf_cbm_seed43/results.json": "c66099d3f8d7dc0a6a0b59935f7398ae232eabbf84d38433df97bdaebf207f83",
+    "artifacts/cross_dataset/cub/supervised_cbm_seed43/results.json": "7c1ff0b02c20ea956ac7009e995c739881b8752663b7a459d438cd661c541a20",
+    "artifacts/cross_dataset/cub/mean_seed43/results.json": "c517658d4873552bdab5f275238e0e765d0e7e13f1e9fb4f3e4a3a0a39950e78",
+    "artifacts/cross_dataset/cub/noise_seed43/results.json": "5e00156c1d59177637a52652a4955d4e6fe7e2e6d1708933abae66efc3a67474",
     "artifacts/cross_dataset/cub/noise_seed43/spatial_statistics.json": "6a22da35b696f347c907deb0dcf84d703fde5014a9be6e442e32892dad7b3f0f",
-    "artifacts/cross_dataset/cifar10/noise_seed42/spatial_statistics.json": "7210cff3376f4b39394fe465456ead71d8e978041105368f8a9963667eb92593",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed42/results.json": "310af1ce4b7900ae36c23e87a85b92cf7b544f4bde4f0326ccb39d4e319e629a",
+    "artifacts/cross_dataset/cifar10/mean_seed42/results.json": "78c8462601d01e2d0744236f6b0d82a27caf294a1f7ee4ce160dd2caab2913c4",
+    "artifacts/cross_dataset/cifar10/noise_seed42/results.json": "132721204114c154ba98febd8d72574266b0af96855c23346bdc12b7e874ba3b",
+    "artifacts/cross_dataset/cifar10/noise_seed42/spatial_statistics.json": "7210cff3376f4b39394fe465456ead71d8e978041105368f8a9963667eb92593",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed43/results.json": "973472cb57a9e3fb21cb7311185ba155a73fef65be51f01c783445391c4d0a2f",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed44/results.json": "880246fbaf15cad8b1563eac42d8979a801fe4b8ce724075a970a7cc03e02b3f",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed42/results.json": "175d56bfe84dea20d5d78f4b5492cc4dd0da8c9e6fd2318cf9615cea50563a10",
@@ -213,19 +415,6 @@
     "artifacts/cross_dataset/cifar100/lf_cbm_seed44/results.json": "9504f492817ec3ab3f3290701bb7e692a639d489295188d9ca5164d11cb3ebd9"
   },
   "head_selection": [
-    {
-      "dataset": "cub",
-      "method": "mean",
-      "seed": 43,
-      "selected": 2,
-      "validation_n": 600,
-      "training_n": 5394,
-      "validation_accuracy": 0.6533333333333333,
-      "validation_NLL": 1.6070350408554077,
-      "NEC": 15.789999961853027,
-      "train_only_standardization": true,
-      "validation_only_selection": true
-    },
     {
       "dataset": "cub",
       "method": "lf_cbm",
@@ -279,6 +468,71 @@
       "validation_only_selection": true
     },
     {
+      "dataset": "cub",
+      "method": "lf_cbm",
+      "seed": 43,
+      "selected": 3,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.24833333333333332,
+      "validation_NLL": 3.857482433319092,
+      "NEC": 5.784999847412109,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "supervised_cbm",
+      "seed": 43,
+      "selected": 2,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.6966666666666667,
+      "validation_NLL": 1.5798585414886475,
+      "NEC": 15.460000038146973,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "mean",
+      "seed": 43,
+      "selected": 2,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.6533333333333333,
+      "validation_NLL": 1.6070350408554077,
+      "NEC": 15.789999961853027,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "noise",
+      "seed": 43,
+      "selected": 3,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.5383333333333333,
+      "validation_NLL": 2.295586347579956,
+      "NEC": 8.204999923706055,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar10",
+      "method": "lf_cbm",
+      "seed": 42,
+      "selected": 0,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.9612,
+      "validation_NLL": 0.15112736821174622,
+      "NEC": 7.699999809265137,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
       "dataset": "cifar10",
       "method": "mean",
       "seed": 42,
@@ -290,32 +544,22 @@
       "NEC": 8.800000190734863,
       "train_only_standardization": true,
       "validation_only_selection": true
-    }
-  ],
-  "original_models": [
-    {
-      "dataset": "cub",
-      "method": "mean",
-      "seed": 43,
-      "test_n": 5794,
-      "original": {
-        "mAP": 0.5589447144121976,
-        "accuracy": 0.6879530548843631,
-        "NEC": 15.789999961853027
-      }
     },
     {
       "dataset": "cifar10",
-      "method": "mean",
+      "method": "noise",
       "seed": 42,
-      "test_n": 10000,
-      "original": {
-        "concept_correlation": 0.8730064534548094,
-        "accuracy": 0.9479,
-        "NEC": 8.800000190734863
-      }
+      "selected": 0,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.9206,
+      "validation_NLL": 0.25867339968681335,
+      "NEC": 11.699999809265137,
+      "train_only_standardization": true,
+      "validation_only_selection": true
     }
   ],
+  "original_models": [],
   "spatial_datasets": {
     "cub": {
       "concepts": [
