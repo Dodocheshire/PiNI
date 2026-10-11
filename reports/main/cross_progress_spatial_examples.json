@@ -17,6 +17,14 @@
       "concept": "four wheels",
       "class_name": "automobile",
       "teacher_target": 0.6985490322113037
+    },
+    {
+      "name": "cifar100",
+      "image_id": 445,
+      "concept_id": 44,
+      "concept": "a petal",
+      "class_name": "rose",
+      "teacher_target": 0.8423516750335693
     }
   ],
   "selection": "first valid validation example in predefined concept preference order; CIFAR native class must match the depicted part (wheels: automobile/truck; wings: airplane/bird; petals: flowers; leaves: trees; fur: mammals); object area 12–85%, local part area 8–85%",

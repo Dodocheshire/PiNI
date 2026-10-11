@@ -12,11 +12,13 @@ from .cross_data import ROOT, write_json
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--wait-pid",type=int,required=True)
+    parser.add_argument("--wait-pid",type=int,default=0)
+    parser.add_argument("--datasets",nargs="+",choices=["cub","cifar10","cifar100"],
+                        default=["cub","cifar10","cifar100"])
     args = parser.parse_args()
     state_path = ROOT/"AUXILIARY_CUB_STATE.json"
-    state = dict(pid=os.getpid(),status="waiting_for_cub_mean43",wait_pid=args.wait_pid,
-                 datasets=["cub","cifar10","cifar100"],cifar_seeds=[44],
+    state = dict(pid=os.getpid(),status="waiting_for_prior_worker",wait_pid=args.wait_pid,
+                 datasets=args.datasets,cifar_seeds=[44],
                  completed_steps=[],started_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()))
     write_json(state_path,state)
     waiting = Path("/proc")/str(args.wait_pid)/"cmdline"
@@ -28,7 +30,7 @@ def main():
         if b"pini_cbm.cross_experiment" not in command:
             break
         time.sleep(5)
-    if not (ROOT/"cub/mean_seed43/original_results.json").exists():
+    if "cub" in args.datasets and not (ROOT/"cub/mean_seed43/original_results.json").exists():
         state.update(status="prior_worker_stopped_before_result")
         write_json(state_path,state)
         raise SystemExit("Inspect CUB mean seed 43 before resuming the auxiliary queue.")
@@ -40,6 +42,7 @@ def main():
         for method in ["mean","noise"]:
             for phase in ["adapt","background"]:
                 steps.append((dataset,phase,method,44))
+    steps = [step for step in steps if step[0] in args.datasets]
     state["scheduled_steps"] = [f"{dataset}_{method}_{seed}_{phase}" for dataset,phase,method,seed in steps]
     for dataset,phase,method,seed in steps:
         step = f"{dataset}_{method}_{seed}_{phase}"

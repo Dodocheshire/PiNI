@@ -261,7 +261,8 @@
     },
     "cifar10": {
       "seeds": [
-        42
+        42,
+        43
       ],
       "models": {
         "lf_cbm": [
@@ -275,6 +276,18 @@
             "background": {
               "concept_correlation": 0.44981677089932076,
               "accuracy": 0.787
+            }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "concept_correlation": 0.9944079663503365,
+              "accuracy": 0.9619,
+              "NEC": 7.800000190734863
+            },
+            "background": {
+              "concept_correlation": 0.44952492004588995,
+              "accuracy": 0.791
             }
           }
         ],
@@ -290,6 +303,18 @@
               "concept_correlation": 0.4352959168456687,
               "accuracy": 0.737
             }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "concept_correlation": 0.8999336846109439,
+              "accuracy": 0.9533,
+              "NEC": 9.600000381469727
+            },
+            "background": {
+              "concept_correlation": 0.4502444081256593,
+              "accuracy": 0.747
+            }
           }
         ],
         "noise": [
@@ -303,6 +328,18 @@
             "background": {
               "concept_correlation": 0.4937712848697075,
               "accuracy": 0.767
+            }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "concept_correlation": 0.7580820929655427,
+              "accuracy": 0.911,
+              "NEC": 12.5
+            },
+            "background": {
+              "concept_correlation": 0.5131915700853987,
+              "accuracy": 0.752
             }
           }
         ]
@@ -323,6 +360,22 @@
           "region_source": "SAM2 foreground and CLIP concept patch masks",
           "computation_device": "cpu",
           "checkpoint_sha256": "ec6bc74e2575106e16b6c309e74f47f9ea9d6898b7d2368d8a86284d8e00e84e"
+        },
+        {
+          "dataset": "cifar10",
+          "seed": 43,
+          "n_images": 500,
+          "positive_pairs": 8773,
+          "local_pairs": 8773,
+          "ratios": {
+            "background_foreground_variance": 3.339383722123355,
+            "foreground_background_mean": 3.4035305460496015,
+            "part_other_mean": 2.628876519332881
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cuda",
+          "checkpoint_sha256": "441cfea57c3263d64c37439cdbc0bdebcc773c074c945833701ffc501b753c92"
         }
       ],
       "concepts": [
@@ -391,6 +444,256 @@
         "white spots on the coat",
         "wings"
       ]
+    },
+    "cifar100": {
+      "seeds": [
+        42,
+        43
+      ],
+      "models": {
+        "lf_cbm": [
+          {
+            "seed": 42,
+            "original": {
+              "concept_correlation": 0.9935993817099262,
+              "accuracy": 0.6353,
+              "NEC": 7.730000019073486
+            },
+            "background": {
+              "concept_correlation": 0.4612036958741499,
+              "accuracy": 0.332
+            }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "concept_correlation": 0.9935420893401117,
+              "accuracy": 0.6344,
+              "NEC": 7.759999752044678
+            },
+            "background": {
+              "concept_correlation": 0.4611984049177708,
+              "accuracy": 0.331
+            }
+          }
+        ],
+        "mean": [
+          {
+            "seed": 42,
+            "original": {
+              "concept_correlation": 0.900967307479638,
+              "accuracy": 0.6437,
+              "NEC": 10.359999656677246
+            },
+            "background": {
+              "concept_correlation": 0.4397482848584727,
+              "accuracy": 0.365
+            }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "concept_correlation": 0.9051590898700295,
+              "accuracy": 0.6496,
+              "NEC": 10.300000190734863
+            },
+            "background": {
+              "concept_correlation": 0.44249169139430106,
+              "accuracy": 0.333
+            }
+          }
+        ],
+        "noise": [
+          {
+            "seed": 42,
+            "original": {
+              "concept_correlation": 0.8491049739138307,
+              "accuracy": 0.5626,
+              "NEC": 9.760000228881836
+            },
+            "background": {
+              "concept_correlation": 0.4850478114419784,
+              "accuracy": 0.329
+            }
+          },
+          {
+            "seed": 43,
+            "original": {
+              "concept_correlation": 0.7763584350683359,
+              "accuracy": 0.4986,
+              "NEC": 9.84000015258789
+            },
+            "background": {
+              "concept_correlation": 0.4953838201398921,
+              "accuracy": 0.338
+            }
+          }
+        ]
+      },
+      "spatial": [
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "n_images": 500,
+          "positive_pairs": 17923,
+          "local_pairs": 17923,
+          "ratios": {
+            "background_foreground_variance": 1.8127211466516864,
+            "foreground_background_mean": 2.216514062999499,
+            "part_other_mean": 2.2039571968646614
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cuda",
+          "checkpoint_sha256": "88b52507cdd01dde8d5af9a87979b783b3f60bad37d0db43e4434bb7b35c7b3b"
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 43,
+          "n_images": 500,
+          "positive_pairs": 17923,
+          "local_pairs": 17923,
+          "ratios": {
+            "background_foreground_variance": 2.5054113726429756,
+            "foreground_background_mean": 2.3546384749082905,
+            "part_other_mean": 2.1919101211862544
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cuda",
+          "checkpoint_sha256": "3c11bdb013c1f99792a16d5f6c1cf8e06d8a7ab7f095f1d654f7229c431b95fe"
+        }
+      ],
+      "concepts": [
+        "5-7 black rings on the tail",
+        "a animal",
+        "a bike lane",
+        "a black, fur-covered nose",
+        "a blowhole",
+        "a branch",
+        "a bug",
+        "a burrow",
+        "a bus lane",
+        "a bush",
+        "a cub",
+        "a delicate, colorful flower",
+        "a desert animal",
+        "a dorsal fin",
+        "a driveway",
+        "a farm",
+        "a flower",
+        "a forked tail",
+        "a furry coat",
+        "a garden",
+        "a grassland",
+        "a hard, crustacean body",
+        "a insect",
+        "a joey",
+        "a ladybug",
+        "a large number of trees",
+        "a large, imposing structure",
+        "a large, ocean-dwelling mammal",
+        "a large, predatory fish",
+        "a large, showy flower",
+        "a lioness",
+        "a load of hay",
+        "a load of lumber",
+        "a locomotive",
+        "a long mane around the head",
+        "a long, sinuous tail",
+        "a long, slender trunk",
+        "a long, thick tail",
+        "a long, whip-like tail",
+        "a meadow",
+        "a mongoose",
+        "a mottled brown or black coat",
+        "a nature reserve",
+        "a pasture",
+        "a petal",
+        "a plant",
+        "a pouch on the female's belly",
+        "a prey",
+        "a roach motel",
+        "a rounded crown of leaves",
+        "a safari",
+        "a sandy or brown coloration",
+        "a short, stubby tail",
+        "a small mammal",
+        "a small, delicate flower",
+        "a small, furry body",
+        "a small, rodent-like body",
+        "a snake charmer",
+        "a street",
+        "a sweet fragrance",
+        "a tall, sturdy trunk",
+        "a track",
+        "a tractor trailer",
+        "a trail",
+        "a tree",
+        "a trunk with thick, rough bark",
+        "a zoo",
+        "able to climb trees",
+        "acorns on the ground beneath",
+        "an acorn",
+        "aquatic animal",
+        "arthropod",
+        "baby possums",
+        "black markings around the eyes",
+        "brightly colored wings",
+        "building",
+        "carnivore",
+        "chordate",
+        "cone-shaped fruit",
+        "cubs",
+        "dense vegetation",
+        "fang-like mouthparts",
+        "flowers",
+        "front paws that resemble hands",
+        "fruit",
+        "fur covering the body",
+        "furniture",
+        "garden equipment",
+        "gastropod",
+        "gray or brown fur",
+        "habitat",
+        "hairy or spiny legs",
+        "invertebrate",
+        "lagomorph",
+        "large, four-legged mammal",
+        "large, wing-like fins",
+        "leaves",
+        "leaves at the top of the tree",
+        "long, antennae-like feelers",
+        "long, brown fur",
+        "long, drooping branches",
+        "long, powerful hind legs",
+        "long, thin leaves",
+        "lush, green leaves",
+        "male",
+        "mammal",
+        "marsupial",
+        "motorized vehicle",
+        "passenger cars",
+        "plants",
+        "plenty of space for seating",
+        "rail vehicle",
+        "rodent",
+        "scales on the skin",
+        "shade from the trees",
+        "sharp claws",
+        "short, coarse fur",
+        "short, furry legs",
+        "short, velvety fur",
+        "small, round ears",
+        "striped fur",
+        "the sky",
+        "thorny branches",
+        "trees",
+        "two feelers",
+        "vertebrate",
+        "webbed feet",
+        "wildlife"
+      ]
     }
   },
   "source_sha256": {
@@ -409,9 +712,18 @@
     "artifacts/cross_dataset/cifar10/noise_seed42/results.json": "132721204114c154ba98febd8d72574266b0af96855c23346bdc12b7e874ba3b",
     "artifacts/cross_dataset/cifar10/noise_seed42/spatial_statistics.json": "7210cff3376f4b39394fe465456ead71d8e978041105368f8a9963667eb92593",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed43/results.json": "973472cb57a9e3fb21cb7311185ba155a73fef65be51f01c783445391c4d0a2f",
-    "artifacts/cross_dataset/cifar10/lf_cbm_seed44/results.json": "880246fbaf15cad8b1563eac42d8979a801fe4b8ce724075a970a7cc03e02b3f",
+    "artifacts/cross_dataset/cifar10/mean_seed43/results.json": "a8c8c518dc84c34a8e50dd1500752e7df2bfed7d4d7b24ff2f2f0ed356a67371",
+    "artifacts/cross_dataset/cifar10/noise_seed43/results.json": "901dc0fe18be6980eb7423a59873ca1dab07c4396274f3579225fbaa22abb8b9",
+    "artifacts/cross_dataset/cifar10/noise_seed43/spatial_statistics.json": "e8d3203abde53d1bb9581b6c8cf39a175d4444f4359db9f5b12bc5313e807097",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed42/results.json": "175d56bfe84dea20d5d78f4b5492cc4dd0da8c9e6fd2318cf9615cea50563a10",
+    "artifacts/cross_dataset/cifar100/mean_seed42/results.json": "1193fcd917d79d123206ed8439e92145274058227dd9e0602201f7955dabaf73",
+    "artifacts/cross_dataset/cifar100/noise_seed42/results.json": "828072ee10236446ee4583ed3d74c325753a6b6a642914b626d966e5137c90fe",
+    "artifacts/cross_dataset/cifar100/noise_seed42/spatial_statistics.json": "0c1caab80dd433a8d6c807761f13e0734b6763aed666fc7c9f89e0d1522bc193",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed43/results.json": "32034993c35746559bb7a9b54e977a831d7c35a8ff10bdad05e45a203184639e",
+    "artifacts/cross_dataset/cifar100/mean_seed43/results.json": "4558dc319ba2f85b77acd46d26d5e32fb56e90e225c66307e0f27783984f1fbe",
+    "artifacts/cross_dataset/cifar100/noise_seed43/results.json": "7cf6f5e24b0044a8751a2eefcce4f7d8e833d23ef792f2243f8173297a487ed4",
+    "artifacts/cross_dataset/cifar100/noise_seed43/spatial_statistics.json": "9e27fd740a5599c5e994d982479aa0f042a2974c0bc80f471bad17690c1ad9eb",
+    "artifacts/cross_dataset/cifar10/lf_cbm_seed44/results.json": "880246fbaf15cad8b1563eac42d8979a801fe4b8ce724075a970a7cc03e02b3f",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed44/results.json": "9504f492817ec3ab3f3290701bb7e692a639d489295188d9ca5164d11cb3ebd9"
   },
   "head_selection": [
@@ -555,6 +867,123 @@
       "validation_accuracy": 0.9206,
       "validation_NLL": 0.25867339968681335,
       "NEC": 11.699999809265137,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar10",
+      "method": "lf_cbm",
+      "seed": 43,
+      "selected": 0,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.961,
+      "validation_NLL": 0.15238253772258759,
+      "NEC": 7.800000190734863,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar10",
+      "method": "mean",
+      "seed": 43,
+      "selected": 0,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.9534,
+      "validation_NLL": 0.167379692196846,
+      "NEC": 9.600000381469727,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar10",
+      "method": "noise",
+      "seed": 43,
+      "selected": 0,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.9082,
+      "validation_NLL": 0.28759849071502686,
+      "NEC": 12.5,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar100",
+      "method": "lf_cbm",
+      "seed": 42,
+      "selected": 2,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.6314,
+      "validation_NLL": 1.8118774890899658,
+      "NEC": 7.730000019073486,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar100",
+      "method": "mean",
+      "seed": 42,
+      "selected": 2,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.6426,
+      "validation_NLL": 1.6997467279434204,
+      "NEC": 10.359999656677246,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar100",
+      "method": "noise",
+      "seed": 42,
+      "selected": 2,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.6114,
+      "validation_NLL": 1.7241095304489136,
+      "NEC": 9.760000228881836,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar100",
+      "method": "lf_cbm",
+      "seed": 43,
+      "selected": 2,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.631,
+      "validation_NLL": 1.8103808164596558,
+      "NEC": 7.760000228881836,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar100",
+      "method": "mean",
+      "seed": 43,
+      "selected": 2,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.6458,
+      "validation_NLL": 1.6905955076217651,
+      "NEC": 10.300000190734863,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar100",
+      "method": "noise",
+      "seed": 43,
+      "selected": 2,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.5454,
+      "validation_NLL": 1.9514976739883423,
+      "NEC": 9.84000015258789,
       "train_only_standardization": true,
       "validation_only_selection": true
     }
@@ -792,6 +1221,188 @@
           "region_source": "SAM2 foreground and CLIP concept patch masks",
           "computation_device": "cpu",
           "checkpoint_sha256": "ec6bc74e2575106e16b6c309e74f47f9ea9d6898b7d2368d8a86284d8e00e84e"
+        },
+        {
+          "dataset": "cifar10",
+          "seed": 43,
+          "n_images": 500,
+          "positive_pairs": 8773,
+          "local_pairs": 8773,
+          "ratios": {
+            "background_foreground_variance": 3.339383722123355,
+            "foreground_background_mean": 3.4035305460496015,
+            "part_other_mean": 2.628876519332881
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cuda",
+          "checkpoint_sha256": "441cfea57c3263d64c37439cdbc0bdebcc773c074c945833701ffc501b753c92"
+        }
+      ]
+    },
+    "cifar100": {
+      "concepts": [
+        "5-7 black rings on the tail",
+        "a animal",
+        "a bike lane",
+        "a black, fur-covered nose",
+        "a blowhole",
+        "a branch",
+        "a bug",
+        "a burrow",
+        "a bus lane",
+        "a bush",
+        "a cub",
+        "a delicate, colorful flower",
+        "a desert animal",
+        "a dorsal fin",
+        "a driveway",
+        "a farm",
+        "a flower",
+        "a forked tail",
+        "a furry coat",
+        "a garden",
+        "a grassland",
+        "a hard, crustacean body",
+        "a insect",
+        "a joey",
+        "a ladybug",
+        "a large number of trees",
+        "a large, imposing structure",
+        "a large, ocean-dwelling mammal",
+        "a large, predatory fish",
+        "a large, showy flower",
+        "a lioness",
+        "a load of hay",
+        "a load of lumber",
+        "a locomotive",
+        "a long mane around the head",
+        "a long, sinuous tail",
+        "a long, slender trunk",
+        "a long, thick tail",
+        "a long, whip-like tail",
+        "a meadow",
+        "a mongoose",
+        "a mottled brown or black coat",
+        "a nature reserve",
+        "a pasture",
+        "a petal",
+        "a plant",
+        "a pouch on the female's belly",
+        "a prey",
+        "a roach motel",
+        "a rounded crown of leaves",
+        "a safari",
+        "a sandy or brown coloration",
+        "a short, stubby tail",
+        "a small mammal",
+        "a small, delicate flower",
+        "a small, furry body",
+        "a small, rodent-like body",
+        "a snake charmer",
+        "a street",
+        "a sweet fragrance",
+        "a tall, sturdy trunk",
+        "a track",
+        "a tractor trailer",
+        "a trail",
+        "a tree",
+        "a trunk with thick, rough bark",
+        "a zoo",
+        "able to climb trees",
+        "acorns on the ground beneath",
+        "an acorn",
+        "aquatic animal",
+        "arthropod",
+        "baby possums",
+        "black markings around the eyes",
+        "brightly colored wings",
+        "building",
+        "carnivore",
+        "chordate",
+        "cone-shaped fruit",
+        "cubs",
+        "dense vegetation",
+        "fang-like mouthparts",
+        "flowers",
+        "front paws that resemble hands",
+        "fruit",
+        "fur covering the body",
+        "furniture",
+        "garden equipment",
+        "gastropod",
+        "gray or brown fur",
+        "habitat",
+        "hairy or spiny legs",
+        "invertebrate",
+        "lagomorph",
+        "large, four-legged mammal",
+        "large, wing-like fins",
+        "leaves",
+        "leaves at the top of the tree",
+        "long, antennae-like feelers",
+        "long, brown fur",
+        "long, drooping branches",
+        "long, powerful hind legs",
+        "long, thin leaves",
+        "lush, green leaves",
+        "male",
+        "mammal",
+        "marsupial",
+        "motorized vehicle",
+        "passenger cars",
+        "plants",
+        "plenty of space for seating",
+        "rail vehicle",
+        "rodent",
+        "scales on the skin",
+        "shade from the trees",
+        "sharp claws",
+        "short, coarse fur",
+        "short, furry legs",
+        "short, velvety fur",
+        "small, round ears",
+        "striped fur",
+        "the sky",
+        "thorny branches",
+        "trees",
+        "two feelers",
+        "vertebrate",
+        "webbed feet",
+        "wildlife"
+      ],
+      "spatial": [
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "n_images": 500,
+          "positive_pairs": 17923,
+          "local_pairs": 17923,
+          "ratios": {
+            "background_foreground_variance": 1.8127211466516864,
+            "foreground_background_mean": 2.216514062999499,
+            "part_other_mean": 2.2039571968646614
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cuda",
+          "checkpoint_sha256": "88b52507cdd01dde8d5af9a87979b783b3f60bad37d0db43e4434bb7b35c7b3b"
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 43,
+          "n_images": 500,
+          "positive_pairs": 17923,
+          "local_pairs": 17923,
+          "ratios": {
+            "background_foreground_variance": 2.5054113726429756,
+            "foreground_background_mean": 2.3546384749082905,
+            "part_other_mean": 2.1919101211862544
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cuda",
+          "checkpoint_sha256": "3c11bdb013c1f99792a16d5f6c1cf8e06d8a7ab7f095f1d654f7229c431b95fe"
         }
       ]
     }

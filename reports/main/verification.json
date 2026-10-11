@@ -73,7 +73,7 @@
     "reports/main/background_gain.png",
     "reports/main/cross_progress_background.png"
   ],
-  "report_sha256": "b9cbcfd6d922b5738fcf948a41aacafef2bffe1fab49c8c23eedb282f7a292da",
+  "report_sha256": "a1a89eeedad3f460de13563d18919efe781314d8bf1b57f278ea953677ccfa16",
   "verification": "Raw per-image native scores, class logits, classifier weights, per-region statistics, and identical background pixels checked.",
   "background_gain_pp": {
     "accuracy": 1.0333333333333306,
