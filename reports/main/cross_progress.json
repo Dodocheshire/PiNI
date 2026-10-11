@@ -777,6 +777,7 @@
     "artifacts/cross_dataset/cub/mean_seed44/results.json": "000be4b624293791b0658b1472886e57943b0fa187e05a62006ee1a69c348fed",
     "artifacts/cross_dataset/cub/noise_seed44/results.json": "56f9f3b2c58c8251c93ba9a652233c7e0ed7f207943908cf6741bdb0da8dd244",
     "artifacts/cross_dataset/cub/noise_seed44/spatial_statistics.json": "b7cc35e4cb2ddba9a1234eb0ef8f0f1d4693f463bcf4d08d6d14ecdfe1814dd2",
+    "artifacts/cross_dataset/cifar10/mean_seed44/original_results.json": "273e6828e225b7b2950e08cb033792642251abdef2d940ccc32ea602f612d2bf",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed42/results.json": "310af1ce4b7900ae36c23e87a85b92cf7b544f4bde4f0326ccb39d4e319e629a",
     "artifacts/cross_dataset/cifar10/mean_seed42/results.json": "78c8462601d01e2d0744236f6b0d82a27caf294a1f7ee4ce160dd2caab2913c4",
     "artifacts/cross_dataset/cifar10/noise_seed42/results.json": "132721204114c154ba98febd8d72574266b0af96855c23346bdc12b7e874ba3b",
@@ -785,6 +786,7 @@
     "artifacts/cross_dataset/cifar10/mean_seed43/results.json": "a8c8c518dc84c34a8e50dd1500752e7df2bfed7d4d7b24ff2f2f0ed356a67371",
     "artifacts/cross_dataset/cifar10/noise_seed43/results.json": "901dc0fe18be6980eb7423a59873ca1dab07c4396274f3579225fbaa22abb8b9",
     "artifacts/cross_dataset/cifar10/noise_seed43/spatial_statistics.json": "e8d3203abde53d1bb9581b6c8cf39a175d4444f4359db9f5b12bc5313e807097",
+    "artifacts/cross_dataset/cifar100/mean_seed44/original_results.json": "3a037e07d8b3a0b21ef188ce9a18a995749c839c07979c3628911637b7a86565",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed42/results.json": "175d56bfe84dea20d5d78f4b5492cc4dd0da8c9e6fd2318cf9615cea50563a10",
     "artifacts/cross_dataset/cifar100/mean_seed42/results.json": "1193fcd917d79d123206ed8439e92145274058227dd9e0602201f7955dabaf73",
     "artifacts/cross_dataset/cifar100/noise_seed42/results.json": "828072ee10236446ee4583ed3d74c325753a6b6a642914b626d966e5137c90fe",
@@ -793,6 +795,8 @@
     "artifacts/cross_dataset/cifar100/mean_seed43/results.json": "4558dc319ba2f85b77acd46d26d5e32fb56e90e225c66307e0f27783984f1fbe",
     "artifacts/cross_dataset/cifar100/noise_seed43/results.json": "7cf6f5e24b0044a8751a2eefcce4f7d8e833d23ef792f2243f8173297a487ed4",
     "artifacts/cross_dataset/cifar100/noise_seed43/spatial_statistics.json": "9e27fd740a5599c5e994d982479aa0f042a2974c0bc80f471bad17690c1ad9eb",
+    "artifacts/cross_dataset/cifar10/noise_seed44/spatial_statistics.json": "47fbfe6ccf4b473b5c9bc7c4526b8714aa248e1fe11321228d1a7308cfa219bc",
+    "artifacts/cross_dataset/cifar100/noise_seed44/spatial_statistics.json": "fa2e2c23214054c109c17979f542dbb56333e9b40098800a8ac1f62e71fc7609",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed44/results.json": "880246fbaf15cad8b1563eac42d8979a801fe4b8ce724075a970a7cc03e02b3f",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed44/results.json": "9504f492817ec3ab3f3290701bb7e692a639d489295188d9ca5164d11cb3ebd9"
   },
@@ -955,6 +959,19 @@
     },
     {
       "dataset": "cifar10",
+      "method": "mean",
+      "seed": 44,
+      "selected": 0,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.952,
+      "validation_NLL": 0.1739608198404312,
+      "NEC": 8.199999809265137,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar10",
       "method": "lf_cbm",
       "seed": 42,
       "selected": 0,
@@ -1028,6 +1045,19 @@
       "validation_accuracy": 0.9082,
       "validation_NLL": 0.28759849071502686,
       "NEC": 12.5,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cifar100",
+      "method": "mean",
+      "seed": 44,
+      "selected": 2,
+      "validation_n": 5000,
+      "training_n": 6000,
+      "validation_accuracy": 0.6418,
+      "validation_NLL": 1.7043076753616333,
+      "NEC": 10.25,
       "train_only_standardization": true,
       "validation_only_selection": true
     },
@@ -1110,7 +1140,30 @@
       "validation_only_selection": true
     }
   ],
-  "original_models": [],
+  "original_models": [
+    {
+      "dataset": "cifar10",
+      "method": "mean",
+      "seed": 44,
+      "test_n": 10000,
+      "original": {
+        "concept_correlation": 0.8917547234760235,
+        "accuracy": 0.952,
+        "NEC": 8.199999809265137
+      }
+    },
+    {
+      "dataset": "cifar100",
+      "method": "mean",
+      "seed": 44,
+      "test_n": 10000,
+      "original": {
+        "concept_correlation": 0.9072563344339031,
+        "accuracy": 0.6469,
+        "NEC": 10.25
+      }
+    }
+  ],
   "spatial_datasets": {
     "cub": {
       "concepts": [
@@ -1375,6 +1428,22 @@
           "region_source": "SAM2 foreground and CLIP concept patch masks",
           "computation_device": "cuda",
           "checkpoint_sha256": "441cfea57c3263d64c37439cdbc0bdebcc773c074c945833701ffc501b753c92"
+        },
+        {
+          "dataset": "cifar10",
+          "seed": 44,
+          "n_images": 500,
+          "positive_pairs": 8773,
+          "local_pairs": 8773,
+          "ratios": {
+            "background_foreground_variance": 2.9860785127197147,
+            "foreground_background_mean": 3.083887832009891,
+            "part_other_mean": 2.615510884817752
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "1461d33e6f47967463bb3ed760b2fd96263917bcfd1e58c478f5a2de51326963"
         }
       ]
     },
@@ -1541,6 +1610,22 @@
           "region_source": "SAM2 foreground and CLIP concept patch masks",
           "computation_device": "cuda",
           "checkpoint_sha256": "3c11bdb013c1f99792a16d5f6c1cf8e06d8a7ab7f095f1d654f7229c431b95fe"
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 44,
+          "n_images": 500,
+          "positive_pairs": 17923,
+          "local_pairs": 17923,
+          "ratios": {
+            "background_foreground_variance": 1.594018073211177,
+            "foreground_background_mean": 2.1223794777461538,
+            "part_other_mean": 2.125642669759395
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "SAM2 foreground and CLIP concept patch masks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "8b8a1e304b82176e3b753adac85799bb7153bdd7d00827c4a1e3187447ebae16"
         }
       ]
     }
