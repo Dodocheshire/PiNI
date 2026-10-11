@@ -697,6 +697,7 @@
     }
   },
   "source_sha256": {
+    "artifacts/cross_dataset/cub/mean_seed44/original_results.json": "8c04500ee4f06b78890e4dfea42e0b2c9ef60eb1b59e975c9500cb235a615216",
     "artifacts/cross_dataset/cub/lf_cbm_seed42/results.json": "23678b3a94ebd3c462f1c1d3ff200e0f54f77a0d76e151d21690335df5e63e6b",
     "artifacts/cross_dataset/cub/supervised_cbm_seed42/results.json": "9ee8a3358ba684afb7f3fcfb6ca3721c25f097415edda51fa137ec3c05100088",
     "artifacts/cross_dataset/cub/mean_seed42/results.json": "3003466440c11e2aef6f1b0b98d2361902543eea5c0ed9cb88eb72f61f8c2296",
@@ -723,10 +724,24 @@
     "artifacts/cross_dataset/cifar100/mean_seed43/results.json": "4558dc319ba2f85b77acd46d26d5e32fb56e90e225c66307e0f27783984f1fbe",
     "artifacts/cross_dataset/cifar100/noise_seed43/results.json": "7cf6f5e24b0044a8751a2eefcce4f7d8e833d23ef792f2243f8173297a487ed4",
     "artifacts/cross_dataset/cifar100/noise_seed43/spatial_statistics.json": "9e27fd740a5599c5e994d982479aa0f042a2974c0bc80f471bad17690c1ad9eb",
+    "artifacts/cross_dataset/cub/noise_seed44/spatial_statistics.json": "b7cc35e4cb2ddba9a1234eb0ef8f0f1d4693f463bcf4d08d6d14ecdfe1814dd2",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed44/results.json": "880246fbaf15cad8b1563eac42d8979a801fe4b8ce724075a970a7cc03e02b3f",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed44/results.json": "9504f492817ec3ab3f3290701bb7e692a639d489295188d9ca5164d11cb3ebd9"
   },
   "head_selection": [
+    {
+      "dataset": "cub",
+      "method": "mean",
+      "seed": 44,
+      "selected": 2,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.65,
+      "validation_NLL": 1.6202107667922974,
+      "NEC": 15.795000076293945,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
     {
       "dataset": "cub",
       "method": "lf_cbm",
@@ -988,7 +1003,19 @@
       "validation_only_selection": true
     }
   ],
-  "original_models": [],
+  "original_models": [
+    {
+      "dataset": "cub",
+      "method": "mean",
+      "seed": 44,
+      "test_n": 5794,
+      "original": {
+        "mAP": 0.5572086434971244,
+        "accuracy": 0.6815671384190541,
+        "NEC": 15.795000076293945
+      }
+    }
+  ],
   "spatial_datasets": {
     "cub": {
       "concepts": [
@@ -1135,6 +1162,22 @@
           "region_source": "native CUB foreground and part-point disks",
           "computation_device": "cpu",
           "checkpoint_sha256": "5e99989ba0cbfb06709b9c4b35c4097b42f23ee2873a5383a64913a27eb8b9af"
+        },
+        {
+          "dataset": "cub",
+          "seed": 44,
+          "n_images": 500,
+          "positive_pairs": 12114,
+          "local_pairs": 10631,
+          "ratios": {
+            "background_foreground_variance": 5.146755292053512,
+            "foreground_background_mean": 33.701903948299424,
+            "part_other_mean": 7.441549027025588
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "native CUB foreground and part-point disks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "23f70dc087b3036eb6a8b1be9abc425a05a329fe306d4f2ae565fd83aed05f0f"
         }
       ]
     },
