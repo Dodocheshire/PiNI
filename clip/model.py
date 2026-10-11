@@ -182,12 +182,15 @@ class ResidualAttentionBlock(nn.Module):
         self.ln_2 = LayerNorm(d_model)
         self.attn_mask = attn_mask
 
-    def attention(self, x: torch.Tensor):
+    def attention(self, x: torch.Tensor, key_padding_mask=None):
         self.attn_mask = self.attn_mask.to(dtype=x.dtype, device=x.device) if self.attn_mask is not None else None
-        return self.attn(x, x, x, need_weights=False, attn_mask=self.attn_mask)[0]
+        if key_padding_mask is not None:
+            key_padding_mask = key_padding_mask.to(dtype=x.dtype, device=x.device)
+        return self.attn(x, x, x, need_weights=False, attn_mask=self.attn_mask,
+                         key_padding_mask=key_padding_mask)[0]
 
-    def forward(self, x: torch.Tensor):
-        x = x + self.attention(self.ln_1(x))
+    def forward(self, x: torch.Tensor, key_padding_mask=None):
+        x = x + self.attention(self.ln_1(x), key_padding_mask)
         x = x + self.mlp(self.ln_2(x))
         return x
 
@@ -220,7 +223,7 @@ class VisionTransformer(nn.Module):
         self.ln_post = LayerNorm(width)
         self.proj = nn.Parameter(scale * torch.randn(width, output_dim))
 
-    def forward(self, x: torch.Tensor, spatial=False):
+    def forward(self, x: torch.Tensor, spatial=False, key_padding_mask=None):
         x = self.conv1(x)  # shape = [*, width, grid, grid]
         x = x.reshape(x.shape[0], x.shape[1], -1)  # shape = [*, width, grid ** 2]
         x = x.permute(0, 2, 1)  # shape = [*, grid ** 2, width]
@@ -229,7 +232,11 @@ class VisionTransformer(nn.Module):
         x = self.ln_pre(x)
 
         x = x.permute(1, 0, 2)  # NLD -> LND
-        x = self.transformer(x)
+        if key_padding_mask is None:
+            x = self.transformer(x)
+        else:
+            for block in self.transformer.resblocks:
+                x = block(x, key_padding_mask)
         x = x.permute(1, 0, 2)  # LND -> NLD
         x = self.ln_post(x)
         if self.proj is not None:
@@ -351,8 +358,12 @@ class CLIP(nn.Module):
     def dtype(self):
         return self.visual.conv1.weight.dtype
 
-    def encode_image(self, image, spatial=False):
-        return self.visual(image.type(self.dtype), spatial)
+    def encode_image(self, image, spatial=False, key_padding_mask=None):
+        if key_padding_mask is None:
+            return self.visual(image.type(self.dtype), spatial)
+        if not isinstance(self.visual, VisionTransformer):
+            raise ValueError('Foreground attention requires a ViT backbone')
+        return self.visual(image.type(self.dtype), spatial, key_padding_mask)
 
     def encode_text(self, text):
         x = self.token_embedding(text).type(self.dtype)  # [batch_size, n_ctx, d_model]
