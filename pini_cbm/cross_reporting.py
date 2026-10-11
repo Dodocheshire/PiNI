@@ -432,6 +432,8 @@ def extend_report(result=None):
     summary = "扩展验证使用 CUB、CIFAR-10、CIFAR-100；噪声训练相对均值训练的换背景分类变化依次为 "
     summary += "、".join(f"**{result['datasets'][n]['gain']['background_accuracy_pp']:+.2f} 个百分点**" for n in NAMES)+"。"
     text = text.replace("\n## Background（为什么要做）","\n"+summary+"\n\n## Background（为什么要做）",1)
+    from .result_analysis import failure_analysis_text
+    text += "\n" + failure_analysis_text()
     path.write_text(text)
     write_json(OUTPUT/"cross_results.json",result)
     for filename in ["cross_baselines.png","cross_baselines.svg","cross_baselines.pdf",
@@ -505,6 +507,8 @@ def baseline_progress():
     ]
     text = text.replace("### c. 换背景后是否更容易认对","\n".join(lines)+"\n### c. 换背景后是否更容易认对",1)
     text = completed_round_progress(text)
+    from .result_analysis import failure_analysis_text
+    text += "\n" + failure_analysis_text()
     path.write_text(text)
     write_json(OUTPUT/"cross_baselines.json",result)
     verification = json.loads((ROOT/"BASELINE_VERIFICATION.json").read_text())
