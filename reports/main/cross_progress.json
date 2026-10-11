@@ -4,7 +4,8 @@
     "cub": {
       "seeds": [
         42,
-        43
+        43,
+        44
       ],
       "models": {
         "lf_cbm": [
@@ -30,6 +31,18 @@
             "background": {
               "mAP": 0.3139771102877837,
               "accuracy": 0.115
+            }
+          },
+          {
+            "seed": 44,
+            "original": {
+              "mAP": 0.33631023711727526,
+              "accuracy": 0.24370037970314118,
+              "NEC": 5.704999923706055
+            },
+            "background": {
+              "mAP": 0.31418793101310144,
+              "accuracy": 0.116
             }
           }
         ],
@@ -57,6 +70,18 @@
               "mAP": 0.5004813560723741,
               "accuracy": 0.464
             }
+          },
+          {
+            "seed": 44,
+            "original": {
+              "mAP": 0.5333639170291161,
+              "accuracy": 0.7145322747670003,
+              "NEC": 15.470000267028809
+            },
+            "background": {
+              "mAP": 0.500341780420564,
+              "accuracy": 0.468
+            }
           }
         ],
         "mean": [
@@ -83,6 +108,18 @@
               "mAP": 0.534248578607009,
               "accuracy": 0.599
             }
+          },
+          {
+            "seed": 44,
+            "original": {
+              "mAP": 0.5572086434971244,
+              "accuracy": 0.6815671384190541,
+              "NEC": 15.795000076293945
+            },
+            "background": {
+              "mAP": 0.5329573441064328,
+              "accuracy": 0.584
+            }
           }
         ],
         "noise": [
@@ -108,6 +145,18 @@
             "background": {
               "mAP": 0.5318873488497429,
               "accuracy": 0.452
+            }
+          },
+          {
+            "seed": 44,
+            "original": {
+              "mAP": 0.5592983448510696,
+              "accuracy": 0.5348636520538488,
+              "NEC": 8.0649995803833
+            },
+            "background": {
+              "mAP": 0.5329312485399086,
+              "accuracy": 0.458
             }
           }
         ]
@@ -142,6 +191,22 @@
           "region_source": "native CUB foreground and part-point disks",
           "computation_device": "cpu",
           "checkpoint_sha256": "5e99989ba0cbfb06709b9c4b35c4097b42f23ee2873a5383a64913a27eb8b9af"
+        },
+        {
+          "dataset": "cub",
+          "seed": 44,
+          "n_images": 500,
+          "positive_pairs": 12114,
+          "local_pairs": 10631,
+          "ratios": {
+            "background_foreground_variance": 5.146755292053512,
+            "foreground_background_mean": 33.701903948299424,
+            "part_other_mean": 7.441549027025588
+          },
+          "aggregation": "ratio of per-region means, matching RIVAL10",
+          "region_source": "native CUB foreground and part-point disks",
+          "computation_device": "cpu",
+          "checkpoint_sha256": "23f70dc087b3036eb6a8b1be9abc425a05a329fe306d4f2ae565fd83aed05f0f"
         }
       ],
       "concepts": [
@@ -697,7 +762,6 @@
     }
   },
   "source_sha256": {
-    "artifacts/cross_dataset/cub/mean_seed44/original_results.json": "8c04500ee4f06b78890e4dfea42e0b2c9ef60eb1b59e975c9500cb235a615216",
     "artifacts/cross_dataset/cub/lf_cbm_seed42/results.json": "23678b3a94ebd3c462f1c1d3ff200e0f54f77a0d76e151d21690335df5e63e6b",
     "artifacts/cross_dataset/cub/supervised_cbm_seed42/results.json": "9ee8a3358ba684afb7f3fcfb6ca3721c25f097415edda51fa137ec3c05100088",
     "artifacts/cross_dataset/cub/mean_seed42/results.json": "3003466440c11e2aef6f1b0b98d2361902543eea5c0ed9cb88eb72f61f8c2296",
@@ -708,6 +772,11 @@
     "artifacts/cross_dataset/cub/mean_seed43/results.json": "c517658d4873552bdab5f275238e0e765d0e7e13f1e9fb4f3e4a3a0a39950e78",
     "artifacts/cross_dataset/cub/noise_seed43/results.json": "5e00156c1d59177637a52652a4955d4e6fe7e2e6d1708933abae66efc3a67474",
     "artifacts/cross_dataset/cub/noise_seed43/spatial_statistics.json": "6a22da35b696f347c907deb0dcf84d703fde5014a9be6e442e32892dad7b3f0f",
+    "artifacts/cross_dataset/cub/lf_cbm_seed44/results.json": "38084fcac2c9898d9a4dc25f72950e12d42e3118e0d617bcf8ff808a97cdfb6b",
+    "artifacts/cross_dataset/cub/supervised_cbm_seed44/results.json": "0b892a5751311f956b135f21992cf531d7d2b036b03ee5ffa76fd53ced42232e",
+    "artifacts/cross_dataset/cub/mean_seed44/results.json": "000be4b624293791b0658b1472886e57943b0fa187e05a62006ee1a69c348fed",
+    "artifacts/cross_dataset/cub/noise_seed44/results.json": "56f9f3b2c58c8251c93ba9a652233c7e0ed7f207943908cf6741bdb0da8dd244",
+    "artifacts/cross_dataset/cub/noise_seed44/spatial_statistics.json": "b7cc35e4cb2ddba9a1234eb0ef8f0f1d4693f463bcf4d08d6d14ecdfe1814dd2",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed42/results.json": "310af1ce4b7900ae36c23e87a85b92cf7b544f4bde4f0326ccb39d4e319e629a",
     "artifacts/cross_dataset/cifar10/mean_seed42/results.json": "78c8462601d01e2d0744236f6b0d82a27caf294a1f7ee4ce160dd2caab2913c4",
     "artifacts/cross_dataset/cifar10/noise_seed42/results.json": "132721204114c154ba98febd8d72574266b0af96855c23346bdc12b7e874ba3b",
@@ -724,24 +793,10 @@
     "artifacts/cross_dataset/cifar100/mean_seed43/results.json": "4558dc319ba2f85b77acd46d26d5e32fb56e90e225c66307e0f27783984f1fbe",
     "artifacts/cross_dataset/cifar100/noise_seed43/results.json": "7cf6f5e24b0044a8751a2eefcce4f7d8e833d23ef792f2243f8173297a487ed4",
     "artifacts/cross_dataset/cifar100/noise_seed43/spatial_statistics.json": "9e27fd740a5599c5e994d982479aa0f042a2974c0bc80f471bad17690c1ad9eb",
-    "artifacts/cross_dataset/cub/noise_seed44/spatial_statistics.json": "b7cc35e4cb2ddba9a1234eb0ef8f0f1d4693f463bcf4d08d6d14ecdfe1814dd2",
     "artifacts/cross_dataset/cifar10/lf_cbm_seed44/results.json": "880246fbaf15cad8b1563eac42d8979a801fe4b8ce724075a970a7cc03e02b3f",
     "artifacts/cross_dataset/cifar100/lf_cbm_seed44/results.json": "9504f492817ec3ab3f3290701bb7e692a639d489295188d9ca5164d11cb3ebd9"
   },
   "head_selection": [
-    {
-      "dataset": "cub",
-      "method": "mean",
-      "seed": 44,
-      "selected": 2,
-      "validation_n": 600,
-      "training_n": 5394,
-      "validation_accuracy": 0.65,
-      "validation_NLL": 1.6202107667922974,
-      "NEC": 15.795000076293945,
-      "train_only_standardization": true,
-      "validation_only_selection": true
-    },
     {
       "dataset": "cub",
       "method": "lf_cbm",
@@ -843,6 +898,58 @@
       "validation_accuracy": 0.5383333333333333,
       "validation_NLL": 2.295586347579956,
       "NEC": 8.204999923706055,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "lf_cbm",
+      "seed": 44,
+      "selected": 3,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.23833333333333334,
+      "validation_NLL": 3.867774248123169,
+      "NEC": 5.704999923706055,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "supervised_cbm",
+      "seed": 44,
+      "selected": 2,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.6983333333333334,
+      "validation_NLL": 1.5785702466964722,
+      "NEC": 15.470000267028809,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "mean",
+      "seed": 44,
+      "selected": 2,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.65,
+      "validation_NLL": 1.6202107667922974,
+      "NEC": 15.795000076293945,
+      "train_only_standardization": true,
+      "validation_only_selection": true
+    },
+    {
+      "dataset": "cub",
+      "method": "noise",
+      "seed": 44,
+      "selected": 3,
+      "validation_n": 600,
+      "training_n": 5394,
+      "validation_accuracy": 0.515,
+      "validation_NLL": 2.3246982097625732,
+      "NEC": 8.0649995803833,
       "train_only_standardization": true,
       "validation_only_selection": true
     },
@@ -1003,19 +1110,7 @@
       "validation_only_selection": true
     }
   ],
-  "original_models": [
-    {
-      "dataset": "cub",
-      "method": "mean",
-      "seed": 44,
-      "test_n": 5794,
-      "original": {
-        "mAP": 0.5572086434971244,
-        "accuracy": 0.6815671384190541,
-        "NEC": 15.795000076293945
-      }
-    }
-  ],
+  "original_models": [],
   "spatial_datasets": {
     "cub": {
       "concepts": [
